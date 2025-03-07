@@ -1,4 +1,4 @@
-package com.patrickhoette.pokedex.app
+package com.patrickhoette.pokedex.app.main
 
 import android.os.Bundle
 import androidx.activity.ComponentActivity
