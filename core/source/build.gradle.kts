@@ -46,6 +46,9 @@ dependencies {
     // Logging
     implementation(libs.napier)
 
+    // Coroutines
+    implementation(libs.coroutines.core)
+
     // Test
     testImplementation(libs.junit)
 }

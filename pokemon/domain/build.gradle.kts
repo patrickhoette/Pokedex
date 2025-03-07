@@ -12,4 +12,7 @@ dependencies {
     implementation(platform(libs.koin.annotation.bom))
     implementation(libs.koin.annotation)
     ksp(libs.koin.annotation.compiler)
+
+    // Coroutines
+    implementation(libs.coroutines.core)
 }

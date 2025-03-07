@@ -80,6 +80,10 @@ dependencies {
     // Logging
     implementation(libs.napier)
 
+    // Coroutines
+    implementation(libs.coroutines.core)
+    implementation(libs.coroutines.android)
+
     // Tests
     testImplementation(libs.junit)
     androidTestImplementation(platform(libs.compose.bom))
