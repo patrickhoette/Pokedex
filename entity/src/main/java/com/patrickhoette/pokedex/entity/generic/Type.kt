@@ -1,4 +1,4 @@
-package com.patrickhoette.pokedex.entity
+package com.patrickhoette.pokedex.entity.generic
 
 enum class Type {
 

@@ -13,11 +13,14 @@ android {
         applicationId = "com.patrickhoette.pokedex"
         minSdk = libs.versions.minSdk.get().toInt()
         targetSdk = libs.versions.targetSdk.get().toInt()
-        versionCode = 1
-        versionName = "0.0.1"
+        versionCode = libs.versions.version.code.get().toInt()
+        versionName = libs.versions.version.name.get()
     }
 
     buildTypes {
+        all {
+            buildConfigField("String", "ProjectName", "\"${rootProject.name}\"")
+        }
         release {
             isMinifyEnabled = true
             proguardFiles(getDefaultProguardFile("proguard-android-optimize.txt"), "proguard-rules.pro")

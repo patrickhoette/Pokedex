@@ -13,6 +13,12 @@ plugins {
     alias(libs.plugins.ksp) apply false
 }
 
+allprojects {
+    beforeEvaluate {
+        version = libs.versions.version.name.get()
+    }
+}
+
 subprojects {
     afterEvaluate {
         tasks.withType(KotlinCompile::class) {

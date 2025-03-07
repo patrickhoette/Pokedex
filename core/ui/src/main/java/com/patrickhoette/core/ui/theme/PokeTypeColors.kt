@@ -7,8 +7,8 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.Color.Companion.Black
 import androidx.compose.ui.graphics.Color.Companion.White
 import com.patrickhoette.core.ui.theme.entity.VariantColor
-import com.patrickhoette.pokedex.entity.Type
-import com.patrickhoette.pokedex.entity.Type.*
+import com.patrickhoette.pokedex.entity.generic.Type
+import com.patrickhoette.pokedex.entity.generic.Type.*
 
 val LocalPokeTypeColors = staticCompositionLocalOf<PokeTypeColors> { LightPokeTypeColors }
 
