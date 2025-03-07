@@ -7,5 +7,5 @@ interface PokemonListRepository {
 
     fun observePokemonList(): Flow<PokemonList>
 
-    suspend fun fetchNextPokemonPage(currentPage: Int, pageSize: Int)
+    suspend fun fetchNextPokemonPage()
 }

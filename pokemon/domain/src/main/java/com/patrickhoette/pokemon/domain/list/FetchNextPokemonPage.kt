@@ -7,6 +7,5 @@ class FetchNextPokemonPage(
     private val repository: PokemonListRepository,
 ) {
 
-    suspend operator fun invoke(currentPage: Int, pageSize: Int) =
-        repository.fetchNextPokemonPage(currentPage, pageSize)
+    suspend operator fun invoke() = repository.fetchNextPokemonPage()
 }
