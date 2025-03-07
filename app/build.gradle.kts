@@ -77,6 +77,9 @@ dependencies {
     implementation(libs.koin.annotation)
     ksp(libs.koin.annotation.compiler)
 
+    // Logging
+    implementation(libs.napier)
+
     // Tests
     testImplementation(libs.junit)
     androidTestImplementation(platform(libs.compose.bom))
