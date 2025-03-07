@@ -30,8 +30,7 @@ object LightPokeTypeColors : PokeTypeColors {
             dark = Color(0xFF7C7B56),
             onDark = Black,
         )
-        Fire,
-            -> VariantColor(
+        Fire -> VariantColor(
             light = Color(0xFFFFAA5C),
             onLight = Black,
             base = Color(0xFFEE8130),
@@ -190,8 +189,7 @@ object DarkPokeTypeColors : PokeTypeColors {
             dark = Color(0xFF5A593F),
             onDark = White
         )
-        Fire,
-            -> VariantColor(
+        Fire -> VariantColor(
             light = Color(0xFFFFB873),
             onLight = Black,
             base = Color(0xFFEE8130),
