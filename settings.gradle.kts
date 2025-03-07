@@ -45,3 +45,4 @@ include(":pokemon:presentation")
 include(":pokemon:store")
 include(":pokemon:source")
 
+include(":test")

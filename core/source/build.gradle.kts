@@ -48,7 +48,4 @@ dependencies {
 
     // Coroutines
     implementation(libs.coroutines.core)
-
-    // Test
-    testImplementation(libs.junit)
 }

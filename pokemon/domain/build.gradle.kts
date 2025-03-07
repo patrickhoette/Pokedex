@@ -5,6 +5,9 @@ plugins {
 
 dependencies {
 
+    // Internal
+    implementation(project(":entity"))
+
     // Koin
     implementation(platform(libs.koin.bom))
     implementation(libs.koin.core)
@@ -15,4 +18,7 @@ dependencies {
 
     // Coroutines
     implementation(libs.coroutines.core)
+
+    // Test
+    testImplementation(project(":test"))
 }
