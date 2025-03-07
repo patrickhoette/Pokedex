@@ -7,7 +7,6 @@ import com.patrickhoette.core.source.di.CoreSourceModule
 import com.patrickhoette.core.store.di.CoreStoreModule
 import com.patrickhoette.core.ui.di.CoreUIModule
 import com.patrickhoette.pokedex.app.BuildConfig
-import com.patrickhoette.pokedex.entity.di.EntityModule
 import com.patrickhoette.pokedex.entity.project.BuildOptions
 import com.patrickhoette.pokemon.data.di.PokemonDataModule
 import com.patrickhoette.pokemon.domain.di.PokemonDomainModule
@@ -27,7 +26,6 @@ import org.koin.core.annotation.Single
         CoreSourceModule::class,
         CoreStoreModule::class,
         CoreUIModule::class,
-        EntityModule::class,
         PokemonDataModule::class,
         PokemonDomainModule::class,
         PokemonPresentationModule::class,
