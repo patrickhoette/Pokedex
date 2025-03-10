@@ -51,6 +51,7 @@ class ObservePokemonListTest {
         // Given
         val list = PokemonList(
             maxCount = 1304,
+            hasNext = true,
             pokemon = listOf(
                 Pokemon(
                     id = 1,
