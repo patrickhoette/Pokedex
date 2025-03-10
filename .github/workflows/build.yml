@@ -12,6 +12,12 @@ jobs:
       cancel-in-progress: true
     runs-on: 'ubuntu-latest'
     steps:
+      - name: 'Checkout'
+        uses: actions/checkout@v4.2.2
+        with:
+          ref: ${{ github.event.pull_request.head.sha }}
+          fetch-depth: 0
+
       - name: 'Setup JDK'
         uses: actions/setup-java@v4
         with:
@@ -27,7 +33,7 @@ jobs:
           dependency-graph: generate-and-submit
 
       - name: 'Build'
-        run: ./gradlew assembleDebug
+        run: ./gradlew assemble
 
       - name: 'Test'
         run: ./gradlew test
