@@ -48,4 +48,7 @@ dependencies {
 
     // Coroutines
     implementation(libs.coroutines.core)
+
+    // Test
+    testImplementation(project(":test"))
 }
