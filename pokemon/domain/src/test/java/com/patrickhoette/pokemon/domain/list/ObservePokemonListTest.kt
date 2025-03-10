@@ -51,8 +51,6 @@ class ObservePokemonListTest {
         // Given
         val list = PokemonList(
             maxCount = 1304,
-            currentPage = 2,
-            pageSize = 20,
             pokemon = listOf(
                 Pokemon(
                     id = 1,

@@ -25,22 +25,18 @@ class FetchNextPokemonPageTest {
     @Test
     fun `Given fetching fails, when invoked, then throw error`() = runTest {
         // Given
-        val page = 1
-        val size = 20
-        coEvery { repository.fetchNextPokemonPage(page, size) } throws TestException
+        coEvery { repository.fetchNextPokemonPage() } throws TestException
 
         // When -> Then
-        assertTestException { fetchNextPokemonPage(page, size) }
+        assertTestException { fetchNextPokemonPage() }
     }
 
     @Test
     fun `Given fetching succeeds, when invoked, then succeed`() = runTest {
         // Given
-        val page = 2
-        val size = 30
-        coEvery { repository.fetchNextPokemonPage(page, size) } just runs
+        coEvery { repository.fetchNextPokemonPage() } just runs
 
         // When -> Then
-        assertSucceeds { fetchNextPokemonPage(page, size) }
+        assertSucceeds { fetchNextPokemonPage() }
     }
 }
