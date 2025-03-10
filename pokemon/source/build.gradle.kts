@@ -2,6 +2,7 @@ plugins {
     alias(libs.plugins.android.library)
     alias(libs.plugins.kotlin.android)
     alias(libs.plugins.ksp)
+    alias(libs.plugins.kotlin.serialization)
 }
 
 android {
@@ -17,6 +18,11 @@ android {
 
 dependencies {
 
+    // Internal
+    implementation(project(":entity"))
+    implementation(project(":core:source"))
+    implementation(project(":pokemon:data"))
+
     // Android
     implementation(libs.androidx.core.ktx)
     implementation(libs.androidx.appcompat)
@@ -31,4 +37,14 @@ dependencies {
 
     // Coroutines
     implementation(libs.coroutines.core)
+
+    // Ktor
+    implementation(libs.ktor)
+    implementation(libs.ktor.cio)
+    implementation(libs.ktor.logging)
+    implementation(libs.ktor.content.negotiation)
+    implementation(libs.ktor.serialization.json)
+
+    // Test
+    testImplementation(project(":test"))
 }
