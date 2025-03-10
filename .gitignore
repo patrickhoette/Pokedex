@@ -15,3 +15,4 @@
 *.pem
 /app/release/**
 .kotlin
+.venv
