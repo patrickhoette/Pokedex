@@ -14,6 +14,16 @@ plugins {
 }
 
 allprojects {
+    val displayName = displayName
+        .removePrefix("project ':")
+        .removeSuffix("'")
+        .replace(':', '-')
+    tasks.create("printName") {
+        doLast {
+            logger.quiet("displayName='$displayName'")
+        }
+    }
+
     beforeEvaluate {
         version = libs.versions.version.name.get()
     }
@@ -21,17 +31,24 @@ allprojects {
 
 subprojects {
     afterEvaluate {
+        val moduleName = displayName
+            .removePrefix("project ':")
+            .removeSuffix("'")
+            .replace(':', '-')
+
         tasks.withType(KotlinCompile::class) {
             compilerOptions.freeCompilerArgs.addAll(
                 "-Xcontext-receivers",
                 "-Xskip-prerelease-check",
                 "-opt-in=kotlinx.coroutines.ExperimentalCoroutinesApi",
                 "-opt-in=androidx.compose.material3.ExperimentalMaterial3Api",
+                "-module-name=$moduleName"
             )
         }
 
         tasks.withType<Test> {
             useJUnitPlatform()
+            maxParallelForks = (Runtime.getRuntime().availableProcessors() / 2).coerceAtLeast(1)
         }
 
         extensions.findByType<KotlinAndroidProjectExtension>()
