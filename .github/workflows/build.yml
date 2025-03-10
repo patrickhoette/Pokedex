@@ -4,6 +4,8 @@ on:
   push:
     branches:
       - 'main'
+  pull_request:
+  workflow_dispatch:
 
 jobs:
   build:
@@ -31,6 +33,10 @@ jobs:
         uses: gradle/actions/setup-gradle@v4
         with:
           dependency-graph: generate-and-submit
+
+      - name: 'Setup Gradle Environment'
+        shell: bash
+        run: python3 ./setup-gradle.py
 
       - name: 'Build'
         run: ./gradlew assemble
