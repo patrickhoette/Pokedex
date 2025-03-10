@@ -123,6 +123,7 @@ class PersistentPokemonListRepositoryTest {
             coEvery { store.getPageStatus(1, 20) } returns Stale
             coEvery { source.fetchPokemonPage(20, 20) } returns PokemonList(
                 maxCount = 1304,
+                hasNext = true,
                 pokemon = pokemon,
             )
             coEvery { store.storePokemon(pokemon) } just runs
@@ -161,6 +162,7 @@ class PersistentPokemonListRepositoryTest {
         coEvery { store.getPageStatus(2, 20) } returns Stale
         coEvery { source.fetchPokemonPage(40, 20) } returns PokemonList(
             maxCount = 1304,
+            hasNext = true,
             pokemon = pokemon,
         )
         coEvery { store.storePokemon(pokemon) } just runs
@@ -205,6 +207,7 @@ class PersistentPokemonListRepositoryTest {
             coEvery { store.getPageStatus(1, 20) } returns Missing
             coEvery { source.fetchPokemonPage(0, 20) } returns PokemonList(
                 maxCount = 1304,
+                hasNext = true,
                 pokemon = pokemon,
             )
             coEvery { store.storePokemon(pokemon) }
@@ -231,6 +234,7 @@ class PersistentPokemonListRepositoryTest {
         coEvery { store.getPageStatus(1, 20) } returns Missing
         coEvery { source.fetchPokemonPage(0, 20) } returns PokemonList(
             maxCount = 1304,
+            hasNext = true,
             pokemon = pokemon,
         )
         coEvery { store.storePokemon(pokemon) } just runs
@@ -297,6 +301,7 @@ class PersistentPokemonListRepositoryTest {
             coEvery { store.getPageStatus(3, 20) } returns Missing
             coEvery { source.fetchPokemonPage(0, 60) } returns PokemonList(
                 maxCount = 1304,
+                hasNext = true,
                 pokemon = pokemon,
             )
 
@@ -342,14 +347,17 @@ class PersistentPokemonListRepositoryTest {
             coEvery { store.getPageStatus(10, 20) } returns Available
             coEvery { source.fetchPokemonPage(0, 20) } returns PokemonList(
                 maxCount = 1304,
+                hasNext = true,
                 pokemon = pokemonOne,
             )
             coEvery { source.fetchPokemonPage(60, 40) } returns PokemonList(
                 maxCount = 1304,
+                hasNext = true,
                 pokemon = pokemonTwo,
             )
             coEvery { source.fetchPokemonPage(120, 60) } returns PokemonList(
                 maxCount = 1304,
+                hasNext = true,
                 pokemon = pokemonThree,
             )
             coEvery { store.storePokemon(pokemonOne) } just runs
