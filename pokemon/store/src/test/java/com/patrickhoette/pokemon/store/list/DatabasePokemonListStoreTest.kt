@@ -43,7 +43,7 @@ class DatabasePokemonListStoreTest {
     @MockK
     private lateinit var mapper: PokemonListEntryMapper
 
-    private val dispatchers = TestDispatcherProvider
+    private val dispatchers = TestDispatcherProvider()
 
     @InjectMockKs
     private lateinit var store: DatabasePokemonListStore

@@ -1,20 +1,26 @@
+@file:Suppress("MemberVisibilityCanBePrivate")
+
 package com.patrickhoette.test.coroutine
 
 import com.patrickhoette.core.utils.coroutine.DispatcherProvider
 import kotlinx.coroutines.CoroutineDispatcher
+import kotlinx.coroutines.test.TestCoroutineScheduler
 import kotlinx.coroutines.test.UnconfinedTestDispatcher
 
-object TestDispatcherProvider : DispatcherProvider {
+class TestDispatcherProvider : DispatcherProvider {
+
+    val scheduler = TestCoroutineScheduler()
+    private val dispatcher = UnconfinedTestDispatcher(scheduler)
 
     override val Main: CoroutineDispatcher
-        get() = UnconfinedTestDispatcher()
+        get() = dispatcher
 
     override val IO: CoroutineDispatcher
-        get() = UnconfinedTestDispatcher()
+        get() = dispatcher
 
     override val Default: CoroutineDispatcher
-        get() = UnconfinedTestDispatcher()
+        get() = dispatcher
 
     override val Unconfined: CoroutineDispatcher
-        get() = UnconfinedTestDispatcher()
+        get() = dispatcher
 }

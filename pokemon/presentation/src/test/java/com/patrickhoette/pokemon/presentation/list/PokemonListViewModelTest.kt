@@ -18,10 +18,13 @@ import io.mockk.impl.annotations.InjectMockKs
 import io.mockk.impl.annotations.MockK
 import io.mockk.junit5.MockKExtension
 import kotlinx.collections.immutable.persistentListOf
-import kotlinx.coroutines.delay
-import kotlinx.coroutines.flow.flow
+import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.flowOf
+import kotlinx.coroutines.test.resetMain
 import kotlinx.coroutines.test.runTest
+import kotlinx.coroutines.test.setMain
+import org.junit.jupiter.api.AfterEach
+import org.junit.jupiter.api.BeforeEach
 import org.junit.jupiter.api.RepeatedTest
 import org.junit.jupiter.api.extension.ExtendWith
 
@@ -37,10 +40,20 @@ class PokemonListViewModelTest {
     @MockK
     private lateinit var mapper: PokemonListUIMapper
 
-    private val dispatchers = TestDispatcherProvider
+    private val dispatchers = TestDispatcherProvider()
 
     @InjectMockKs
     private lateinit var viewModel: PokemonListViewModel
+
+    @BeforeEach
+    fun setupAll() {
+        Dispatchers.setMain(dispatchers.Main)
+    }
+
+    @AfterEach
+    fun tearDownAll() {
+        Dispatchers.resetMain()
+    }
 
     @RepeatedTest(200)
     fun `When starting to collect state, then state should be loading`() = runTest {
@@ -73,8 +86,6 @@ class PokemonListViewModelTest {
 
         // When
         viewModel.state.test {
-            skipItems(1)
-
             // Then
             awaitItem() assertEquals Error(Unknown)
         }
@@ -93,16 +104,11 @@ class PokemonListViewModelTest {
                 hasNext = true,
                 pokemon = persistentListOf(),
             )
-            every { observePokemonList() } returns flow {
-                delay(10)
-                emit(model)
-            }
+            every { observePokemonList() } returns flowOf(model)
             every { mapper.mapToUIModel(model) } returns mappedModel
 
             // When
             viewModel.state.test {
-                skipItems(1)
-
                 // Then
                 awaitItem() assertEquals Normal(mappedModel)
             }
@@ -133,7 +139,7 @@ class PokemonListViewModelTest {
 
             // When
             viewModel.state.test {
-                skipItems(2)
+                skipItems(1)
                 viewModel.onGetMorePokemon()
 
                 // Then
@@ -161,15 +167,13 @@ class PokemonListViewModelTest {
                     PokemonListEntryUIModel.Loading,
                 ),
             )
-            every { observePokemonList() } returns flow {
-                delay(10)
-                emit(model)
-            }
+            every { observePokemonList() } returns flowOf(model)
             every { mapper.mapToUIModel(model) } returns mappedModel
+            coEvery { fetchNextPokemonPage() } just awaits
 
             // When
             viewModel.state.test {
-                skipItems(2)
+                skipItems(1)
                 viewModel.onGetMorePokemon()
 
                 // Then
@@ -190,15 +194,12 @@ class PokemonListViewModelTest {
                 hasNext = false,
                 pokemon = persistentListOf(),
             )
-            every { observePokemonList() } returns flow {
-                delay(10)
-                emit(model)
-            }
+            every { observePokemonList() } returns flowOf(model)
             every { mapper.mapToUIModel(model) } returns mappedModel
 
             // When
             viewModel.state.test {
-                skipItems(2)
+                skipItems(1)
                 viewModel.onGetMorePokemon()
 
                 // Then
@@ -236,16 +237,13 @@ class PokemonListViewModelTest {
                 hasNext = true,
                 pokemon = entries,
             )
-            every { observePokemonList() } returns flow {
-                delay(10)
-                emit(model)
-            }
+            every { observePokemonList() } returns flowOf(model)
             every { mapper.mapToUIModel(model) } returns mappedModel
             coEvery { fetchNextPokemonPage() } just awaits
 
             // When
             viewModel.state.test {
-                skipItems(2)
+                skipItems(1)
                 viewModel.onGetMorePokemon()
 
                 // Then
@@ -287,14 +285,11 @@ class PokemonListViewModelTest {
             )
             every { observePokemonList() } returns flowOf(model)
             every { mapper.mapToUIModel(model) } returns mappedModel
-            coEvery { fetchNextPokemonPage() } coAnswers {
-                delay(10)
-                throw TestException
-            }
+            coEvery { fetchNextPokemonPage() } throws TestException
 
             // When
             viewModel.state.test {
-                skipItems(2)
+                skipItems(1)
                 viewModel.onGetMorePokemon()
                 skipItems(1)
 
@@ -317,10 +312,7 @@ class PokemonListViewModelTest {
         )
         every { observePokemonList() } returns flowOf(model)
         every { mapper.mapToUIModel(model) } returns mappedModel
-        coEvery { fetchNextPokemonPage() } coAnswers {
-            delay(10)
-            throw TestException
-        }
+        coEvery { fetchNextPokemonPage() } throws TestException
 
         // When
         viewModel.state.test { cancelAndIgnoreRemainingEvents() }
