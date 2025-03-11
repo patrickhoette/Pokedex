@@ -1,12 +1,19 @@
 package com.patrickhoette.core.utils.extension
 
-import kotlinx.coroutines.*
-import kotlinx.coroutines.flow.*
-import kotlinx.coroutines.flow.SharingStarted.Companion.Eagerly
-
-fun <T> Flow<T>.flowOnIO(): Flow<T> = flowOn(Dispatchers.IO)
+import kotlinx.coroutines.CancellationException
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.CoroutineStart
+import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.flow.combine
+import kotlinx.coroutines.flow.flow
+import kotlinx.coroutines.flow.map
+import kotlinx.coroutines.launch
+import kotlin.coroutines.CoroutineContext
+import kotlin.coroutines.EmptyCoroutineContext
 
 fun CoroutineScope.launchCatching(
+    context: CoroutineContext = EmptyCoroutineContext,
+    start: CoroutineStart = CoroutineStart.DEFAULT,
     onError: (suspend (Throwable) -> Unit)? = null,
     block: suspend CoroutineScope.() -> Unit,
 ) {
@@ -18,9 +25,6 @@ fun CoroutineScope.launchCatching(
         }
     }
 }
-
-fun <T> Flow<T>.stateInIO(scope: CoroutineScope, initialValue: T, started: SharingStarted = Eagerly): StateFlow<T> =
-    stateIn(scope + Dispatchers.IO, started, initialValue)
 
 inline fun <reified T, R> Iterable<Flow<T>>.combine(crossinline transform: suspend (List<T>) -> R): Flow<R> =
     combine(this) { transform(it.toList()) }

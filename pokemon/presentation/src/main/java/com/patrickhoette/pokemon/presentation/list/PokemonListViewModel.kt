@@ -1,12 +1,13 @@
 package com.patrickhoette.pokemon.presentation.list
 
 import androidx.lifecycle.ViewModel
-import com.patrickhoette.core.presentation.extension.launchCatchingOnIO
+import com.patrickhoette.core.presentation.extension.launchCatching
 import com.patrickhoette.core.presentation.extension.toGenericError
 import com.patrickhoette.core.presentation.model.*
 import com.patrickhoette.core.presentation.model.TypedUIState.Loading
 import com.patrickhoette.core.presentation.mvvm.MutableEventFlow
-import com.patrickhoette.core.utils.coroutines.SerialJob
+import com.patrickhoette.core.utils.coroutine.DispatcherProvider
+import com.patrickhoette.core.utils.coroutine.SerialJob
 import com.patrickhoette.pokemon.domain.list.FetchNextPokemonPage
 import com.patrickhoette.pokemon.domain.list.ObservePokemonList
 import com.patrickhoette.pokemon.presentation.list.model.PokemonListEntryUIModel
@@ -23,6 +24,7 @@ class PokemonListViewModel(
     private val observePokemonList: ObservePokemonList,
     private val fetchNextPokemonPage: FetchNextPokemonPage,
     private val mapper: PokemonListUIMapper,
+    private val dispatchers: DispatcherProvider,
 ) : ViewModel() {
 
     private val _state = MutableStateFlow<GenericUIState<PokemonListUIModel>>(Loading)
@@ -37,7 +39,10 @@ class PokemonListViewModel(
     private val observingSerialJob = SerialJob()
     private val fetchSerialJob = SerialJob()
 
-    private fun startObservingPokemonList() = observingSerialJob.launchCatchingOnIO(::handleObservingError) {
+    private fun startObservingPokemonList() = observingSerialJob.launchCatching(
+        context = dispatchers.IO,
+        onError = ::handleObservingError
+    ) {
         _state.setLoading()
         observePokemonList()
             .filterNotNull()
@@ -50,7 +55,10 @@ class PokemonListViewModel(
         _state.setError(error)
     }
 
-    fun onGetMorePokemon() = fetchSerialJob.launchCatchingOnIO(::handleFetchError) {
+    fun onGetMorePokemon() = fetchSerialJob.launchCatching(
+        context = dispatchers.IO,
+        onError = ::handleFetchError,
+    ) {
         if (_state.value.normalDataOrNull()?.hasNext == true) {
             addLoadingEntries()
             fetchNextPokemonPage()

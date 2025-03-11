@@ -55,7 +55,10 @@ dependencies {
     implementation(project(":core:source"))
     implementation(project(":core:store"))
     implementation(project(":core:ui"))
+    implementation(project(":core:utils"))
+    
     implementation(project(":entity"))
+
     implementation(project(":pokemon:data"))
     implementation(project(":pokemon:domain"))
     implementation(project(":pokemon:presentation"))

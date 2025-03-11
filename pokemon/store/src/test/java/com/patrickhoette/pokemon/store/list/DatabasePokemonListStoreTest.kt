@@ -15,6 +15,7 @@ import com.patrickhoette.pokemon.store.database.pokemon.PokemonQueries
 import com.patrickhoette.test.assertEquals
 import com.patrickhoette.test.assertNull
 import com.patrickhoette.test.assertTestException
+import com.patrickhoette.test.coroutine.TestDispatcherProvider
 import com.patrickhoette.test.model.TestException
 import io.mockk.*
 import io.mockk.impl.annotations.InjectMockKs
@@ -41,6 +42,8 @@ class DatabasePokemonListStoreTest {
 
     @MockK
     private lateinit var mapper: PokemonListEntryMapper
+
+    private val dispatchers = TestDispatcherProvider
 
     @InjectMockKs
     private lateinit var store: DatabasePokemonListStore

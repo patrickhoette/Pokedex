@@ -1,4 +1,4 @@
-package com.patrickhoette.core.utils.coroutines
+package com.patrickhoette.core.utils.coroutine
 
 import kotlinx.coroutines.CancellationException
 import kotlinx.coroutines.Job

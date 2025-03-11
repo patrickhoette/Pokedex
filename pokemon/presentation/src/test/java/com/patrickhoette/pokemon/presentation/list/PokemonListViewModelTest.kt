@@ -11,15 +11,18 @@ import com.patrickhoette.pokemon.presentation.list.model.PokemonListEvent.ShowEr
 import com.patrickhoette.pokemon.presentation.list.model.PokemonListUIModel
 import com.patrickhoette.test.android.ArchComponentsExtension
 import com.patrickhoette.test.assertEquals
+import com.patrickhoette.test.coroutine.TestDispatcherProvider
 import com.patrickhoette.test.model.TestException
 import io.mockk.*
 import io.mockk.impl.annotations.InjectMockKs
 import io.mockk.impl.annotations.MockK
 import io.mockk.junit5.MockKExtension
 import kotlinx.collections.immutable.persistentListOf
+import kotlinx.coroutines.delay
+import kotlinx.coroutines.flow.flow
 import kotlinx.coroutines.flow.flowOf
 import kotlinx.coroutines.test.runTest
-import org.junit.jupiter.api.Test
+import org.junit.jupiter.api.RepeatedTest
 import org.junit.jupiter.api.extension.ExtendWith
 
 @ExtendWith(MockKExtension::class, ArchComponentsExtension::class)
@@ -34,10 +37,12 @@ class PokemonListViewModelTest {
     @MockK
     private lateinit var mapper: PokemonListUIMapper
 
+    private val dispatchers = TestDispatcherProvider
+
     @InjectMockKs
     private lateinit var viewModel: PokemonListViewModel
 
-    @Test
+    @RepeatedTest(200)
     fun `When starting to collect state, then state should be loading`() = runTest {
         // Given
         every { observePokemonList() } returns flowOf()
@@ -49,7 +54,7 @@ class PokemonListViewModelTest {
         }
     }
 
-    @Test
+    @RepeatedTest(200)
     fun `When starting to collect state, then observe pokemon list`() = runTest {
         // Given
         every { observePokemonList() } returns flowOf()
@@ -61,7 +66,7 @@ class PokemonListViewModelTest {
         verify { observePokemonList() }
     }
 
-    @Test
+    @RepeatedTest(200)
     fun `Given observing pokemon list fails, when starting to collect state, then state should be error`() = runTest {
         // Given
         every { observePokemonList() } throws TestException
@@ -75,7 +80,7 @@ class PokemonListViewModelTest {
         }
     }
 
-    @Test
+    @RepeatedTest(200)
     fun `Given observing pokemon list succeeds, when starting to collect state, then state should be normal with mapped model`() =
         runTest {
             // Given
@@ -88,7 +93,10 @@ class PokemonListViewModelTest {
                 hasNext = true,
                 pokemon = persistentListOf(),
             )
-            every { observePokemonList() } returns flowOf(model)
+            every { observePokemonList() } returns flow {
+                delay(10)
+                emit(model)
+            }
             every { mapper.mapToUIModel(model) } returns mappedModel
 
             // When
@@ -100,7 +108,7 @@ class PokemonListViewModelTest {
             }
         }
 
-    @Test
+    @RepeatedTest(200)
     fun `Given last pokemon list item is end, when get more pokemon has been selected, then do not update normal state`() =
         runTest {
             // Given
@@ -133,7 +141,7 @@ class PokemonListViewModelTest {
             }
         }
 
-    @Test
+    @RepeatedTest(200)
     fun `Given last pokemon list item is loading, when get more pokemon has been selected, then do not update normal state`() =
         runTest {
             // Given
@@ -153,7 +161,10 @@ class PokemonListViewModelTest {
                     PokemonListEntryUIModel.Loading,
                 ),
             )
-            every { observePokemonList() } returns flowOf(model)
+            every { observePokemonList() } returns flow {
+                delay(10)
+                emit(model)
+            }
             every { mapper.mapToUIModel(model) } returns mappedModel
 
             // When
@@ -166,7 +177,7 @@ class PokemonListViewModelTest {
             }
         }
 
-    @Test
+    @RepeatedTest(200)
     fun `Given list does not have next, when get more pokemon has been selected, then do not update normal state and do not fetch next page`() =
         runTest {
             // Given
@@ -179,7 +190,10 @@ class PokemonListViewModelTest {
                 hasNext = false,
                 pokemon = persistentListOf(),
             )
-            every { observePokemonList() } returns flowOf(model)
+            every { observePokemonList() } returns flow {
+                delay(10)
+                emit(model)
+            }
             every { mapper.mapToUIModel(model) } returns mappedModel
 
             // When
@@ -192,7 +206,7 @@ class PokemonListViewModelTest {
             }
         }
 
-    @Test
+    @RepeatedTest(200)
     fun `Given list does have next, when get more pokemon has been selected, then state should be normal with previous pokemon list + 5 loading items`() =
         runTest {
             // Given
@@ -222,7 +236,10 @@ class PokemonListViewModelTest {
                 hasNext = true,
                 pokemon = entries,
             )
-            every { observePokemonList() } returns flowOf(model)
+            every { observePokemonList() } returns flow {
+                delay(10)
+                emit(model)
+            }
             every { mapper.mapToUIModel(model) } returns mappedModel
             coEvery { fetchNextPokemonPage() } just awaits
 
@@ -238,7 +255,7 @@ class PokemonListViewModelTest {
             }
         }
 
-    @Test
+    @RepeatedTest(200)
     fun `Given fetching next page fails, when get more pokemon has been selected, then state should be normal without loading items`() =
         runTest {
             // Given
@@ -270,7 +287,10 @@ class PokemonListViewModelTest {
             )
             every { observePokemonList() } returns flowOf(model)
             every { mapper.mapToUIModel(model) } returns mappedModel
-            coEvery { fetchNextPokemonPage() } throws TestException
+            coEvery { fetchNextPokemonPage() } coAnswers {
+                delay(10)
+                throw TestException
+            }
 
             // When
             viewModel.state.test {
@@ -283,7 +303,7 @@ class PokemonListViewModelTest {
             }
         }
 
-    @Test
+    @RepeatedTest(200)
     fun `Given fetching next page fails, when get more pokemon has been selected, then show error`() = runTest {
         // Given
         val model = PokemonList(
@@ -297,7 +317,10 @@ class PokemonListViewModelTest {
         )
         every { observePokemonList() } returns flowOf(model)
         every { mapper.mapToUIModel(model) } returns mappedModel
-        coEvery { fetchNextPokemonPage() } throws TestException
+        coEvery { fetchNextPokemonPage() } coAnswers {
+            delay(10)
+            throw TestException
+        }
 
         // When
         viewModel.state.test { cancelAndIgnoreRemainingEvents() }

@@ -5,13 +5,13 @@ import app.cash.sqldelight.async.coroutines.awaitAsOneOrNull
 import app.cash.sqldelight.coroutines.asFlow
 import app.cash.sqldelight.coroutines.mapToList
 import app.cash.sqldelight.coroutines.mapToOneOrNull
+import com.patrickhoette.core.utils.coroutine.DispatcherProvider
 import com.patrickhoette.pokedex.entity.pokemon.PokemonList
 import com.patrickhoette.pokemon.data.generic.model.CacheStatus
 import com.patrickhoette.pokemon.data.generic.model.CacheStatus.*
 import com.patrickhoette.pokemon.data.list.PokemonListStore
 import com.patrickhoette.pokemon.store.database.pokemon.PokemonListQueries
 import com.patrickhoette.pokemon.store.database.pokemon.PokemonQueries
-import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.*
 import java.util.Date
 import kotlin.time.Duration.Companion.days
@@ -21,6 +21,7 @@ class DatabasePokemonListStore(
     private val pokemonQueries: PokemonQueries,
     private val pokemonListQueries: PokemonListQueries,
     private val mapper: PokemonListEntryMapper,
+    private val dispatchers: DispatcherProvider,
 ) : PokemonListStore {
 
     private val _currentPage = MutableStateFlow(0)
@@ -67,11 +68,11 @@ class DatabasePokemonListStore(
     private fun observePokemonPage(pages: Int, pageSize: Int) = pokemonQueries
         .selectAllInPages(pageCount = pages.toLong(), pageSize = pageSize.toLong())
         .asFlow()
-        .mapToList(Dispatchers.Default)
+        .mapToList(dispatchers.Default)
 
     private fun observeMaxCount() = pokemonListQueries.select()
         .asFlow()
-        .mapToOneOrNull(Dispatchers.Default)
+        .mapToOneOrNull(dispatchers.Default)
         .map { it?.maxPokemonCount }
 
     override fun observeCurrentPage(): Flow<Int> = _currentPage.asStateFlow()
