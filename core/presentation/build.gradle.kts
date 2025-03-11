@@ -2,6 +2,7 @@ plugins {
     alias(libs.plugins.android.library)
     alias(libs.plugins.kotlin.android)
     alias(libs.plugins.ksp)
+    alias(libs.plugins.kotlin.compose)
 }
 
 android {
@@ -13,9 +14,15 @@ android {
     buildTypes {
         release { isMinifyEnabled = false }
     }
+
+    buildFeatures { compose = true }
 }
 
 dependencies {
+
+    // Internal
+    implementation(project(":core:utils"))
+    implementation(project(":entity"))
 
     // Android
     implementation(libs.androidx.core.ktx)
@@ -30,7 +37,20 @@ dependencies {
     implementation(libs.koin.annotation)
     ksp(libs.koin.annotation.compiler)
 
+    // Compose
+    implementation(platform(libs.compose.bom))
+    implementation(libs.compose.runtime)
+
     // Coroutines
     implementation(libs.coroutines.core)
     implementation(libs.coroutines.android)
+
+    // Immutable Collections
+    implementation(libs.kotlin.collections.immutable)
+
+    // Atomic
+    implementation(libs.atomicfu)
+
+    // Test
+    implementation(project(":test"))
 }

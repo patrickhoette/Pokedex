@@ -46,3 +46,5 @@ include(":pokemon:store")
 include(":pokemon:source")
 
 include(":test")
+include(":core:utils")
+include(":test-android")

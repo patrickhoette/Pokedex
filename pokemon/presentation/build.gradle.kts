@@ -2,6 +2,7 @@ plugins {
     alias(libs.plugins.android.library)
     alias(libs.plugins.kotlin.android)
     alias(libs.plugins.ksp)
+    alias(libs.plugins.kotlin.compose)
 }
 
 android {
@@ -13,9 +14,17 @@ android {
     buildTypes {
         release { isMinifyEnabled = false }
     }
+
+    buildFeatures { compose = true }
 }
 
 dependencies {
+
+    // Internal
+    implementation(project(":entity"))
+    implementation(project(":core:presentation"))
+    implementation(project(":core:utils"))
+    implementation(project(":pokemon:domain"))
 
     // Android
     implementation(libs.androidx.core.ktx)
@@ -33,4 +42,20 @@ dependencies {
     // Coroutines
     implementation(libs.coroutines.core)
     implementation(libs.coroutines.android)
+
+    // Compose
+    implementation(platform(libs.compose.bom))
+    implementation(libs.compose.runtime)
+
+    // Immutable Collections
+    implementation(libs.kotlin.collections.immutable)
+
+    // Logging
+    implementation(libs.napier)
+
+    // Lifecycle
+    implementation(libs.lifecycle.viewmodel)
+
+    // Test
+    implementation(project(":test-android"))
 }

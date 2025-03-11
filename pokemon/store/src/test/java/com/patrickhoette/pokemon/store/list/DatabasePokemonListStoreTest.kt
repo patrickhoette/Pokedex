@@ -520,7 +520,7 @@ class DatabasePokemonListStoreTest {
             every { asFlow() } returns mockk {
                 every { mapToOneOrNull(any()) } returns flowOf(
                     mockk {
-                        every { maxPokemonCount } returns 1034
+                        every { maxPokemonCount } returns 1304
                     }
                 )
             }
@@ -541,7 +541,7 @@ class DatabasePokemonListStoreTest {
         mockkStatic("app.cash.sqldelight.coroutines.FlowQuery")
         val pages = 1
         val pageSize = 20
-        val maxCount = 1034
+        val maxCount = 1304
         val entryOne = PokemonEntry(
             id = 1,
             name = "bulbasaur",
