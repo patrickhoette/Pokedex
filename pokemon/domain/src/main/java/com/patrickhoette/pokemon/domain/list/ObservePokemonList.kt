@@ -9,5 +9,5 @@ class ObservePokemonList(
     private val repository: PokemonListRepository,
 ) {
 
-    operator fun invoke(): Flow<PokemonList> = repository.observePokemonList()
+    operator fun invoke(): Flow<PokemonList?> = repository.observePokemonList()
 }

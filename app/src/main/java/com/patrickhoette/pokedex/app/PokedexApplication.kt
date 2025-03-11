@@ -4,6 +4,7 @@ package com.patrickhoette.pokedex.app
 
 import android.app.Application
 import com.patrickhoette.pokedex.app.di.AppModule
+import com.patrickhoette.pokedex.app.di.DatabaseModule
 import io.github.aakira.napier.DebugAntilog
 import io.github.aakira.napier.Napier
 import org.koin.android.ext.koin.androidContext
@@ -19,7 +20,7 @@ class PokedexApplication : Application(), KoinStartup {
     override fun onKoinStartup(): KoinConfiguration = koinConfiguration {
         if (BuildConfig.DEBUG) androidLogger()
         androidContext(this@PokedexApplication)
-        modules(AppModule().module)
+        modules(AppModule().module, DatabaseModule)
     }
 
     override fun onCreate() {

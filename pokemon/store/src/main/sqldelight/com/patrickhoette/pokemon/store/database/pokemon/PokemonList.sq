@@ -1,0 +1,13 @@
+CREATE TABLE IF NOT EXISTS pokemon_list (
+    id              INTEGER NOT NULL    PRIMARY KEY AUTOINCREMENT,
+    maxPokemonCount INTEGER
+);
+
+insert:
+INSERT OR REPLACE
+INTO pokemon_list (maxPokemonCount)
+VALUES (:maxCount);
+
+select:
+SELECT *
+FROM pokemon_list;

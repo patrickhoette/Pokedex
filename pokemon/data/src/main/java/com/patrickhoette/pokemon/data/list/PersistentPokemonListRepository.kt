@@ -3,30 +3,36 @@
 package com.patrickhoette.pokemon.data.list
 
 import com.patrickhoette.pokedex.entity.pokemon.PokemonList
-import com.patrickhoette.pokemon.data.generic.model.CacheStatus.Available
+import com.patrickhoette.pokemon.data.generic.model.CacheStatus.*
 import com.patrickhoette.pokemon.domain.list.PokemonListRepository
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flatMapLatest
 import kotlinx.coroutines.flow.onStart
-import org.koin.core.annotation.Single
+import org.koin.core.annotation.Factory
 
-@Single
+@Factory
 class PersistentPokemonListRepository(
     private val source: PokemonListSource,
     private val store: PokemonListStore,
 ) : PokemonListRepository {
 
-    override fun observePokemonList(): Flow<PokemonList> = store.observeCurrentPage()
+    override fun observePokemonList(): Flow<PokemonList?> = store.observeCurrentPage()
         .flatMapLatest { store.observePokemonList(pages = it + 1, pageSize = PageSize) }
         .onStart { checkIfHasAllCurrentPages() }
 
     override suspend fun fetchNextPokemonPage() {
         val nextPage = store.currentPage + 1
-        if (store.getPageStatus(nextPage, PageSize) == Available) {
-            store.incrementCurrentPage()
-        } else {
-            fetchPage(nextPage * PageSize, PageSize)
-            store.incrementCurrentPage()
+        val status = store.getPageStatus(page = nextPage, pageSize = PageSize)
+        when (status) {
+            Available -> store.incrementCurrentPage()
+            Stale -> {
+                store.incrementCurrentPage()
+                fetchPage(offset = nextPage * PageSize, size = PageSize)
+            }
+            Missing -> {
+                fetchPage(offset = nextPage * PageSize, size = PageSize)
+                store.incrementCurrentPage()
+            }
         }
     }
 
@@ -36,20 +42,20 @@ class PersistentPokemonListRepository(
         for (range in rangesToFetch) {
             val offset = range.first - 1
             val size = range.last - range.first + 1
-            fetchPage(offset, size)
+            fetchPage(offset = offset, size = size)
         }
     }
 
     private suspend fun fetchPage(offset: Int, size: Int) {
         val list = source.fetchPokemonPage(offset, size)
-        store.storePokemon(list.pokemon)
+        store.storePokemonList(list)
     }
 
     private suspend fun getStaleOrMissingRanges(): List<IntRange> {
         val pagesToFetch = mutableListOf<IntRange>()
         var currentRange: IntRange? = null
         for (page in 0..store.currentPage) {
-            val status = store.getPageStatus(page + 1, PageSize)
+            val status = store.getPageStatus(page = page + 1, pageSize = PageSize)
 
             if (status == Available) continue
 

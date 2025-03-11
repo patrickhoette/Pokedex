@@ -29,6 +29,6 @@ class PokemonListResponseMapper {
 
     companion object {
 
-        private val IdRegex = Regex("^https://pokeapi\\.co/api/v2/pokemon/(\\d)/$")
+        private val IdRegex = Regex("^https://pokeapi\\.co/api/v2/pokemon/(\\d+)/$")
     }
 }

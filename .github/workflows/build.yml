@@ -42,7 +42,7 @@ jobs:
         run: ./gradlew assemble
 
       - name: 'Test'
-        run: ./gradlew test
+        run: ./gradlew test testReleaseUnitTest
 
       - name: 'Summarize Tests'
         uses: test-summary/action@v2

@@ -7,7 +7,6 @@ import com.patrickhoette.pokemon.source.list.response.PokemonListResponse
 import com.patrickhoette.test.assertEquals
 import io.mockk.impl.annotations.InjectMockKs
 import io.mockk.junit5.MockKExtension
-import kotlinx.coroutines.test.runTest
 import org.junit.jupiter.api.Test
 import org.junit.jupiter.api.extension.ExtendWith
 import kotlin.test.assertFailsWith
@@ -19,7 +18,7 @@ class PokemonListResponseMapperTest {
     private lateinit var mapper: PokemonListResponseMapper
 
     @Test
-    fun `Given valid response, when mapping, then return mapped model`() = runTest {
+    fun `Given valid response, when mapping, then return mapped model`() {
         // Given
         val response = PokemonListResponse(
             count = 1304,
@@ -66,7 +65,7 @@ class PokemonListResponseMapperTest {
     }
 
     @Test
-    fun `Given valid response but no next page, when mapping, then return mapped model`() = runTest {
+    fun `Given valid response but no next page, when mapping, then return mapped model`() {
         // Given
         val response = PokemonListResponse(
             count = 1304,
@@ -87,7 +86,7 @@ class PokemonListResponseMapperTest {
     }
 
     @Test
-    fun `Given id is not in the url, when mapping, then throw illegal argument exception`() = runTest {
+    fun `Given id is not in the url, when mapping, then throw illegal argument exception`() {
         // Given
         val response = PokemonListResponse(
             count = 1304,
@@ -114,7 +113,29 @@ class PokemonListResponseMapperTest {
     }
 
     @Test
-    fun `Given id has no value, when mapping, then throw illegal argument exception`() = runTest {
+    fun `Given id has multiple digits, when mapping, then throw illegal argument exception`() {
+        // Given
+        val response = PokemonListResponse(
+            count = 1304,
+            next = "https://pokeapi.co/api/v2/pokemon?offset=20&limit=20",
+            previous = null,
+            results = mapOf(
+                0 to PokemonListEntryResponse(
+                    name = "wigglytuff",
+                    url = "https://pokeapi.co/api/v2/pokemon/40/",
+                ),
+            )
+        )
+
+        // When
+        val result = mapper.mapToPokemonList(response)
+
+        // Then
+        result.pokemon.first().id assertEquals 40
+    }
+
+    @Test
+    fun `Given id has no value, when mapping, then throw illegal argument exception`() {
         // Given
         val response = PokemonListResponse(
             count = 1304,
@@ -141,7 +162,7 @@ class PokemonListResponseMapperTest {
     }
 
     @Test
-    fun `Given id is not a number, when mapping, then throw illegal argument exception`() = runTest {
+    fun `Given id is not a number, when mapping, then throw illegal argument exception`() {
         // Given
         val response = PokemonListResponse(
             count = 1304,

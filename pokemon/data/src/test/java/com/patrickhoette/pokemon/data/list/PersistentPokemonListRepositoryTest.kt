@@ -98,7 +98,7 @@ class PersistentPokemonListRepositoryTest {
     }
 
     @Test
-    fun `Given page is 0 and fetching fails, when fetching next page, then throw error and do not increment current page`() =
+    fun `Given page is 0 and status is missing and fetching fails, when fetching next page, then throw error and do not increment current page`() =
         runTest {
             // Given
             every { store.currentPage } returns 0
@@ -111,6 +111,20 @@ class PersistentPokemonListRepositoryTest {
         }
 
     @Test
+    fun `Given page is 0 and status is stale and fetching fails, when fetching next page, then increment current page and throw error`() =
+        runTest {
+            // Given
+            every { store.currentPage } returns 0
+            coEvery { store.getPageStatus(1, 20) } returns Stale
+            coEvery { store.incrementCurrentPage() } just runs
+            coEvery { source.fetchPokemonPage(any(), any()) } throws TestException
+
+            // When -> Then
+            assertTestException { repository.fetchNextPokemonPage() }
+            coVerify { store.incrementCurrentPage() }
+        }
+
+    @Test
     fun `Given page is 0 and fetching succeeds, when fetching next page, then store pokemon and increment current page`() =
         runTest {
             // Given
@@ -119,26 +133,27 @@ class PersistentPokemonListRepositoryTest {
                 Pokemon(id = 2, name = "Ivysaur"),
                 Pokemon(id = 3, name = "Venusaur"),
             )
-            every { store.currentPage } returns 0
-            coEvery { store.getPageStatus(1, 20) } returns Stale
-            coEvery { source.fetchPokemonPage(20, 20) } returns PokemonList(
+            val list = PokemonList(
                 maxCount = 1304,
                 hasNext = true,
                 pokemon = pokemon,
             )
-            coEvery { store.storePokemon(pokemon) } just runs
+            every { store.currentPage } returns 0
+            coEvery { store.getPageStatus(1, 20) } returns Stale
+            coEvery { source.fetchPokemonPage(20, 20) } returns list
+            coEvery { store.storePokemonList(list) } just runs
             coEvery { store.incrementCurrentPage() } just runs
 
             // When
             repository.fetchNextPokemonPage()
 
             // Then
-            coVerify { store.storePokemon(pokemon) }
+            coVerify { store.storePokemonList(list) }
             coVerify { store.incrementCurrentPage() }
         }
 
     @Test
-    fun `Given page is 1 but fetching fails, when fetching next page, then throw error and do not increment current page`() =
+    fun `Given page is 1 and status is missing but fetching fails, when fetching next page, then throw error and do not increment current page`() =
         runTest {
             // Given
             every { store.currentPage } returns 1
@@ -151,28 +166,71 @@ class PersistentPokemonListRepositoryTest {
         }
 
     @Test
-    fun `Given page is 1, when fetching next page, then fetch and store the next page`() = runTest {
+    fun `Given page is 1 and status is stale but fetching fails, when fetching next page, then increment current page and throw error`() =
+        runTest {
+            // Given
+            every { store.currentPage } returns 1
+            coEvery { store.incrementCurrentPage() } just runs
+            coEvery { store.getPageStatus(2, 20) } returns Stale
+            coEvery { source.fetchPokemonPage(any(), any()) } throws TestException
+
+            // When -> Then
+            assertTestException { repository.fetchNextPokemonPage() }
+            coVerify { store.incrementCurrentPage() }
+        }
+
+    @Test
+    fun `Given page is 1 and status is missing, when fetching next page, then fetch and store the next page`() =
+        runTest {
+            // Given
+            val pokemon = listOf(
+                Pokemon(id = 1, name = "Bulbasaur"),
+                Pokemon(id = 2, name = "Ivysaur"),
+                Pokemon(id = 3, name = "Venusaur"),
+            )
+            val list = PokemonList(
+                maxCount = 1304,
+                hasNext = true,
+                pokemon = pokemon,
+            )
+            every { store.currentPage } returns 1
+            coEvery { store.getPageStatus(2, 20) } returns Missing
+            coEvery { source.fetchPokemonPage(40, 20) } returns list
+            coEvery { store.storePokemonList(list) } just runs
+            coEvery { store.incrementCurrentPage() } just runs
+
+            // When
+            repository.fetchNextPokemonPage()
+
+            // Then
+            coVerify { store.storePokemonList(list) }
+            coVerify { store.incrementCurrentPage() }
+        }
+
+    @Test
+    fun `Given page is 1 and status is stale, when fetching next page, then fetch and store the next page`() = runTest {
         // Given
         val pokemon = listOf(
             Pokemon(id = 1, name = "Bulbasaur"),
             Pokemon(id = 2, name = "Ivysaur"),
             Pokemon(id = 3, name = "Venusaur"),
         )
-        every { store.currentPage } returns 1
-        coEvery { store.getPageStatus(2, 20) } returns Stale
-        coEvery { source.fetchPokemonPage(40, 20) } returns PokemonList(
+        val list = PokemonList(
             maxCount = 1304,
             hasNext = true,
             pokemon = pokemon,
         )
-        coEvery { store.storePokemon(pokemon) } just runs
+        every { store.currentPage } returns 1
+        coEvery { store.getPageStatus(2, 20) } returns Stale
+        coEvery { source.fetchPokemonPage(40, 20) } returns list
+        coEvery { store.storePokemonList(list) } just runs
         coEvery { store.incrementCurrentPage() } just runs
 
         // When
         repository.fetchNextPokemonPage()
 
         // Then
-        coVerify { store.storePokemon(pokemon) }
+        coVerify { store.storePokemonList(list) }
         coVerify { store.incrementCurrentPage() }
     }
 
@@ -201,23 +259,24 @@ class PersistentPokemonListRepositoryTest {
                 Pokemon(id = 2, name = "Ivysaur"),
                 Pokemon(id = 3, name = "Venusaur"),
             )
-            every { store.observeCurrentPage() } returns flowOf(0)
-            every { store.observePokemonList(1, 20) } returns flowOf()
-            every { store.currentPage } returns 0
-            coEvery { store.getPageStatus(1, 20) } returns Missing
-            coEvery { source.fetchPokemonPage(0, 20) } returns PokemonList(
+            val list = PokemonList(
                 maxCount = 1304,
                 hasNext = true,
                 pokemon = pokemon,
             )
-            coEvery { store.storePokemon(pokemon) }
+            every { store.observeCurrentPage() } returns flowOf(0)
+            every { store.observePokemonList(1, 20) } returns flowOf()
+            every { store.currentPage } returns 0
+            coEvery { store.getPageStatus(1, 20) } returns Missing
+            coEvery { source.fetchPokemonPage(0, 20) } returns list
+            coEvery { store.storePokemonList(list) }
 
             // When
             repository.observePokemonList().test { cancelAndIgnoreRemainingEvents() }
 
             // Then
             coVerify { source.fetchPokemonPage(0, 20) }
-            coVerify { store.storePokemon(pokemon) }
+            coVerify { store.storePokemonList(list) }
         }
 
     @Test
@@ -228,16 +287,17 @@ class PersistentPokemonListRepositoryTest {
             Pokemon(id = 2, name = "Ivysaur"),
             Pokemon(id = 3, name = "Venusaur"),
         )
-        every { store.observeCurrentPage() } returns flowOf(0)
-        every { store.observePokemonList(1, 20) } returns flowOf()
-        every { store.currentPage } returns 0
-        coEvery { store.getPageStatus(1, 20) } returns Missing
-        coEvery { source.fetchPokemonPage(0, 20) } returns PokemonList(
+        val list = PokemonList(
             maxCount = 1304,
             hasNext = true,
             pokemon = pokemon,
         )
-        coEvery { store.storePokemon(pokemon) } just runs
+        every { store.observeCurrentPage() } returns flowOf(0)
+        every { store.observePokemonList(1, 20) } returns flowOf()
+        every { store.currentPage } returns 0
+        coEvery { store.getPageStatus(1, 20) } returns Missing
+        coEvery { source.fetchPokemonPage(0, 20) } returns list
+        coEvery { store.storePokemonList(list) } just runs
 
         // When
         repository.observePokemonList().test { cancelAndIgnoreRemainingEvents() }
@@ -245,7 +305,7 @@ class PersistentPokemonListRepositoryTest {
 
         // Then
         coVerify(exactly = 2) { source.fetchPokemonPage(0, 20) }
-        coVerify(exactly = 2) { store.storePokemon(pokemon) }
+        coVerify(exactly = 2) { store.storePokemonList(list) }
     }
 
     @Test
@@ -262,7 +322,7 @@ class PersistentPokemonListRepositoryTest {
 
             // Then
             coVerifyNever { source.fetchPokemonPage(0, 20) }
-            coVerifyNever { store.storePokemon(any()) }
+            coVerifyNever { store.storePokemonList(any()) }
         }
 
     @Test
@@ -281,7 +341,7 @@ class PersistentPokemonListRepositoryTest {
 
             // Then
             coVerifyNever { source.fetchPokemonPage(any(), any()) }
-            coVerifyNever { store.storePokemon(any()) }
+            coVerifyNever { store.storePokemonList(any()) }
         }
 
     @Test
@@ -293,24 +353,25 @@ class PersistentPokemonListRepositoryTest {
                 Pokemon(id = 2, name = "Ivysaur"),
                 Pokemon(id = 3, name = "Venusaur"),
             )
+            val list = PokemonList(
+                maxCount = 1304,
+                hasNext = true,
+                pokemon = pokemon,
+            )
             every { store.observeCurrentPage() } returns flowOf(2)
             every { store.observePokemonList(3, 20) } returns flowOf()
             every { store.currentPage } returns 2
             coEvery { store.getPageStatus(1, 20) } returns Missing
             coEvery { store.getPageStatus(2, 20) } returns Stale
             coEvery { store.getPageStatus(3, 20) } returns Missing
-            coEvery { source.fetchPokemonPage(0, 60) } returns PokemonList(
-                maxCount = 1304,
-                hasNext = true,
-                pokemon = pokemon,
-            )
+            coEvery { source.fetchPokemonPage(0, 60) } returns list
 
             // When
             repository.observePokemonList().test { cancelAndIgnoreRemainingEvents() }
 
             // Then
             coVerify { source.fetchPokemonPage(0, 60) }
-            coVerify { store.storePokemon(pokemon) }
+            coVerify { store.storePokemonList(list) }
         }
 
     @Test
@@ -322,15 +383,30 @@ class PersistentPokemonListRepositoryTest {
                 Pokemon(id = 2, name = "Ivysaur"),
                 Pokemon(id = 3, name = "Venusaur"),
             )
+            val listOne = PokemonList(
+                maxCount = 1304,
+                hasNext = true,
+                pokemon = pokemonOne,
+            )
             val pokemonTwo = listOf(
                 Pokemon(id = 4, name = "Charmander"),
                 Pokemon(id = 5, name = "Charmeleon"),
                 Pokemon(id = 6, name = "Charizard"),
             )
+            val listTwo = PokemonList(
+                maxCount = 1304,
+                hasNext = true,
+                pokemon = pokemonTwo,
+            )
             val pokemonThree = listOf(
                 Pokemon(id = 7, name = "Squirtle"),
                 Pokemon(id = 8, name = "Wartortle"),
                 Pokemon(id = 9, name = "Blastoise"),
+            )
+            val listThree = PokemonList(
+                maxCount = 1304,
+                hasNext = true,
+                pokemon = pokemonThree,
             )
             every { store.observeCurrentPage() } returns flowOf(9)
             every { store.observePokemonList(10, 20) } returns flowOf()
@@ -345,24 +421,12 @@ class PersistentPokemonListRepositoryTest {
             coEvery { store.getPageStatus(8, 20) } returns Stale
             coEvery { store.getPageStatus(9, 20) } returns Missing
             coEvery { store.getPageStatus(10, 20) } returns Available
-            coEvery { source.fetchPokemonPage(0, 20) } returns PokemonList(
-                maxCount = 1304,
-                hasNext = true,
-                pokemon = pokemonOne,
-            )
-            coEvery { source.fetchPokemonPage(60, 40) } returns PokemonList(
-                maxCount = 1304,
-                hasNext = true,
-                pokemon = pokemonTwo,
-            )
-            coEvery { source.fetchPokemonPage(120, 60) } returns PokemonList(
-                maxCount = 1304,
-                hasNext = true,
-                pokemon = pokemonThree,
-            )
-            coEvery { store.storePokemon(pokemonOne) } just runs
-            coEvery { store.storePokemon(pokemonTwo) } just runs
-            coEvery { store.storePokemon(pokemonThree) } just runs
+            coEvery { source.fetchPokemonPage(0, 20) } returns listOne
+            coEvery { source.fetchPokemonPage(60, 40) } returns listTwo
+            coEvery { source.fetchPokemonPage(120, 60) } returns listThree
+            coEvery { store.storePokemonList(listOne) } just runs
+            coEvery { store.storePokemonList(listTwo) } just runs
+            coEvery { store.storePokemonList(listThree) } just runs
 
             // When
             repository.observePokemonList().test { cancelAndIgnoreRemainingEvents() }
@@ -371,8 +435,8 @@ class PersistentPokemonListRepositoryTest {
             coVerify { source.fetchPokemonPage(0, 20) }
             coVerify { source.fetchPokemonPage(60, 40) }
             coVerify { source.fetchPokemonPage(120, 60) }
-            coVerify { store.storePokemon(pokemonOne) }
-            coVerify { store.storePokemon(pokemonTwo) }
-            coVerify { store.storePokemon(pokemonThree) }
+            coVerify { store.storePokemonList(listOne) }
+            coVerify { store.storePokemonList(listTwo) }
+            coVerify { store.storePokemonList(listThree) }
         }
 }

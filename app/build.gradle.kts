@@ -3,6 +3,7 @@ plugins {
     alias(libs.plugins.kotlin.android)
     alias(libs.plugins.kotlin.compose)
     alias(libs.plugins.ksp)
+    alias(libs.plugins.sqldelight)
 }
 
 android {
@@ -30,6 +31,18 @@ android {
     buildFeatures {
         compose = true
         buildConfig = true
+    }
+}
+
+sqldelight {
+    databases {
+        create("Database") {
+            packageName = "com.patrickhoette.pokedex.app.database"
+            generateAsync = true
+            verifyMigrations = true
+
+            dependency(project(":pokemon:store"))
+        }
     }
 }
 
@@ -83,4 +96,8 @@ dependencies {
     // Coroutines
     implementation(libs.coroutines.core)
     implementation(libs.coroutines.android)
+
+    // SQLDelight
+    implementation(libs.sqldelight.coroutines)
+    implementation(libs.sqldelight.android)
 }
