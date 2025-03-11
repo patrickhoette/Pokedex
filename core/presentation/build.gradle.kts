@@ -52,5 +52,5 @@ dependencies {
     implementation(libs.atomicfu)
 
     // Test
-    implementation(project(":test"))
+    testImplementation(project(":test"))
 }

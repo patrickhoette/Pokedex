@@ -57,5 +57,5 @@ dependencies {
     implementation(libs.lifecycle.viewmodel)
 
     // Test
-    implementation(project(":test-android"))
+    testImplementation(project(":test-android"))
 }
