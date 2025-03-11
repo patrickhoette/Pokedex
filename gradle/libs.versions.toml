@@ -24,7 +24,7 @@ lifecycleRuntimeKtx = "2.8.7"
 mockk = "1.13.12"
 napier = "2.7.1"
 sqldelight = "2.0.2"
-turbine = "1.1.0"
+turbine = "1.2.0"
 
 [libraries]
 androidx-appcompat = { group = "androidx.appcompat", name = "appcompat", version.ref = "appcompat" }
