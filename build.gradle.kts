@@ -1,8 +1,9 @@
-
+import com.android.build.gradle.internal.tasks.factory.dependsOn
 import com.google.devtools.ksp.gradle.KspExtension
 import com.google.devtools.ksp.gradle.KspGradleSubplugin
 import org.jetbrains.kotlin.gradle.dsl.KotlinAndroidProjectExtension
 import org.jetbrains.kotlin.gradle.dsl.KotlinProjectExtension
+import org.jetbrains.kotlin.gradle.internal.ensureParentDirsCreated
 import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
 
 plugins {
@@ -58,12 +59,28 @@ subprojects {
     }
 }
 
+val moduleGraphReportFile = layout.buildDirectory.file("reports/project-connections/graph.md")
+
+val moduleGraphTask = tasks.createModuleGraph
+val createModuleGraphReportFileTask = tasks.register("createModuleGraphReportFile") {
+    val outputFile = moduleGraphReportFile
+    outputs.file(outputFile)
+
+    doLast {
+        val file = outputFile.get().asFile
+        file.ensureParentDirsCreated()
+        file.createNewFile()
+    }
+}
+
+moduleGraphTask.dependsOn(createModuleGraphReportFileTask)
+
 moduleGraphConfig {
     setStyleByModuleType = true
 
     val excludeModules = ":test|:entity|:test-android|:app"
     rootModulesRegex = "^(?!(?:$excludeModules)\$).+\$"
     excludedModulesRegex = "($excludeModules)"
-    readmePath = layout.buildDirectory.file("reports/project-connections/graph.md").map { it.asFile.absolutePath }
+    readmePath = moduleGraphReportFile.map { it.asFile.absolutePath }
     heading = ""
 }
