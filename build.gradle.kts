@@ -1,3 +1,4 @@
+
 import com.google.devtools.ksp.gradle.KspExtension
 import com.google.devtools.ksp.gradle.KspGradleSubplugin
 import org.jetbrains.kotlin.gradle.dsl.KotlinAndroidProjectExtension
@@ -13,19 +14,10 @@ plugins {
     alias(libs.plugins.ksp) apply false
     alias(libs.plugins.kotlin.serialization) apply false
     alias(libs.plugins.sqldelight) apply false
+    alias(libs.plugins.modulegraph)
 }
 
 allprojects {
-    val displayName = displayName
-        .removePrefix("project ':")
-        .removeSuffix("'")
-        .replace(':', '-')
-    tasks.create("printName") {
-        doLast {
-            logger.quiet("displayName='$displayName'")
-        }
-    }
-
     beforeEvaluate {
         version = libs.versions.version.name.get()
     }
@@ -64,4 +56,14 @@ subprojects {
             }
         }
     }
+}
+
+moduleGraphConfig {
+    setStyleByModuleType = true
+
+    val excludeModules = ":test|:entity|:test-android|:app"
+    rootModulesRegex = "^(?!(?:$excludeModules)\$).+\$"
+    excludedModulesRegex = "($excludeModules)"
+    readmePath = layout.buildDirectory.file("reports/project-connections/graph.md").map { it.asFile.absolutePath }
+    heading = ""
 }

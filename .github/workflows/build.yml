@@ -63,6 +63,11 @@ jobs:
           result-path: 'app/build/reports/lint-results-debug.xml'
           fail-on-warning: false
 
+      - name: 'Report Module Graph'
+        run: |
+          ./gradlew createModuleGraph && 
+          awk 'NF{p=1} p' 'build/reports/project-connections/graph.md' >> $GITHUB_STEP_SUMMARY
+
       - name: 'Artifact Reports'
         if: success() || failure()
         uses: actions/upload-artifact@v4
