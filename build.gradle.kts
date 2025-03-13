@@ -1,6 +1,8 @@
+
 import com.android.build.gradle.internal.tasks.factory.dependsOn
 import com.google.devtools.ksp.gradle.KspExtension
 import com.google.devtools.ksp.gradle.KspGradleSubplugin
+import dev.iurysouza.modulegraph.Theme
 import org.jetbrains.kotlin.gradle.dsl.KotlinAndroidProjectExtension
 import org.jetbrains.kotlin.gradle.dsl.KotlinProjectExtension
 import org.jetbrains.kotlin.gradle.internal.ensureParentDirsCreated
@@ -73,7 +75,37 @@ val createModuleGraphReportFileTask = tasks.register("createModuleGraphReportFil
     }
 }
 
+val editModuleGraphRendererTask = tasks.register("editModuleGraphRenderer") {
+    val graphFile = moduleGraphReportFile
+    outputs.file(graphFile)
+
+    doLast {
+        val file = graphFile.get().asFile
+        val contents = file.readLines().joinToString("\n")
+        val newContents = contents.replace(
+            """
+            %%{
+              init: {
+                'theme': 'base'
+              }
+            }%%
+            """.trimIndent(),
+            """
+            %%{
+              init: {
+                'theme': 'base',
+                "flowchart": { "defaultRenderer": "elk"}
+              }
+            }%%
+            """.trimIndent()
+        )
+        file.writeText(newContents)
+    }
+}
+
 moduleGraphTask.dependsOn(createModuleGraphReportFileTask)
+editModuleGraphRendererTask.dependsOn(moduleGraphTask)
+moduleGraphTask.configure { finalizedBy(editModuleGraphRendererTask) }
 
 moduleGraphConfig {
     setStyleByModuleType = true
@@ -83,4 +115,5 @@ moduleGraphConfig {
     excludedModulesRegex = "($excludeModules)"
     readmePath = moduleGraphReportFile.map { it.asFile.absolutePath }
     heading = ""
+    theme = Theme.BASE()
 }
