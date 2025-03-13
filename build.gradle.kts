@@ -115,5 +115,5 @@ moduleGraphConfig {
     excludedModulesRegex = "($excludeModules)"
     readmePath = moduleGraphReportFile.map { it.asFile.absolutePath }
     heading = ""
-    theme = Theme.BASE()
+    theme = Theme.DARK
 }
