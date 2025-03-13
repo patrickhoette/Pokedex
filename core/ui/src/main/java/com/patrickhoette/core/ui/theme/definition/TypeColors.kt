@@ -1,25 +1,16 @@
-package com.patrickhoette.core.ui.theme
+package com.patrickhoette.core.ui.theme.definition
 
 import androidx.compose.runtime.Immutable
-import androidx.compose.runtime.Stable
-import androidx.compose.runtime.staticCompositionLocalOf
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.Color.Companion.Black
 import androidx.compose.ui.graphics.Color.Companion.White
 import com.patrickhoette.core.ui.theme.entity.VariantColor
+import com.patrickhoette.core.ui.theme.model.ThemeTypeColors
 import com.patrickhoette.pokedex.entity.generic.Type
 import com.patrickhoette.pokedex.entity.generic.Type.*
 
-val LocalPokeTypeColors = staticCompositionLocalOf<PokeTypeColors> { LightPokeTypeColors }
-
-@Stable
-interface PokeTypeColors {
-
-    operator fun get(type: Type): VariantColor
-}
-
 @Immutable
-object LightPokeTypeColors : PokeTypeColors {
+object LightThemeTypeColors : ThemeTypeColors {
 
     override operator fun get(type: Type) = when (type) {
         Normal -> VariantColor(
@@ -178,7 +169,7 @@ object LightPokeTypeColors : PokeTypeColors {
 }
 
 @Immutable
-object DarkPokeTypeColors : PokeTypeColors {
+object DarkThemeTypeColors : ThemeTypeColors {
 
     override operator fun get(type: Type) = when (type) {
         Normal -> VariantColor(

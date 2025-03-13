@@ -1,4 +1,3 @@
-
 import com.android.build.gradle.internal.tasks.factory.dependsOn
 import com.google.devtools.ksp.gradle.KspExtension
 import com.google.devtools.ksp.gradle.KspGradleSubplugin
@@ -116,4 +115,12 @@ moduleGraphConfig {
     readmePath = moduleGraphReportFile.map { it.asFile.absolutePath }
     heading = ""
     theme = Theme.DARK
+}
+
+val listAllDependenciesTask = tasks.register("listAllDependencies")
+
+allprojects {
+    afterEvaluate {
+        listAllDependenciesTask.dependsOn(tasks.dependencies)
+    }
 }

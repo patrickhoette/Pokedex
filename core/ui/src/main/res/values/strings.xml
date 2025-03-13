@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- ColorShowcaseScreen -->
+    <string name="debug_color_showcase_title">Theme Colors</string>
+    <string name="debug_color_showcase_heading_primary">Primary</string>
+    <string name="debug_color_showcase_heading_secondary">Secondary</string>
+    <string name="debug_color_showcase_heading_tertiary">Tertiary</string>
+    <string name="debug_color_showcase_heading_background">Background</string>
+    <string name="debug_color_showcase_heading_surface">Surface</string>
+    <string name="debug_color_showcase_heading_surface_variant">Surface Variant</string>
+    <string name="debug_color_showcase_heading_error">Error</string>
+    <string name="debug_color_showcase_heading_success">Success</string>
+    <string name="debug_color_showcase_heading_warning">Warning</string>
+    <string name="debug_color_showcase_heading_info">Info</string>
+    <string name="debug_color_showcase_heading_outline">Outline</string>
+    <string name="debug_color_showcase_subheading_main">Main</string>
+    <string name="debug_color_showcase_subheading_container">Container</string>
+    <string name="debug_color_showcase_foreground">Foreground</string>
+    <string name="debug_color_showcase_background">Background</string>
+
+    <!-- TypeColorShowcaseScreen -->
+    <string name="debug_type_color_showcase_title">Type Colors</string>
+    <string name="debug_type_color_showcase_subheading_light">Light</string>
+    <string name="debug_type_color_showcase_subheading_base">Base</string>
+    <string name="debug_type_color_showcase_subheading_dark">Dark</string>
+
+    <!-- TypographyShowcaseScreen -->
+    <string name="debug_typography_showcase_title">Typography</string>
+    <string name="debug_typography_showcase_display_large">Display (Large)</string>
+    <string name="debug_typography_showcase_display_medium">Display (Medium)</string>
+    <string name="debug_typography_showcase_display_small">Display (Small)</string>
+    <string name="debug_typography_showcase_headings_large">Headings (Large)</string>
+    <string name="debug_typography_showcase_headings_medium">Headings (Medium)</string>
+    <string name="debug_typography_showcase_headings_small">Headings (Small)</string>
+    <string name="debug_typography_showcase_body_large">Body (Large)</string>
+    <string name="debug_typography_showcase_body_medium">Body (Medium)</string>
+    <string name="debug_typography_showcase_body_small">Body (Small)</string>
+    <string name="debug_typography_showcase_label_large">Label (Large)</string>
+    <string name="debug_typography_showcase_label_medium">Label (Medium)</string>
+    <string name="debug_typography_showcase_label_small">Label (Small)</string>
+    <string name="debug_typography_showcase_mono_large">Mono (Large)</string>
+    <string name="debug_typography_showcase_mono_medium">Mono (Medium)</string>
+    <string name="debug_typography_showcase_mono_small">Mono (Small)</string>
+    <string name="debug_typography_showcase_caption">Caption</string>
+
+    <!-- Type Names -->
+    <string name="type_normal">Normal</string>
+    <string name="type_fire">Fire</string>
+    <string name="type_water">Water</string>
+    <string name="type_grass">Grass</string>
+    <string name="type_electric">Electric</string>
+    <string name="type_ice">Ice</string>
+    <string name="type_fighting">Fighting</string>
+    <string name="type_poison">Poison</string>
+    <string name="type_ground">Ground</string>
+    <string name="type_flying">Flying</string>
+    <string name="type_psychic">Psychic</string>
+    <string name="type_bug">Bug</string>
+    <string name="type_rock">Rock</string>
+    <string name="type_ghost">Ghost</string>
+    <string name="type_dragon">Dragon</string>
+    <string name="type_dark">Dark</string>
+    <string name="type_steel">Steel</string>
+    <string name="type_fairy">Fairy</string>
+    <string name="type_unknown">Unknown</string>
+</resources>
