@@ -21,6 +21,8 @@ dependencies {
 
     // Internal
     implementation(project(":entity"))
+    implementation(project(":core:ui"))
+    implementation(project(":pokemon:presentation"))
 
     // Android
     implementation(libs.androidx.core.ktx)
@@ -31,6 +33,13 @@ dependencies {
     implementation(libs.compose.ui)
     implementation(libs.compose.ui.graphics)
     implementation(libs.compose.foundation)
+    implementation(libs.compose.ui.tooling.preview)
+    implementation(libs.lifecycle.viewmodel.compose)
+    implementation(libs.compose.material3)
+    implementation(libs.compose.adaptive)
+    implementation(libs.compose.adaptive.layout)
+    implementation(libs.compose.adaptive.navigation)
+    debugImplementation(libs.compose.ui.tooling)
 
     // Koin
     implementation(platform(libs.koin.bom))
@@ -49,4 +58,15 @@ dependencies {
 
     // Immutable Collections
     implementation(libs.kotlin.collections.immutable)
+
+    // Coil
+    implementation(libs.coil)
+    implementation(libs.coil.compose)
+    implementation(libs.coil.network)
+
+    // Shimmer
+    implementation(libs.shimmer)
+
+    // Logging
+    implementation(libs.napier)
 }

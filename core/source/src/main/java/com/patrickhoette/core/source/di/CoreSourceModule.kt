@@ -1,5 +1,6 @@
 package com.patrickhoette.core.source.di
 
+import com.patrickhoette.core.source.client.KtorClientBuilder
 import com.patrickhoette.core.source.client.KtorLogger
 import com.patrickhoette.pokedex.entity.project.BuildOptions
 import io.ktor.client.plugins.logging.Logger
@@ -15,6 +16,9 @@ class CoreSourceModule {
 
     @Single(binds = [Logger::class])
     fun provideKtorLogger() = KtorLogger()
+
+    @Factory
+    fun provideKtorClient(builder: KtorClientBuilder) = builder.createClient()
 
     @Factory
     fun provideJson(buildOptions: BuildOptions) = Json {

@@ -20,6 +20,9 @@ dependencies {
     // Coroutines
     implementation(libs.coroutines.core)
 
+    // Logging
+    implementation(libs.napier)
+
     // Test
     testImplementation(project(":test"))
 }

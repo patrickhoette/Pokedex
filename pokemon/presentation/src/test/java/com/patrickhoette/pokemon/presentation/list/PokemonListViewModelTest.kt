@@ -61,7 +61,7 @@ class PokemonListViewModelTest {
         every { observePokemonList() } returns flowOf()
 
         // When
-        viewModel.state.test {
+        viewModel.list.test {
             // Then
             awaitItem() assertEquals Loading
         }
@@ -73,7 +73,7 @@ class PokemonListViewModelTest {
         every { observePokemonList() } returns flowOf()
 
         // When
-        viewModel.state.test { cancelAndIgnoreRemainingEvents() }
+        viewModel.list.test { cancelAndIgnoreRemainingEvents() }
 
         // Then
         verify { observePokemonList() }
@@ -85,7 +85,7 @@ class PokemonListViewModelTest {
         every { observePokemonList() } throws TestException
 
         // When
-        viewModel.state.test {
+        viewModel.list.test {
             // Then
             awaitItem() assertEquals Error(Unknown)
         }
@@ -102,13 +102,13 @@ class PokemonListViewModelTest {
             )
             val mappedModel = PokemonListUIModel(
                 hasNext = true,
-                pokemon = persistentListOf(),
+                entries = persistentListOf(),
             )
             every { observePokemonList() } returns flowOf(model)
             every { mapper.mapToUIModel(model) } returns mappedModel
 
             // When
-            viewModel.state.test {
+            viewModel.list.test {
                 // Then
                 awaitItem() assertEquals Normal(mappedModel)
             }
@@ -125,7 +125,7 @@ class PokemonListViewModelTest {
             )
             val mappedModel = PokemonListUIModel(
                 hasNext = true,
-                pokemon = persistentListOf(
+                entries = persistentListOf(
                     PokemonListEntryUIModel.Entry(
                         id = 1,
                         name = "Bulbasaur",
@@ -138,7 +138,7 @@ class PokemonListViewModelTest {
             every { mapper.mapToUIModel(model) } returns mappedModel
 
             // When
-            viewModel.state.test {
+            viewModel.list.test {
                 skipItems(1)
                 viewModel.onGetMorePokemon()
 
@@ -158,7 +158,7 @@ class PokemonListViewModelTest {
             )
             val mappedModel = PokemonListUIModel(
                 hasNext = true,
-                pokemon = persistentListOf(
+                entries = persistentListOf(
                     PokemonListEntryUIModel.Entry(
                         id = 1,
                         name = "Bulbasaur",
@@ -172,7 +172,7 @@ class PokemonListViewModelTest {
             coEvery { fetchNextPokemonPage() } just awaits
 
             // When
-            viewModel.state.test {
+            viewModel.list.test {
                 skipItems(1)
                 viewModel.onGetMorePokemon()
 
@@ -192,13 +192,13 @@ class PokemonListViewModelTest {
             )
             val mappedModel = PokemonListUIModel(
                 hasNext = false,
-                pokemon = persistentListOf(),
+                entries = persistentListOf(),
             )
             every { observePokemonList() } returns flowOf(model)
             every { mapper.mapToUIModel(model) } returns mappedModel
 
             // When
-            viewModel.state.test {
+            viewModel.list.test {
                 skipItems(1)
                 viewModel.onGetMorePokemon()
 
@@ -235,14 +235,14 @@ class PokemonListViewModelTest {
             )
             val mappedModel = PokemonListUIModel(
                 hasNext = true,
-                pokemon = entries,
+                entries = entries,
             )
             every { observePokemonList() } returns flowOf(model)
             every { mapper.mapToUIModel(model) } returns mappedModel
             coEvery { fetchNextPokemonPage() } just awaits
 
             // When
-            viewModel.state.test {
+            viewModel.list.test {
                 skipItems(1)
                 viewModel.onGetMorePokemon()
 
@@ -281,14 +281,14 @@ class PokemonListViewModelTest {
             )
             val mappedModel = PokemonListUIModel(
                 hasNext = true,
-                pokemon = entries,
+                entries = entries,
             )
             every { observePokemonList() } returns flowOf(model)
             every { mapper.mapToUIModel(model) } returns mappedModel
             coEvery { fetchNextPokemonPage() } throws TestException
 
             // When
-            viewModel.state.test {
+            viewModel.list.test {
                 skipItems(1)
                 viewModel.onGetMorePokemon()
                 skipItems(1)
@@ -308,14 +308,14 @@ class PokemonListViewModelTest {
         )
         val mappedModel = PokemonListUIModel(
             hasNext = true,
-            pokemon = persistentListOf(),
+            entries = persistentListOf(),
         )
         every { observePokemonList() } returns flowOf(model)
         every { mapper.mapToUIModel(model) } returns mappedModel
         coEvery { fetchNextPokemonPage() } throws TestException
 
         // When
-        viewModel.state.test { cancelAndIgnoreRemainingEvents() }
+        viewModel.list.test { cancelAndIgnoreRemainingEvents() }
         viewModel.events.test {
             skipItems(1)
             viewModel.onGetMorePokemon()

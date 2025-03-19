@@ -47,7 +47,7 @@ class PokemonListUIMapperTest {
         // Then
         result assertEquals PokemonListUIModel(
             hasNext = true,
-            pokemon = persistentListOf(
+            entries = persistentListOf(
                 Entry(
                     id = 1,
                     name = "Bulbasaur",
@@ -95,7 +95,7 @@ class PokemonListUIMapperTest {
         // Then
         result assertEquals PokemonListUIModel(
             hasNext = false,
-            pokemon = persistentListOf(
+            entries = persistentListOf(
                 Entry(
                     id = 1,
                     name = "Bulbasaur",

@@ -1,21 +1,18 @@
 package com.patrickhoette.pokemon.presentation.list
 
 import androidx.lifecycle.ViewModel
+import androidx.lifecycle.viewModelScope
 import com.patrickhoette.core.presentation.extension.launchCatching
-import com.patrickhoette.core.presentation.extension.toGenericError
-import com.patrickhoette.core.presentation.model.*
-import com.patrickhoette.core.presentation.model.TypedUIState.Loading
 import com.patrickhoette.core.presentation.mvvm.MutableEventFlow
 import com.patrickhoette.core.utils.coroutine.DispatcherProvider
 import com.patrickhoette.core.utils.coroutine.SerialJob
+import com.patrickhoette.core.utils.extension.launchCatching
 import com.patrickhoette.pokemon.domain.list.FetchNextPokemonPage
 import com.patrickhoette.pokemon.domain.list.ObservePokemonList
 import com.patrickhoette.pokemon.presentation.list.model.PokemonListEntryUIModel
 import com.patrickhoette.pokemon.presentation.list.model.PokemonListEvent
-import com.patrickhoette.pokemon.presentation.list.model.PokemonListEvent.ShowError
-import com.patrickhoette.pokemon.presentation.list.model.PokemonListUIModel
+import com.patrickhoette.pokemon.presentation.list.model.PokemonListEvent.OpenPokemonDetails
 import io.github.aakira.napier.Napier
-import kotlinx.collections.immutable.toImmutableList
 import kotlinx.coroutines.flow.*
 import org.koin.android.annotation.KoinViewModel
 
@@ -27,73 +24,54 @@ class PokemonListViewModel(
     private val dispatchers: DispatcherProvider,
 ) : ViewModel() {
 
-    private val _state = MutableStateFlow<GenericUIState<PokemonListUIModel>>(Loading)
-    val state by lazy {
+    private val _list = MutableStateFlow(mapper.createLoading())
+    val list by lazy {
         startObservingPokemonList()
-        _state.asStateFlow()
+        _list.asStateFlow()
     }
 
     private val _events = MutableEventFlow<PokemonListEvent>()
     val events = _events.asEventFlow()
 
     private val observingSerialJob = SerialJob()
-    private val fetchSerialJob = SerialJob()
 
     private fun startObservingPokemonList() = observingSerialJob.launchCatching(
         context = dispatchers.IO,
         onError = ::handleObservingError
     ) {
-        _state.setLoading()
         observePokemonList()
             .filterNotNull()
             .mapLatest(mapper::mapToUIModel)
-            .collectLatest(_state::setNormal)
+            .collectLatest {
+                Napier.d("!!! entries=${it.entries.size}")
+                _list.value = it
+            }
     }
 
     private fun handleObservingError(error: Throwable) {
         Napier.e("Failed to observe pokemon list", error)
-        _state.setError(error)
+        _list.update { mapper.addErrorEntry(it, error) }
     }
 
-    fun onGetMorePokemon() = fetchSerialJob.launchCatching(
+    fun onGetMorePokemon() = viewModelScope.launchCatching(
         context = dispatchers.IO,
         onError = ::handleFetchError,
     ) {
-        if (_state.value.normalDataOrNull()?.hasNext == true) {
-            addLoadingEntries()
+        val currentList = _list.value
+        val isLoading = currentList.entries
+            .asReversed()
+            .any { it is PokemonListEntryUIModel.Loading }
+        if (currentList.hasNext && !isLoading) {
+            _list.update(mapper::addLoadingEntries)
             fetchNextPokemonPage()
-        }
-    }
-
-    private fun addLoadingEntries() {
-        _state.updateIfNormal {
-            // Only add it if its not end (just to be safe) or loading (don't need it twice)
-            if (it.pokemon.last() is PokemonListEntryUIModel.Entry) {
-                it.copy(
-                    pokemon = (it.pokemon + List(NumberOfLoadingEntries) { PokemonListEntryUIModel.Loading })
-                        .toImmutableList()
-                )
-            } else {
-                it
-            }
         }
     }
 
     private fun handleFetchError(error: Throwable) {
         Napier.e("Failed to fetch more pokemon", error)
         // Remove loading items if they exist
-        _state.updateIfNormal { list ->
-            list.copy(
-                pokemon = list.pokemon
-                    .filterNot { it is PokemonListEntryUIModel.Loading }
-                    .toImmutableList()
-            )
-        }
-        _events.setEvent(ShowError(error.toGenericError()))
+        _list.update { mapper.addErrorEntry(it, error) }
     }
 
-    companion object {
-
-        private const val NumberOfLoadingEntries = 5
-    }
+    fun onPokemon(entry: PokemonListEntryUIModel.Entry) = _events.setEvent(OpenPokemonDetails(entry.id))
 }

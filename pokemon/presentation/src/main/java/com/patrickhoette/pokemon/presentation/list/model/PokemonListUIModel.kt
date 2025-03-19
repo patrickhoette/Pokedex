@@ -6,5 +6,5 @@ import kotlinx.collections.immutable.ImmutableList
 @Immutable
 data class PokemonListUIModel(
     val hasNext: Boolean,
-    val pokemon: ImmutableList<PokemonListEntryUIModel>,
+    val entries: ImmutableList<PokemonListEntryUIModel>,
 )

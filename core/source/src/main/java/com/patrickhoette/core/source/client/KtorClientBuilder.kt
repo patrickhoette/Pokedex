@@ -26,6 +26,7 @@ class KtorClientBuilder(
     private val buildOptions: BuildOptions,
     private val logger: Logger,
     private val json: Json,
+    private val inspectionHandler: InspectionHandler,
 ) {
 
     fun createClient() = HttpClient(CIO) {
@@ -55,5 +56,7 @@ class KtorClientBuilder(
         install(ContentNegotiation) {
             json(json)
         }
+
+        inspectionHandler.installInspection(this)
     }
 }

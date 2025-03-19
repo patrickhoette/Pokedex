@@ -2,9 +2,7 @@ package com.patrickhoette.core.ui.theme.definition
 
 import androidx.compose.runtime.Immutable
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.graphics.Color.Companion.Black
-import androidx.compose.ui.graphics.Color.Companion.White
-import com.patrickhoette.core.ui.theme.entity.VariantColor
+import com.patrickhoette.core.ui.theme.model.ColorVariations
 import com.patrickhoette.core.ui.theme.model.ThemeTypeColors
 import com.patrickhoette.pokedex.entity.generic.Type
 import com.patrickhoette.pokedex.entity.generic.Type.*
@@ -13,157 +11,119 @@ import com.patrickhoette.pokedex.entity.generic.Type.*
 object LightThemeTypeColors : ThemeTypeColors {
 
     override operator fun get(type: Type) = when (type) {
-        Normal -> VariantColor(
-            light = Color(0xFFD4D4A3),
-            onLight = Black,
+        Normal -> ColorVariations(
             base = Color(0xFFA8A77A),
-            onBase = Black,
-            dark = Color(0xFF7C7B56),
-            onDark = Black,
+            onBase = Color.White,
+            container = Color(0xFFE6E5D1),
+            onContainer = Color(0xFF434326),
         )
-        Fire -> VariantColor(
-            light = Color(0xFFFFAA5C),
-            onLight = Black,
+        Fire -> ColorVariations(
             base = Color(0xFFEE8130),
-            onBase = Black,
-            dark = Color(0xFF773810),
-            onDark = Black,
+            onBase = Color.White,
+            container = Color(0xFFFFDBB3),
+            onContainer = Color(0xFF5A1B00),
         )
-        Water -> VariantColor(
-            light = Color(0xFF8FB2FF),
-            onLight = Black,
+        Water -> ColorVariations(
             base = Color(0xFF6390F0),
-            onBase = Black,
-            dark = Color(0xFF3E5EB8),
-            onDark = White,
+            onBase = Color.White,
+            container = Color(0xFFC8DAFF),
+            onContainer = Color(0xFF002C71),
         )
-        Grass -> VariantColor(
-            light = Color(0xFFA7E078),
-            onLight = Black,
+        Grass -> ColorVariations(
             base = Color(0xFF7AC74C),
-            onBase = Black,
-            dark = Color(0xFF4F8E30),
-            onDark = Black,
+            onBase = Color.White,
+            container = Color(0xFFCFF4B2),
+            onContainer = Color(0xFF184D00),
         )
-        Electric -> VariantColor(
-            light = Color(0xFFFFEB70),
-            onLight = Black,
+        Electric -> ColorVariations(
             base = Color(0xFFF7D02C),
-            onBase = Black,
-            dark = Color(0xFFC0A51E),
-            onDark = Black,
+            onBase = Color(0xFF5A4300),
+            container = Color(0xFFFFF5C2),
+            onContainer = Color(0xFF332200),
         )
-        Ice -> VariantColor(
-            light = Color(0xFFC6F2F1),
-            onLight = Black,
+        Ice -> ColorVariations(
             base = Color(0xFF96D9D6),
-            onBase = Black,
-            dark = Color(0xFF5DAAA8),
-            onDark = Black,
+            onBase = Color(0xFF003F3E),
+            container = Color(0xFFD3F8F7),
+            onContainer = Color(0xFF004444),
         )
-        Fighting -> VariantColor(
-            light = Color(0xFFE86059),
-            onLight = Black,
+        Fighting -> ColorVariations(
             base = Color(0xFFC22E28),
-            onBase = White,
-            dark = Color(0xFF8A1F1B),
-            onDark = White,
+            onBase = Color.White,
+            container = Color(0xFFF8B2AC),
+            onContainer = Color(0xFF5A0000),
         )
-        Poison -> VariantColor(
-            light = Color(0xFFC26BC0),
-            onLight = Black,
-            base = Color(0xFFA33EA1),
-            onBase = White,
-            dark = Color(0xFF722978),
-            onDark = White,
+        Poison -> ColorVariations(
+            base = Color(0xFFA33AE1),
+            onBase = Color.White,
+            container = Color(0xFFE5C6E5),
+            onContainer = Color(0xFF4D004D),
         )
-        Ground -> VariantColor(
-            light = Color(0xFFF3D998),
-            onLight = Black,
+        Ground -> ColorVariations(
             base = Color(0xFFE2BF65),
-            onBase = Black,
-            dark = Color(0xFFAF8A4A),
-            onDark = Black,
+            onBase = Color(0xFF4A3600),
+            container = Color(0xFFFBEEC5),
+            onContainer = Color(0xFF2D2000),
         )
-        Flying -> VariantColor(
-            light = Color(0xFFC9B6FF),
-            onLight = Black,
+        Flying -> ColorVariations(
             base = Color(0xFFA98FF3),
-            onBase = Black,
-            dark = Color(0xFF7964BB),
-            onDark = White,
+            onBase = Color.White,
+            container = Color(0xFFE3DAFF),
+            onContainer = Color(0xFF3D268C),
         )
-        Psychic -> VariantColor(
-            light = Color(0xFFFF86AF),
-            onLight = Black,
+        Psychic -> ColorVariations(
             base = Color(0xFFF95587),
-            onBase = Black,
-            dark = Color(0xFFC32E5C),
-            onDark = White,
+            onBase = Color.White,
+            container = Color(0xFFFFB8CE),
+            onContainer = Color(0xFF630028),
         )
-        Bug -> VariantColor(
-            light = Color(0xFFC7D848),
-            onLight = Black,
+        Bug -> ColorVariations(
             base = Color(0xFFA6B91A),
-            onBase = Black,
-            dark = Color(0xFF73810D),
-            onDark = Black,
+            onBase = Color(0xFF3A4800),
+            container = Color(0xFFE7F4A2),
+            onContainer = Color(0xFF223300),
         )
-        Rock -> VariantColor(
-            light = Color(0xFFD5C46A),
-            onLight = Black,
+        Rock -> ColorVariations(
             base = Color(0xFFB6A136),
-            onBase = Black,
-            dark = Color(0xFF807224),
-            onDark = White,
+            onBase = Color(0xFF3D2E00),
+            container = Color(0xFFF2E3B2),
+            onContainer = Color(0xFF251C00),
         )
-        Ghost -> VariantColor(
-            light = Color(0xFF9C79C2),
-            onLight = Black,
+        Ghost -> ColorVariations(
             base = Color(0xFF735797),
-            onBase = White,
-            dark = Color(0xFF513B6D),
-            onDark = White,
+            onBase = Color.White,
+            container = Color(0xFFD6C9E7),
+            onContainer = Color(0xFF3D2856),
         )
-        Dragon -> VariantColor(
-            light = Color(0xFF9A6BFF),
-            onLight = Black,
+        Dragon -> ColorVariations(
             base = Color(0xFF6F35FC),
-            onBase = White,
-            dark = Color(0xFF4A24B2),
-            onDark = White,
+            onBase = Color.White,
+            container = Color(0xFFC7B2FF),
+            onContainer = Color(0xFF310084),
         )
-        Dark -> VariantColor(
-            light = Color(0xFFA0A0A0),
-            onLight = Black,
+        Dark -> ColorVariations(
             base = Color(0xFF707070),
-            onBase = White,
-            dark = Color(0xFF505050),
-            onDark = White,
+            onBase = Color.White,
+            container = Color(0xFFC3C3C3),
+            onContainer = Color(0xFF2E2E2E),
         )
-        Steel -> VariantColor(
-            light = Color(0xFFD2D2E6),
-            onLight = Black,
+        Steel -> ColorVariations(
             base = Color(0xFFB7B7CE),
-            onBase = Black,
-            dark = Color(0xFF83839A),
-            onDark = Black,
+            onBase = Color(0xFF33334D),
+            container = Color(0xFFE6E6F2),
+            onContainer = Color(0xFF1E1E30),
         )
-        Fairy -> VariantColor(
-            light = Color(0xFFF0AFCB),
-            onLight = Black,
+        Fairy -> ColorVariations(
             base = Color(0xFFD685AD),
-            onBase = Black,
-            dark = Color(0xFFA55F80),
-            onDark = Black,
+            onBase = Color(0xFF4D002A),
+            container = Color(0xFFF9DCE7),
+            onContainer = Color(0xFF33001D),
         )
-        Unknown -> VariantColor(
-            light = Color(0xFFCCCCCC),
-            onLight = Black,
-            base = Color(0xFF888888),
-            onBase = Black,
-            dark = Color(0xFF555555),
-            onDark = White,
+        Unknown -> ColorVariations(
+            base = Color(0xFF808080),
+            onBase = Color.White,
+            container = Color(0xFFD3D3D3),
+            onContainer = Color(0xFF303030),
         )
     }
 }
@@ -172,157 +132,119 @@ object LightThemeTypeColors : ThemeTypeColors {
 object DarkThemeTypeColors : ThemeTypeColors {
 
     override operator fun get(type: Type) = when (type) {
-        Normal -> VariantColor(
-            light = Color(0xFFD4D4A3),
-            onLight = Black,
-            base = Color(0xFFA8A77A),
-            onBase = Black,
-            dark = Color(0xFF5A593F),
-            onDark = White
+        Normal -> ColorVariations(
+            base = Color(0xFFD4D4A3),
+            onBase = Color(0xFF434326),
+            container = Color(0xFFA8A77A),
+            onContainer = Color(0xFF1E1E10),
         )
-        Fire -> VariantColor(
-            light = Color(0xFFFFB873),
-            onLight = Black,
-            base = Color(0xFFEE8130),
-            onBase = Black,
-            dark = Color(0xFF773810),
-            onDark = White,
+        Fire -> ColorVariations(
+            base = Color(0xFFFF9D56),
+            onBase = Color(0xFF5A1B00),
+            container = Color(0xFFEE8130),
+            onContainer = Color(0xFF2E0F00),
         )
-        Water -> VariantColor(
-            light = Color(0xFFA3C3FF),
-            onLight = Black,
-            base = Color(0xFF6390F0),
-            onBase = Black,
-            dark = Color(0xFF243F77),
-            onDark = White,
+        Water -> ColorVariations(
+            base = Color(0xFF8FB2FF),
+            onBase = Color(0xFF002C71),
+            container = Color(0xFF6390F0),
+            onContainer = Color(0xFF001A44),
         )
-        Grass -> VariantColor(
-            light = Color(0xFFA7E078),
-            onLight = Black,
-            base = Color(0xFF7AC74C),
-            onBase = Black,
-            dark = Color(0xFF29531B),
-            onDark = White,
+        Grass -> ColorVariations(
+            base = Color(0xFFA7E078),
+            onBase = Color(0xFF184D00),
+            container = Color(0xFF7AC74C),
+            onContainer = Color(0xFF0D2900),
         )
-        Electric -> VariantColor(
-            light = Color(0xFFFFF380),
-            onLight = Black,
-            base = Color(0xFFF7D02C),
-            onBase = Black,
-            dark = Color(0xFF756107),
-            onDark = White,
+        Electric -> ColorVariations(
+            base = Color(0xFFFFF380),
+            onBase = Color(0xFF332200),
+            container = Color(0xFFF7D02C),
+            onContainer = Color(0xFF1A1100),
         )
-        Ice -> VariantColor(
-            light = Color(0xFFD7FFFF),
-            onLight = Black,
-            base = Color(0xFF96D9D6),
-            onBase = Black,
-            dark = Color(0xFF2A6160),
-            onDark = White,
+        Ice -> ColorVariations(
+            base = Color(0xFFC6F2F1),
+            onBase = Color(0xFF004444),
+            container = Color(0xFF96D9D6),
+            onContainer = Color(0xFF002A2A),
         )
-        Fighting -> VariantColor(
-            light = Color(0xFFF0706A),
-            onLight = Black,
-            base = Color(0xFFC22E28),
-            onBase = White,
-            dark = Color(0xFF530F0D),
-            onDark = White,
+        Fighting -> ColorVariations(
+            base = Color(0xFFE86059),
+            onBase = Color(0xFF5A0000),
+            container = Color(0xFFC22E28),
+            onContainer = Color(0xFF2E0000),
         )
-        Poison -> VariantColor(
-            light = Color(0xFFD88FDF),
-            onLight = Black,
-            base = Color(0xFFA33EA1),
-            onBase = White,
-            dark = Color(0xFF3E1241),
-            onDark = White,
+        Poison -> ColorVariations(
+            base = Color(0xFFC26BC0),
+            onBase = Color(0xFF4D004D),
+            container = Color(0xFFA33EA1),
+            onContainer = Color(0xFF290029),
         )
-        Ground -> VariantColor(
-            light = Color(0xFFFBE3A0),
-            onLight = Black,
-            base = Color(0xFFE2BF65),
-            onBase = Black,
-            dark = Color(0xFF6D541F),
-            onDark = White,
+        Ground -> ColorVariations(
+            base = Color(0xFFF3D998),
+            onBase = Color(0xFF2D2000),
+            container = Color(0xFFE2BF65),
+            onContainer = Color(0xFF1A1100),
         )
-        Flying -> VariantColor(
-            light = Color(0xFFD8C7FF),
-            onLight = Black,
-            base = Color(0xFFA98FF3),
-            onBase = Black,
-            dark = Color(0xFF3E2F77),
-            onDark = White,
+        Flying -> ColorVariations(
+            base = Color(0xFFC9B6FF),
+            onBase = Color(0xFF3D268C),
+            container = Color(0xFFA98FF3),
+            onContainer = Color(0xFF24135A),
         )
-        Psychic -> VariantColor(
-            light = Color(0xFFFFB2CF),
-            onLight = Black,
-            base = Color(0xFFF95587),
-            onBase = Black,
-            dark = Color(0xFF6A1A30),
-            onDark = White,
+        Psychic -> ColorVariations(
+            base = Color(0xFFFF86AF),
+            onBase = Color(0xFF640028),
+            container = Color(0xFFF95587),
+            onContainer = Color(0xFF330014),
         )
-        Bug -> VariantColor(
-            light = Color(0xFFD4F06D),
-            onLight = Black,
-            base = Color(0xFFA6B91A),
-            onBase = Black,
-            dark = Color(0xFF384003),
-            onDark = White,
+        Bug -> ColorVariations(
+            base = Color(0xFFC7D848),
+            onBase = Color(0xFF223300),
+            container = Color(0xFFA6B91A),
+            onContainer = Color(0xFF101A00),
         )
-        Rock -> VariantColor(
-            light = Color(0xFFE0D58D),
-            onLight = Black,
-            base = Color(0xFFB6A136),
-            onBase = Black,
-            dark = Color(0xFF3E3A11),
-            onDark = White,
+        Rock -> ColorVariations(
+            base = Color(0xFFD5C46A),
+            onBase = Color(0xFF251C00),
+            container = Color(0xFFB6A136),
+            onContainer = Color(0xFF120E00),
         )
-        Ghost -> VariantColor(
-            light = Color(0xFFBEA4E4),
-            onLight = Black,
-            base = Color(0xFF735797),
-            onBase = White,
-            dark = Color(0xFF281B3C),
-            onDark = White,
+        Ghost -> ColorVariations(
+            base = Color(0xFF9C79C2),
+            onBase = Color(0xFF3D2856),
+            container = Color(0xFF735797),
+            onContainer = Color(0xFF1E142B),
         )
-        Dragon -> VariantColor(
-            light = Color(0xFFC3A8FF),
-            onLight = Black,
-            base = Color(0xFF6F35FC),
-            onBase = White,
-            dark = Color(0xFF2C0973),
-            onDark = White,
+        Dragon -> ColorVariations(
+            base = Color(0xFF9A6BFF),
+            onBase = Color(0xFF31008A),
+            container = Color(0xFF6F35FC),
+            onContainer = Color(0xFF1A004D),
         )
-        Dark -> VariantColor(
-            light = Color(0xFFB0B0B0),
-            onLight = Black,
-            base = Color(0xFF707070),
-            onBase = White,
-            dark = Color(0xFF303030),
-            onDark = White,
+        Dark -> ColorVariations(
+            base = Color(0xFFA0A0A0),
+            onBase = Color(0xFF2E2E2E),
+            container = Color(0xFF707070),
+            onContainer = Color(0xFF1A1A1A),
         )
-        Steel -> VariantColor(
-            light = Color(0xFFE2E2F4),
-            onLight = Black,
-            base = Color(0xFFB7B7CE),
-            onBase = Black,
-            dark = Color(0xFF40405A),
-            onDark = White,
+        Steel -> ColorVariations(
+            base = Color(0xFFD2D2E6),
+            onBase = Color(0xFF1E1E30),
+            container = Color(0xFFB7B7CE),
+            onContainer = Color(0xFF101018),
         )
-        Fairy -> VariantColor(
-            light = Color(0xFFF8D1E1),
-            onLight = Black,
-            base = Color(0xFFD685AD),
-            onBase = Black,
-            dark = Color(0xFF531F38),
-            onDark = White,
+        Fairy -> ColorVariations(
+            base = Color(0xFFF0AFCB),
+            onBase = Color(0xFF33001D),
+            container = Color(0xFFD685AD),
+            onContainer = Color(0xFF1A000F),
         )
-        Unknown -> VariantColor(
-            light = Color(0xFFDDDDDD),
-            onLight = Black,
-            base = Color(0xFF888888),
-            onBase = Black,
-            dark = Color(0xFF333333),
-            onDark = White,
+        Unknown -> ColorVariations(
+            base = Color(0xFFA0A0A0),
+            onBase = Color(0xFF1E1E1E),
+            container = Color(0xFF505050),
+            onContainer = Color(0xFFFAFAFA),
         )
     }
 }

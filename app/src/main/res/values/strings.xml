@@ -1,3 +1,10 @@
 <resources>
     <string name="app_name">Pokedex</string>
+
+    <!-- Main Screen -->
+    <string name="main_nav_item_debug">Debug</string>
+    <string name="main_nav_item_pokemon">Pokémon</string>
+
+    <!-- Debug Screen -->
+    <string name="debug_title">Debug Menu</string>
 </resources>

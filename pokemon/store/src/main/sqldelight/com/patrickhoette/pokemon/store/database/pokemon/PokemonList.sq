@@ -3,6 +3,10 @@ CREATE TABLE IF NOT EXISTS pokemon_list (
     maxPokemonCount INTEGER
 );
 
+deleteAll:
+DELETE
+FROM pokemon_list;
+
 insert:
 INSERT OR REPLACE
 INTO pokemon_list (maxPokemonCount)

@@ -16,5 +16,5 @@ data class PokemonListResponse(
     val previous: String?,
 
     @SerialName("results")
-    val results: Map<Int, PokemonListEntryResponse>,
+    val results: List<PokemonListEntryResponse>,
 )

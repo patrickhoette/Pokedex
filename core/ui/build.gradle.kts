@@ -22,6 +22,7 @@ dependencies {
 
     // Internal
     implementation(project(":entity"))
+    implementation(project(":core:presentation"))
 
     // Compose
     implementation(platform(libs.compose.bom))
@@ -49,4 +50,18 @@ dependencies {
 
     // Immutable Collections
     implementation(libs.kotlin.collections.immutable)
+
+    // CoilKt
+    implementation(libs.coil)
+    implementation(libs.coil.compose)
+    implementation(libs.coil.network)
+
+    // Shimmer
+    implementation(libs.shimmer)
+
+    // Logging
+    implementation(libs.napier)
+
+    // Squircle
+    implementation(libs.squircle)
 }

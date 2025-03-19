@@ -3,12 +3,14 @@ package com.patrickhoette.pokedex.app.di
 import com.patrickhoette.core.data.di.CoreDataModule
 import com.patrickhoette.core.domain.di.CoreDomainModule
 import com.patrickhoette.core.presentation.di.CorePresentationModule
+import com.patrickhoette.core.source.client.InspectionHandler
 import com.patrickhoette.core.source.di.CoreSourceModule
 import com.patrickhoette.core.store.di.CoreStoreModule
 import com.patrickhoette.core.ui.di.CoreUIModule
 import com.patrickhoette.core.utils.coroutine.DispatcherProvider
 import com.patrickhoette.pokedex.app.BuildConfig
 import com.patrickhoette.pokedex.app.coroutine.DefaultDispatcherProvider
+import com.patrickhoette.pokedex.app.network.InspektifyHandler
 import com.patrickhoette.pokedex.entity.project.BuildOptions
 import com.patrickhoette.pokemon.data.di.PokemonDataModule
 import com.patrickhoette.pokemon.domain.di.PokemonDomainModule
@@ -49,4 +51,7 @@ class AppModule {
 
     @Factory(binds = [DispatcherProvider::class])
     fun provideDispatcherProvider() = DefaultDispatcherProvider
+
+    @Factory(binds = [InspectionHandler::class])
+    fun provideInspectionHandler() = InspektifyHandler()
 }

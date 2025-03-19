@@ -5,7 +5,7 @@ import androidx.compose.runtime.staticCompositionLocalOf
 import androidx.compose.ui.graphics.Color
 import com.patrickhoette.core.ui.theme.definition.ColorSchemes
 
-val LocalThemeColors = staticCompositionLocalOf { ColorSchemes.light }
+val LocalThemeColors = staticCompositionLocalOf { ColorSchemes.Light }
 
 @Immutable
 data class ThemeColors(
@@ -17,6 +17,7 @@ data class ThemeColors(
     val success: ColorVariations,
     val warning: ColorVariations,
     val info: ColorVariations,
+    val shimmer: ColorShimmer,
     val outline: Color,
 )
 
@@ -36,4 +37,10 @@ data class ColorBackground(
     val onSurface: Color,
     val surfaceVariant: Color,
     val onSurfaceVariant: Color,
+)
+
+@Immutable
+data class ColorShimmer(
+    val background: Color,
+    val foreground: Color,
 )

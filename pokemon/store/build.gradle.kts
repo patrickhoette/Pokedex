@@ -55,6 +55,9 @@ dependencies {
     // Atomic
     implementation(libs.atomicfu)
 
+    // Logging
+    implementation(libs.napier)
+
     // Test
     testImplementation(project(":test"))
 }

@@ -4,6 +4,7 @@ plugins {
     alias(libs.plugins.kotlin.compose)
     alias(libs.plugins.ksp)
     alias(libs.plugins.sqldelight)
+    alias(libs.plugins.kotlin.serialization)
 }
 
 android {
@@ -25,6 +26,9 @@ android {
         release {
             isMinifyEnabled = true
             proguardFiles(getDefaultProguardFile("proguard-android-optimize.txt"), "proguard-rules.pro")
+        }
+        debug {
+            applicationIdSuffix = ".debug"
         }
     }
 
@@ -77,6 +81,10 @@ dependencies {
     implementation(libs.compose.ui.tooling.preview)
     implementation(libs.compose.material3)
     implementation(libs.compose.material3.navigation)
+    implementation(libs.compose.adaptive)
+    implementation(libs.compose.adaptive.layout)
+    implementation(libs.compose.adaptive.navigation)
+    implementation(libs.lifecycle.viewmodel.compose)
     debugImplementation(libs.compose.ui.tooling)
 
     // Koin
@@ -102,4 +110,25 @@ dependencies {
     // SQLDelight
     implementation(libs.sqldelight.coroutines)
     implementation(libs.sqldelight.android)
+
+    // Serialization
+    implementation(libs.kotlin.serialization.json)
+
+    // Immutable Collections
+    implementation(libs.kotlin.collections.immutable)
+
+    // Inspektify
+    debugImplementation(libs.inspektify)
+
+    // Ktor
+    implementation(libs.ktor)
+    implementation(libs.ktor.cio)
+
+    // CoilKt
+    implementation(libs.coil)
+    implementation(libs.coil.compose)
+    implementation(libs.coil.network)
+
+    // Squircle
+    implementation(libs.squircle)
 }

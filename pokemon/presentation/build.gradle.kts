@@ -22,7 +22,7 @@ dependencies {
 
     // Internal
     implementation(project(":entity"))
-    implementation(project(":core:presentation"))
+    api(project(":core:presentation"))
     implementation(project(":core:utils"))
     implementation(project(":pokemon:domain"))
 

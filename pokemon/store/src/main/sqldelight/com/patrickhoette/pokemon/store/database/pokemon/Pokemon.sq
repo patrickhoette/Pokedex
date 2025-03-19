@@ -7,13 +7,16 @@ CREATE TABLE IF NOT EXISTS pokemon (
 selectAllInPages:
 SELECT *
 FROM pokemon
-WHERE id BETWEEN 1 AND (:pageCount * :pageSize)
-ORDER BY id ASC;
+ORDER BY id ASC
+LIMIT :pageCount * :pageSize;
 
 isFullPageInDatabase:
-SELECT COUNT(*) = MIN(:pageSize, maxPokemonCount - :offset)
-FROM pokemon, pokemon_list
-WHERE pokemon.id BETWEEN (:offset + 1) AND (:offset + :pageSize);
+SELECT COUNT(*) = COALESCE(MIN(:pageSize, maxPokemonCount - :offset), :pageSize)
+FROM (
+    SELECT id FROM pokemon
+    ORDER BY id ASC
+    LIMIT :pageSize OFFSET :offset
+), pokemon_list;
 
 insert:
 INSERT OR REPLACE
@@ -22,5 +25,9 @@ VALUES ?;
 
 getOldestUpdated:
 SELECT MIN(lastUpdate)
-FROM pokemon
-WHERE pokemon.id BETWEEN (:offset + 1) AND (:offset + :pageSize);
+FROM (
+    SELECT lastUpdate FROM pokemon
+    ORDER BY id ASC
+    LIMIT :pageSize
+    OFFSET :offset
+);

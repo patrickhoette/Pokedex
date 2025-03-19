@@ -2,12 +2,13 @@ package com.patrickhoette.core.ui.theme.definition
 
 import androidx.compose.ui.graphics.Color
 import com.patrickhoette.core.ui.theme.model.ColorBackground
+import com.patrickhoette.core.ui.theme.model.ColorShimmer
 import com.patrickhoette.core.ui.theme.model.ColorVariations
 import com.patrickhoette.core.ui.theme.model.ThemeColors
 
 object ColorSchemes {
 
-    val light = ThemeColors(
+    val Light = ThemeColors(
         primary = ColorVariations(
             base = Color(0xFFD43E2A),
             onBase = Color.White,
@@ -58,10 +59,14 @@ object ColorSchemes {
             container = Color(0xFF81D4FA),
             onContainer = Color(0xFF002C51),
         ),
+        shimmer = ColorShimmer(
+            background = Color(0xFFBFC1C5),
+            foreground = Color(0xFFF4F5F7),
+        ),
         outline = Color(0xFF7A7D82),
     )
 
-    val dark = ThemeColors(
+    val Dark = ThemeColors(
         primary = ColorVariations(
             base = Color(0xFFFF7665),
             onBase = Color(0xFF5A1B16),
@@ -111,6 +116,10 @@ object ColorSchemes {
             onBase = Color(0xFF002C51),
             container = Color(0xFF0288D1),
             onContainer = Color(0xFF81D4FA),
+        ),
+        shimmer = ColorShimmer(
+            background = Color(0xFF2A2B30),
+            foreground = Color(0xFF4A4D55)
         ),
         outline = Color(0xFF8C8E91),
     )

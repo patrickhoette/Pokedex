@@ -12,7 +12,7 @@ class PokemonListResponseMapper {
     fun mapToPokemonList(response: PokemonListResponse) = PokemonList(
         maxCount = response.count,
         hasNext = !response.next.isNullOrBlank(),
-        pokemon = mapToModels(response.results.values),
+        pokemon = mapToModels(response.results),
     )
 
     private fun mapToModels(responses: Collection<PokemonListEntryResponse>) = responses.map(::mapToPokemon)

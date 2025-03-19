@@ -1,5 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+    <!-- Accessibility Labels -->
+    <string name="accessibility_label_button_state_loading">Loading</string>
+    <string name="accessibility_label_image_error">Failed to load image</string>
+
+    <!-- ShowcaseHubScreen -->
+    <string name="debug_showcase_title">Showcase</string>
+    <string name="debug_playground_title">Playground</string>
+
     <!-- ColorShowcaseScreen -->
     <string name="debug_color_showcase_title">Theme Colors</string>
     <string name="debug_color_showcase_heading_primary">Primary</string>
@@ -13,16 +21,15 @@
     <string name="debug_color_showcase_heading_warning">Warning</string>
     <string name="debug_color_showcase_heading_info">Info</string>
     <string name="debug_color_showcase_heading_outline">Outline</string>
-    <string name="debug_color_showcase_subheading_main">Main</string>
+    <string name="debug_color_showcase_subheading_base">Base</string>
     <string name="debug_color_showcase_subheading_container">Container</string>
     <string name="debug_color_showcase_foreground">Foreground</string>
     <string name="debug_color_showcase_background">Background</string>
 
     <!-- TypeColorShowcaseScreen -->
     <string name="debug_type_color_showcase_title">Type Colors</string>
-    <string name="debug_type_color_showcase_subheading_light">Light</string>
     <string name="debug_type_color_showcase_subheading_base">Base</string>
-    <string name="debug_type_color_showcase_subheading_dark">Dark</string>
+    <string name="debug_type_color_showcase_subheading_container">Container</string>
 
     <!-- TypographyShowcaseScreen -->
     <string name="debug_typography_showcase_title">Typography</string>

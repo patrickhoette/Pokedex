@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Accessibility -->
+    <string name="accessibility_label_scroll_up">Scroll to the top of the list</string>
+
+    <!-- PokemonListScreen -->
+    <string name="pokemon_list_title">Pokémon</string>
+    <string name="pokemon_list_accessibility_open_details">Show details for %s</string>
+    <string name="pokemon_list_accessibility_label_image">Art work for %s</string>
+    <string name="pokemon_list_dex_number">#%s</string>
+    <string name="pokemon_list_end_of_list_title">No more Pokémon!</string>
+    <string name="pokemon_list_end_of_list_body">You\'ve caught them all… for now!</string>
+</resources>

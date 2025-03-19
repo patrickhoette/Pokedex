@@ -1,6 +1,5 @@
 package com.patrickhoette.pokemon.store.list
 
-import app.cash.sqldelight.async.coroutines.awaitAsOne
 import app.cash.sqldelight.async.coroutines.awaitAsOneOrNull
 import app.cash.sqldelight.coroutines.asFlow
 import app.cash.sqldelight.coroutines.mapToList
@@ -10,8 +9,10 @@ import com.patrickhoette.pokedex.entity.pokemon.PokemonList
 import com.patrickhoette.pokemon.data.generic.model.CacheStatus
 import com.patrickhoette.pokemon.data.generic.model.CacheStatus.*
 import com.patrickhoette.pokemon.data.list.PokemonListStore
+import com.patrickhoette.pokemon.store.database.pokemon.Pokemon
 import com.patrickhoette.pokemon.store.database.pokemon.PokemonListQueries
 import com.patrickhoette.pokemon.store.database.pokemon.PokemonQueries
+import io.github.aakira.napier.Napier
 import kotlinx.coroutines.flow.*
 import java.util.Date
 import kotlin.time.Duration.Companion.days
@@ -33,14 +34,16 @@ class DatabasePokemonListStore(
             for (entry in list.pokemon) pokemonQueries.insert(pokemon = mapper.mapToEntry(entry))
         }
         pokemonListQueries.transaction {
+            pokemonListQueries.deleteAll()
             pokemonListQueries.insert(maxCount = list.maxCount.toLong())
         }
     }
 
     override suspend fun getPageStatus(page: Int, pageSize: Int): CacheStatus {
-        val offset = (pageSize * (page - 1)).toLong()
-        val exists = pokemonQueries.isFullPageInDatabase(offset = offset, pageSize = pageSize.toLong()).awaitAsOne()
-        return if (exists) {
+        val offset = (pageSize * (page)).toLong()
+        val exists = pokemonQueries.isFullPageInDatabase(offset = offset, pageSize = pageSize.toLong())
+            .awaitAsOneOrNull()
+        return if (exists == true) {
             val oldestUpdate = pokemonQueries.getOldestUpdated(offset = offset, pageSize = pageSize.toLong())
                 .awaitAsOneOrNull()
                 ?.MIN
@@ -59,16 +62,19 @@ class DatabasePokemonListStore(
         observeMaxCount(),
     ) { entries, maxCount ->
         if (maxCount != null && entries.isNotEmpty()) {
+            Napier.d("!!! pages=$pages, pageSize=$pageSize, count=${pages * pageSize}, maxCount=$maxCount")
             mapper.mapToList(entries = entries, maxCount = maxCount, hasNext = pages * pageSize < maxCount)
         } else {
             null
         }
     }
 
-    private fun observePokemonPage(pages: Int, pageSize: Int) = pokemonQueries
-        .selectAllInPages(pageCount = pages.toLong(), pageSize = pageSize.toLong())
-        .asFlow()
-        .mapToList(dispatchers.Default)
+    private fun observePokemonPage(pages: Int, pageSize: Int): Flow<List<Pokemon>> {
+        return pokemonQueries
+            .selectAllInPages(pageCount = pages.toLong(), pageSize = pageSize.toLong())
+            .asFlow()
+            .mapToList(dispatchers.Default)
+    }
 
     private fun observeMaxCount() = pokemonListQueries.select()
         .asFlow()

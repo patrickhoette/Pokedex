@@ -8,6 +8,8 @@ import com.patrickhoette.pokemon.domain.list.PokemonListRepository
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flatMapLatest
 import kotlinx.coroutines.flow.onStart
+import kotlinx.coroutines.sync.Mutex
+import kotlinx.coroutines.sync.withLock
 import org.koin.core.annotation.Factory
 
 @Factory
@@ -16,11 +18,13 @@ class PersistentPokemonListRepository(
     private val store: PokemonListStore,
 ) : PokemonListRepository {
 
+    private val nextPageMutex = Mutex()
+
     override fun observePokemonList(): Flow<PokemonList?> = store.observeCurrentPage()
         .flatMapLatest { store.observePokemonList(pages = it + 1, pageSize = PageSize) }
         .onStart { checkIfHasAllCurrentPages() }
 
-    override suspend fun fetchNextPokemonPage() {
+    override suspend fun fetchNextPokemonPage() = nextPageMutex.withLock {
         val nextPage = store.currentPage + 1
         val status = store.getPageStatus(page = nextPage, pageSize = PageSize)
         when (status) {
@@ -55,7 +59,7 @@ class PersistentPokemonListRepository(
         val pagesToFetch = mutableListOf<IntRange>()
         var currentRange: IntRange? = null
         for (page in 0..store.currentPage) {
-            val status = store.getPageStatus(page = page + 1, pageSize = PageSize)
+            val status = store.getPageStatus(page = page, pageSize = PageSize)
 
             if (status == Available) continue
 
@@ -80,6 +84,6 @@ class PersistentPokemonListRepository(
 
     companion object {
 
-        private const val PageSize = 20
+        private const val PageSize = 40
     }
 }
