@@ -23,14 +23,14 @@ submodule structure (where applicable):
 
 ## Noteworthy Modules
 
-### :entity
+### `:entity`
 
 This module defines the core data classes used across the application. By isolating them, feature modules can share data
 models without introducing unnecessary dependencies. For example, a `Pokemon` might reference an `Ability`—but this
 setup avoids creating a tight dependency between the two feature modules. Keeping this module lean and independent, also
 improves compilation speed.
 
-### :database
+### `:database`
 
 A module that solely deals with the database schema and queries for it. This has been split off into its own module for
 the same reason as the entity module. The database will need to be to store and retrieve the data from all the entities
@@ -40,36 +40,36 @@ SQLDelight generated code if the SQLDelight plugin is applied to the module. For
 `DatabasePokemonListStore` properly works but if you have the SQLDelight plugin applied to the `:pokemon:store` module
 it would not properly generate and you would have to get rid of the annotation and write the binding manually.
 
-### :app
+### `:app`
 
 This module is incharge of "gluing" the entire application together, therefore it knows about all other modules (well
 except the test modules). For this reason the app module is incharge of putting together all the Koin modules into 1
 graph and handles the navigation graphs, as well as some other small bits of generic code like the debug screens.
 
-### :test
+### `:test`
 
 Utilities for writing unit tests, kotlin only.
 
-### :test-android
+### `:test-android`
 
 Utilities for writing unit tests for android.
 
-### :core
+### `:core`
 
 The core submodules are meant for generic code/utilities that will be used throughout the application. Some of the
 submodules (like the `:core:source` module) are also in charge of setting up certain core libraries for their layer.
 
-#### :core:ui
+#### `:core:ui`
 
 Shared utils and UI components. This module contains all of the shared atoms, molecules, and organisms as well as the
 Compose theme.
 
-#### :core:utils
+#### `:core:utils`
 
 This module is meant for utilities that will be used in multiple layers within the application. This prevents for
 example `:pokemon:data` from needing to know about `:core:domain` just to get access to some utilities.
 
-### :pokemon
+### `:pokemon`
 
 The submodules are the ones needed for the pokemon list and pokemon details screens.
 
