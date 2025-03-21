@@ -3,7 +3,6 @@ plugins {
     alias(libs.plugins.kotlin.android)
     alias(libs.plugins.kotlin.compose)
     alias(libs.plugins.ksp)
-    alias(libs.plugins.sqldelight)
     alias(libs.plugins.kotlin.serialization)
 }
 
@@ -38,21 +37,12 @@ android {
     }
 }
 
-sqldelight {
-    databases {
-        create("Database") {
-            packageName = "com.patrickhoette.pokedex.app.database"
-            generateAsync = true
-            verifyMigrations = true
-
-            dependency(project(":pokemon:store"))
-        }
-    }
-}
-
 dependencies {
 
     // Internal
+    implementation(project(":entity"))
+    implementation(project(":database"))
+
     implementation(project(":core:data"))
     implementation(project(":core:domain"))
     implementation(project(":core:presentation"))
@@ -60,8 +50,6 @@ dependencies {
     implementation(project(":core:store"))
     implementation(project(":core:ui"))
     implementation(project(":core:utils"))
-    
-    implementation(project(":entity"))
 
     implementation(project(":pokemon:data"))
     implementation(project(":pokemon:domain"))
@@ -106,10 +94,6 @@ dependencies {
     // Coroutines
     implementation(libs.coroutines.core)
     implementation(libs.coroutines.android)
-
-    // SQLDelight
-    implementation(libs.sqldelight.coroutines)
-    implementation(libs.sqldelight.android)
 
     // Serialization
     implementation(libs.kotlin.serialization.json)

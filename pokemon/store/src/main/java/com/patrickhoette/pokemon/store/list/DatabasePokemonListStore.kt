@@ -5,18 +5,20 @@ import app.cash.sqldelight.coroutines.asFlow
 import app.cash.sqldelight.coroutines.mapToList
 import app.cash.sqldelight.coroutines.mapToOneOrNull
 import com.patrickhoette.core.utils.coroutine.DispatcherProvider
+import com.patrickhoette.pokedex.database.pokemon.Pokemon
+import com.patrickhoette.pokedex.database.pokemon.PokemonListQueries
+import com.patrickhoette.pokedex.database.pokemon.PokemonQueries
 import com.patrickhoette.pokedex.entity.pokemon.PokemonList
 import com.patrickhoette.pokemon.data.generic.model.CacheStatus
 import com.patrickhoette.pokemon.data.generic.model.CacheStatus.*
 import com.patrickhoette.pokemon.data.list.PokemonListStore
-import com.patrickhoette.pokemon.store.database.pokemon.Pokemon
-import com.patrickhoette.pokemon.store.database.pokemon.PokemonListQueries
-import com.patrickhoette.pokemon.store.database.pokemon.PokemonQueries
 import kotlinx.coroutines.flow.*
+import org.koin.core.annotation.Factory
 import java.util.Date
 import kotlin.time.Duration.Companion.days
 import kotlin.time.Duration.Companion.milliseconds
 
+@Factory
 class DatabasePokemonListStore(
     private val pokemonQueries: PokemonQueries,
     private val pokemonListQueries: PokemonListQueries,

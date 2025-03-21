@@ -21,7 +21,9 @@ dependencies {
 
     // Internal
     implementation(project(":entity"))
+
     implementation(project(":core:ui"))
+
     implementation(project(":pokemon:presentation"))
 
     // Android

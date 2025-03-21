@@ -2,11 +2,11 @@ plugins {
     alias(libs.plugins.android.library)
     alias(libs.plugins.kotlin.android)
     alias(libs.plugins.ksp)
-    alias(libs.plugins.kotlin.serialization)
+    alias(libs.plugins.sqldelight)
 }
 
 android {
-    namespace = "com.patrickhoette.pokemon.source"
+    namespace = "com.patrickhoette.pokedex.database"
     compileSdk = libs.versions.targetSdk.get().toInt()
 
     defaultConfig { minSdk = libs.versions.minSdk.get().toInt() }
@@ -16,14 +16,17 @@ android {
     }
 }
 
+sqldelight {
+    databases {
+        create("Database") {
+            packageName = "com.patrickhoette.pokedex.database"
+            generateAsync = true
+            verifyMigrations = true
+        }
+    }
+}
+
 dependencies {
-
-    // Internal
-    implementation(project(":entity"))
-
-    implementation(project(":core:source"))
-
-    implementation(project(":pokemon:data"))
 
     // Android
     implementation(libs.androidx.core.ktx)
@@ -40,16 +43,7 @@ dependencies {
     // Coroutines
     implementation(libs.coroutines.core)
 
-    // Ktor
-    implementation(libs.ktor)
-    implementation(libs.ktor.cio)
-    implementation(libs.ktor.logging)
-    implementation(libs.ktor.content.negotiation)
-    implementation(libs.ktor.serialization.json)
-
-    // Serialization
-    implementation(libs.kotlin.serialization.json)
-
-    // Test
-    testImplementation(project(":test"))
+    // SQLDelight
+    api(libs.sqldelight.coroutines)
+    api(libs.sqldelight.android)
 }

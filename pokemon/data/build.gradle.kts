@@ -7,6 +7,7 @@ dependencies {
 
     // Internal
     implementation(project(":entity"))
+
     implementation(project(":pokemon:domain"))
 
     // Koin

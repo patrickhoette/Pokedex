@@ -21,8 +21,9 @@ android {
 dependencies {
 
     // Internal
-    implementation(project(":core:utils"))
     implementation(project(":entity"))
+
+    implementation(project(":core:utils"))
 
     // Android
     implementation(libs.androidx.core.ktx)

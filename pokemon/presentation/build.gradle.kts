@@ -22,8 +22,10 @@ dependencies {
 
     // Internal
     implementation(project(":entity"))
+
     api(project(":core:presentation"))
     implementation(project(":core:utils"))
+
     implementation(project(":pokemon:domain"))
 
     // Android

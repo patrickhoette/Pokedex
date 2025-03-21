@@ -22,6 +22,7 @@ dependencies {
 
     // Internal
     implementation(project(":entity"))
+
     implementation(project(":core:presentation"))
 
     // Compose

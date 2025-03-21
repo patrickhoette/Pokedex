@@ -2,9 +2,11 @@ package com.patrickhoette.pokemon.store.list
 
 import com.patrickhoette.pokedex.entity.pokemon.Pokemon
 import com.patrickhoette.pokedex.entity.pokemon.PokemonList
+import org.koin.core.annotation.Factory
 import java.util.Date
-import com.patrickhoette.pokemon.store.database.pokemon.Pokemon as PokemonEntry
+import com.patrickhoette.pokedex.database.pokemon.Pokemon as PokemonEntry
 
+@Factory
 class PokemonListEntryMapper {
 
     fun mapToList(entries: List<PokemonEntry>, maxCount: Long, hasNext: Boolean) = PokemonList(

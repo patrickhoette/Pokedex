@@ -7,8 +7,8 @@ import coil3.ImageLoader
 import coil3.PlatformContext
 import coil3.SingletonImageLoader
 import com.patrickhoette.pokedex.app.di.AppModule
-import com.patrickhoette.pokedex.app.di.DatabaseModule
 import com.patrickhoette.pokedex.app.image.CoilHandler
+import com.patrickhoette.pokedex.database.di.DatabaseModule
 import io.github.aakira.napier.DebugAntilog
 import io.github.aakira.napier.Napier
 import org.koin.android.ext.android.inject

@@ -1,21 +1,15 @@
-package com.patrickhoette.pokedex.app.di
+package com.patrickhoette.pokedex.database.di
 
 import androidx.sqlite.db.SupportSQLiteDatabase
 import app.cash.sqldelight.async.coroutines.synchronous
 import app.cash.sqldelight.db.SqlDriver
 import app.cash.sqldelight.driver.android.AndroidSqliteDriver
-import com.patrickhoette.pokedex.app.database.Database
-import com.patrickhoette.pokemon.data.list.PokemonListStore
-import com.patrickhoette.pokemon.store.list.DatabasePokemonListStore
-import com.patrickhoette.pokemon.store.list.PokemonListEntryMapper
-import org.koin.core.module.dsl.factoryOf
-import org.koin.core.module.dsl.singleOf
+import com.patrickhoette.pokedex.database.Database
 import org.koin.dsl.bind
 import org.koin.dsl.module
 
 val DatabaseModule
     get() = module {
-
         factory { get<Database>().pokemonQueries }
         factory { get<Database>().pokemonListQueries }
 
@@ -33,7 +27,4 @@ val DatabaseModule
                 },
             )
         } bind SqlDriver::class
-
-        singleOf(::DatabasePokemonListStore) bind PokemonListStore::class
-        factoryOf(::PokemonListEntryMapper)
     }
