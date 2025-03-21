@@ -17,5 +17,4 @@ data class PokemonDetails(
     val species: Species,
     val stats: PokemonStats,
     val types: List<Type>,
-
-    )
+)
