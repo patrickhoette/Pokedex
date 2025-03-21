@@ -75,4 +75,4 @@ The submodules are the ones needed for the pokemon list and pokemon details scre
 
 ## Graph
 
-![Graph showing the dependencies between project modules](/docs/resources/module-dependencies-graph.svg)
+![Graph showing the dependencies between project modules](/docs/resources/module-dependencies-graph.png)
