@@ -42,7 +42,7 @@ jobs:
         run: python3 ./setup-gradle.py
 
       - name: 'Build'
-        run: ./gradlew assemble
+        run: ./gradlew assembleRelease
 
       - name: 'Test'
         run: ./gradlew test testReleaseUnitTest

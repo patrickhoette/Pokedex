@@ -1,7 +1,6 @@
 package com.patrickhoette.pokedex.entity.pokemon
 
-data class Pokemon(
-    val id: Int,
+data class Sprite(
     val name: String,
-    val details: PokemonDetails?,
+    val url: String,
 )
