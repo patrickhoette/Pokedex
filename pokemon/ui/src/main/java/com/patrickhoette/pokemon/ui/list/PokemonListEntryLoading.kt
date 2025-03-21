@@ -21,10 +21,16 @@ import com.patrickhoette.core.ui.theme.Theme.colors
 import com.patrickhoette.core.ui.theme.Theme.typography
 import com.patrickhoette.core.ui.theme.definition.Spacing
 import com.patrickhoette.pokemon.ui.R
+import com.valentinilk.shimmer.Shimmer
+import com.valentinilk.shimmer.ShimmerBounds
+import com.valentinilk.shimmer.rememberShimmer
 import com.valentinilk.shimmer.shimmer
 
 @Composable
-fun PokemonListEntryLoading(modifier: Modifier = Modifier) {
+fun PokemonListEntryLoading(
+    shimmer: Shimmer,
+    modifier: Modifier = Modifier,
+) {
     Column(
         modifier = modifier
             .shadow(
@@ -32,7 +38,7 @@ fun PokemonListEntryLoading(modifier: Modifier = Modifier) {
                 shape = AppCardTokens.Shape,
             )
             .background(colors.background.surface)
-            .shimmer(),
+            .shimmer(shimmer),
         horizontalAlignment = Alignment.CenterHorizontally,
     ) {
         Spacer(
@@ -62,6 +68,7 @@ fun PokemonListEntryLoading(modifier: Modifier = Modifier) {
 @PreviewLightDark
 @Composable
 private fun PreviewPokemonListEntryLoading() = AppTheme {
+    val shimmer = rememberShimmer(ShimmerBounds.View)
     LazyVerticalGrid(
         columns = GridCells.Adaptive(minSize = 150.dp),
         modifier = Modifier.background(colors.background.base),
@@ -69,6 +76,6 @@ private fun PreviewPokemonListEntryLoading() = AppTheme {
         verticalArrangement = Arrangement.spacedBy(Spacing.x2),
         horizontalArrangement = Arrangement.spacedBy(Spacing.x2),
     ) {
-        items(10) { PokemonListEntryLoading() }
+        items(10) { PokemonListEntryLoading(shimmer) }
     }
 }

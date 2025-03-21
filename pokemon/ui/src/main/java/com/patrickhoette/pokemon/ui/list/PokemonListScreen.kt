@@ -44,6 +44,8 @@ import com.patrickhoette.pokemon.ui.list.PokemonListScreenTokens.IdBaseEntry
 import com.patrickhoette.pokemon.ui.list.PokemonListScreenTokens.IdBaseError
 import com.patrickhoette.pokemon.ui.list.PokemonListScreenTokens.IdBaseLoading
 import com.patrickhoette.pokemon.ui.list.PokemonListScreenTokens.LoadingRowThreshold
+import com.valentinilk.shimmer.ShimmerBounds
+import com.valentinilk.shimmer.rememberShimmer
 import kotlinx.collections.immutable.toImmutableList
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.flow.distinctUntilChanged
@@ -132,6 +134,7 @@ fun PokemonListScreen(
         derivedStateOf { state.canScrollBackward }
     }
     Box(modifier) {
+        val shimmer = rememberShimmer(ShimmerBounds.View)
         LazyVerticalGrid(
             columns = AdaptiveGridWithMax(minSize = 150.dp, maxColumns = 6),
             modifier = Modifier
@@ -188,7 +191,10 @@ fun PokemonListScreen(
                         cause = item.cause,
                         modifier = animationModifier,
                     )
-                    Loading -> PokemonListEntryLoading(animationModifier)
+                    Loading -> PokemonListEntryLoading(
+                        shimmer = shimmer,
+                        modifier = animationModifier,
+                    )
                 }
             }
         }
