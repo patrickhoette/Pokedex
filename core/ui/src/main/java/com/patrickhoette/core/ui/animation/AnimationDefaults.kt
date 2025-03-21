@@ -13,7 +13,7 @@ import kotlin.time.Duration.Companion.milliseconds
 object AnimationDefaults {
 
     val DefaultEasing = FastOutSlowInEasing
-    val BounceEasing = CubicBezierEasing(0.34F, 2F, 0.64F, 1F)
+    val BounceEasing = EaseOutBack
 
     val Minuscule = 100.milliseconds
     val Tiny = 150.milliseconds
