@@ -91,14 +91,14 @@ val editModuleGraphRendererTask = tasks.register("editModuleGraphRenderer") {
             """
             %%{
               init: {
-                'theme': 'base'
+                'theme': 'dark'
               }
             }%%
             """.trimIndent(),
             """
             %%{
               init: {
-                'theme': 'base',
+                'theme': 'dark',
                 "flowchart": { "defaultRenderer": "elk"}
               }
             }%%

@@ -59,16 +59,20 @@ Utilities for writing unit tests for android.
 The core submodules are meant for generic code/utilities that will be used throughout the application. Some of the
 submodules (like the `:core:source` module) are also in charge of setting up certain core libraries for their layer.
 
-### :core:ui
+#### :core:ui
 
 Shared utils and UI components. This module contains all of the shared atoms, molecules, and organisms as well as the
 Compose theme.
 
-### :core:utils
+#### :core:utils
 
 This module is meant for utilities that will be used in multiple layers within the application. This prevents for
 example `:pokemon:data` from needing to know about `:core:domain` just to get access to some utilities.
 
-## :pokemon
+### :pokemon
 
 The submodules are the ones needed for the pokemon list and pokemon details screens.
+
+## Graph
+
+![Graph showing the dependencies between project modules](/docs/resources/module-dependencies-graph.svg)

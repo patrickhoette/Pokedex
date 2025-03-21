@@ -1,0 +1,546 @@
+<?xml version="1.0" encoding="UTF-8"?><?xml-stylesheet href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css" type="text/css"?>
+<svg style="overflow: hidden; max-width: 100%;" aria-roledescription="flowchart-elk" class="flowchart" height="100%" id="graph-div" role="graphics-document document"
+    width="100%" xmlns="http://www.w3.org/2000/svg">
+    <g style="transform: matrix(0.745783, 0, 0, 0.745783, 12.0348, 114.357);" class="svg-pan-zoom_viewport"
+        id="viewport-20250321171623843"
+        transform="matrix(0.7457825541496277,0,0,0.7457825541496277,12.03478717803955,114.35723114013672)">
+        <style>#graph-div{font-family:"trebuchet ms",verdana,arial,sans-serif;font-size:16px;fill:#ccc;}#graph-div
+            .error-icon{fill:#a44141;}#graph-div .error-text{fill:#ddd;stroke:#ddd;}#graph-div
+            .edge-thickness-normal{stroke-width:1px;}#graph-div .edge-thickness-thick{stroke-width:3.5px;}#graph-div
+            .edge-pattern-solid{stroke-dasharray:0;}#graph-div
+            .edge-thickness-invisible{stroke-width:0;fill:none;}#graph-div
+            .edge-pattern-dashed{stroke-dasharray:3;}#graph-div .edge-pattern-dotted{stroke-dasharray:2;}#graph-div
+            .marker{fill:lightgrey;stroke:lightgrey;}#graph-div .marker.cross{stroke:lightgrey;}#graph-div
+            svg{font-family:"trebuchet ms",verdana,arial,sans-serif;font-size:16px;}#graph-div p{margin:0;}#graph-div
+            .label{font-family:"trebuchet ms",verdana,arial,sans-serif;color:#ccc;}#graph-div .cluster-label
+            text{fill:#F9FFFE;}#graph-div .cluster-label span{color:#F9FFFE;}#graph-div .cluster-label span
+            p{background-color:transparent;}#graph-div .label text,#graph-div span{fill:#ccc;color:#ccc;}#graph-div
+            .node rect,#graph-div .node circle,#graph-div .node ellipse,#graph-div .node polygon,#graph-div .node
+            path{fill:#1f2020;stroke:#ccc;stroke-width:1px;}#graph-div .rough-node .label text,#graph-div .node .label
+            text,#graph-div .image-shape .label,#graph-div .icon-shape .label{text-anchor:middle;}#graph-div .node
+            .katex path{fill:#000;stroke:#000;stroke-width:1px;}#graph-div .rough-node .label,#graph-div .node
+            .label,#graph-div .image-shape .label,#graph-div .icon-shape .label{text-align:center;}#graph-div
+            .node.clickable{cursor:pointer;}#graph-div .root .anchor
+            path{fill:lightgrey!important;stroke-width:0;stroke:lightgrey;}#graph-div
+            .arrowheadPath{fill:lightgrey;}#graph-div .edgePath .path{stroke:lightgrey;stroke-width:2.0px;}#graph-div
+            .flowchart-link{stroke:lightgrey;fill:none;}#graph-div .edgeLabel{background-color:hsl(0, 0%,
+            34.4117647059%);text-align:center;}#graph-div .edgeLabel p{background-color:hsl(0, 0%,
+            34.4117647059%);}#graph-div .edgeLabel rect{opacity:0.5;background-color:hsl(0, 0%,
+            34.4117647059%);fill:hsl(0, 0%, 34.4117647059%);}#graph-div .labelBkg{background-color:rgba(87.75, 87.75,
+            87.75, 0.5);}#graph-div .cluster rect{fill:hsl(180, 1.5873015873%, 28.3529411765%);stroke:rgba(255, 255,
+            255, 0.25);stroke-width:1px;}#graph-div .cluster text{fill:#F9FFFE;}#graph-div .cluster
+            span{color:#F9FFFE;}#graph-div
+            div.mermaidTooltip{position:absolute;text-align:center;max-width:200px;padding:2px;font-family:"trebuchet
+            ms",verdana,arial,sans-serif;font-size:12px;background:hsl(20, 1.5873015873%, 12.3529411765%);border:1px
+            solid rgba(255, 255, 255, 0.25);border-radius:2px;pointer-events:none;z-index:100;}#graph-div
+            .flowchartTitleText{text-anchor:middle;font-size:18px;fill:#ccc;}#graph-div
+            rect.text{fill:none;stroke-width:0;}#graph-div .icon-shape,#graph-div .image-shape{background-color:hsl(0,
+            0%, 34.4117647059%);text-align:center;}#graph-div .icon-shape p,#graph-div .image-shape
+            p{background-color:hsl(0, 0%, 34.4117647059%);padding:2px;}#graph-div .icon-shape rect,#graph-div
+            .image-shape rect{opacity:0.5;background-color:hsl(0, 0%, 34.4117647059%);fill:hsl(0, 0%,
+            34.4117647059%);}#graph-div :root{--mermaid-font-family:"trebuchet ms",verdana,arial,sans-serif;}#graph-div
+            .android-library&gt;*{fill:#3BD482!important;stroke:#fff!important;stroke-width:2px!important;color:#fff!important;}#graph-div
+            .android-library
+            span{fill:#3BD482!important;stroke:#fff!important;stroke-width:2px!important;color:#fff!important;}#graph-div
+            .android-library tspan{fill:#fff!important;}#graph-div .kotlin-jvm&gt;*{fill:#8150FF!important;stroke:#fff!important;stroke-width:2px!important;color:#fff!important;}#graph-div
+            .kotlin-jvm
+            span{fill:#8150FF!important;stroke:#fff!important;stroke-width:2px!important;color:#fff!important;}#graph-div
+            .kotlin-jvm tspan{fill:#fff!important;}
+        </style>
+        <g>
+            <marker class="marker flowchart-elk" id="graph-div_flowchart-elk-pointEnd" markerHeight="8" markerUnits="userSpaceOnUse" markerWidth="8" orient="auto"
+                refX="5" refY="5" viewBox="0 0 10 10">
+                <path style="stroke-width: 1px; stroke-dasharray: 1px, 0px;" class="arrowMarkerPath"
+                    d="M 0 0 L 10 5 L 0 10 z"></path>
+            </marker>
+            <marker class="marker flowchart-elk" id="graph-div_flowchart-elk-pointStart" markerHeight="8" markerUnits="userSpaceOnUse" markerWidth="8" orient="auto"
+                refX="4.5" refY="5" viewBox="0 0 10 10">
+                <path style="stroke-width: 1px; stroke-dasharray: 1px, 0px;" class="arrowMarkerPath"
+                    d="M 0 5 L 10 10 L 10 0 z"></path>
+            </marker>
+            <marker class="marker flowchart-elk" id="graph-div_flowchart-elk-circleEnd" markerHeight="11" markerUnits="userSpaceOnUse" markerWidth="11" orient="auto"
+                refX="11" refY="5" viewBox="0 0 10 10">
+                <circle style="stroke-width: 1px; stroke-dasharray: 1px, 0px;" class="arrowMarkerPath" cx="5" cy="5"
+                    r="5"></circle>
+            </marker>
+            <marker class="marker flowchart-elk" id="graph-div_flowchart-elk-circleStart" markerHeight="11" markerUnits="userSpaceOnUse" markerWidth="11" orient="auto"
+                refX="-1" refY="5" viewBox="0 0 10 10">
+                <circle style="stroke-width: 1px; stroke-dasharray: 1px, 0px;" class="arrowMarkerPath" cx="5" cy="5"
+                    r="5"></circle>
+            </marker>
+            <marker class="marker cross flowchart-elk" id="graph-div_flowchart-elk-crossEnd" markerHeight="11" markerUnits="userSpaceOnUse" markerWidth="11" orient="auto"
+                refX="12" refY="5.2" viewBox="0 0 11 11">
+                <path style="stroke-width: 2px; stroke-dasharray: 1px, 0px;" class="arrowMarkerPath"
+                    d="M 1,1 l 9,9 M 10,1 l -9,9"></path>
+            </marker>
+            <marker class="marker cross flowchart-elk" id="graph-div_flowchart-elk-crossStart" markerHeight="11" markerUnits="userSpaceOnUse" markerWidth="11" orient="auto"
+                refX="-1" refY="5.2" viewBox="0 0 11 11">
+                <path style="stroke-width: 2px; stroke-dasharray: 1px, 0px;" class="arrowMarkerPath"
+                    d="M 1,1 l 9,9 M 10,1 l -9,9"></path>
+            </marker>
+        </g>
+        <g class="subgraphs">
+            <g class="subgraph">
+                <g class="cluster" data-look="classic" id=":pokemon">
+                    <rect style="" height="296" width="514.0166625976562" x="12" y="117.19999999999999"></rect>
+                    <g class="cluster-label" transform="translate(233.60832977294922, 117.19999999999999)">
+                        <foreignObject height="24" width="70.80000305175781">
+                            <div style="display: table-cell; white-space: nowrap; line-height: 1.5; max-width: 200px; text-align: center;"
+                                xmlns="http://www.w3.org/1999/xhtml">
+                                <span class="nodeLabel">
+                                    <p>:pokemon</p>
+                                </span>
+                            </div>
+                        </foreignObject>
+                    </g>
+                </g>
+            </g>
+            <g class="subgraph">
+                <g class="cluster" data-look="classic" id=":core">
+                    <rect style="" height="359" width="432.3833312988281" x="593.5166625976562" y="101"></rect>
+                    <g class="cluster-label" transform="translate(791.0416641235352, 101)">
+                        <foreignObject height="24" width="37.33332824707031">
+                            <div style="display: table-cell; white-space: nowrap; line-height: 1.5; max-width: 200px; text-align: center;"
+                                xmlns="http://www.w3.org/1999/xhtml">
+                                <span class="nodeLabel">
+                                    <p>:core</p>
+                                </span>
+                            </div>
+                        </foreignObject>
+                    </g>
+                </g>
+            </g>
+        </g>
+        <g class="nodes">
+            <g class="node default android-library" id="flowchart-:pokemon:source-7384"
+                transform="translate(77.34166717529297, 360.2)">
+                <rect style="fill:#3BD482 !important;stroke:#fff !important;stroke-width:2px !important" class="basic label-container" height="54" width="106.68333435058594"
+                    x="-53.34166717529297"
+                    y="-27"></rect>
+                <g style="color:#fff !important" class="label" transform="translate(-23.34166717529297, -12)">
+                    <rect></rect>
+                    <foreignObject height="24" width="46.68333435058594">
+                        <div style="color: rgb(255, 255, 255) !important; display: table-cell; white-space: nowrap; line-height: 1.5; max-width: 200px; text-align: center;"
+                            xmlns="http://www.w3.org/1999/xhtml">
+                            <span style="color:#fff !important" class="nodeLabel">
+                                <p>source</p>
+                            </span>
+                        </div>
+                    </foreignObject>
+                </g>
+            </g>
+            <g class="node default kotlin-jvm" id="flowchart-:pokemon:data-7385"
+                transform="translate(286.3055547078451, 342.2)">
+                <rect style="fill:#8150FF !important;stroke:#fff !important;stroke-width:2px !important" class="basic label-container" height="54" width="92.06666564941406"
+                    x="-46.03333282470703"
+                    y="-27"></rect>
+                <g style="color:#fff !important" class="label" transform="translate(-16.03333282470703, -12)">
+                    <rect></rect>
+                    <foreignObject height="24" width="32.06666564941406">
+                        <div style="color: rgb(255, 255, 255) !important; display: table-cell; white-space: nowrap; line-height: 1.5; max-width: 200px; text-align: center;"
+                            xmlns="http://www.w3.org/1999/xhtml">
+                            <span style="color:#fff !important" class="nodeLabel">
+                                <p>data</p>
+                            </span>
+                        </div>
+                    </foreignObject>
+                </g>
+            </g>
+            <g class="node default android-library" id="flowchart-:pokemon:ui-7386"
+                transform="translate(94.0250015258789, 267.2)">
+                <rect style="fill:#3BD482 !important;stroke:#fff !important;stroke-width:2px !important" class="basic label-container" height="54" width="73.31666564941406"
+                    x="-36.65833282470703"
+                    y="-27"></rect>
+                <g style="color:#fff !important" class="label" transform="translate(-6.658332824707031, -12)">
+                    <rect></rect>
+                    <foreignObject height="24" width="13.316665649414062">
+                        <div style="color: rgb(255, 255, 255) !important; display: table-cell; white-space: nowrap; line-height: 1.5; max-width: 200px; text-align: center;"
+                            xmlns="http://www.w3.org/1999/xhtml">
+                            <span style="color:#fff !important" class="nodeLabel">
+                                <p>ui</p>
+                            </span>
+                        </div>
+                    </foreignObject>
+                </g>
+            </g>
+            <g class="node default android-library" id="flowchart-:pokemon:presentation-7387"
+                transform="translate(296.0999984741211, 258.2)">
+                <rect style="fill:#3BD482 !important;stroke:#fff !important;stroke-width:2px !important" class="basic label-container" height="54" width="150.8333282470703"
+                    x="-75.41666412353516"
+                    y="-27"></rect>
+                <g style="color:#fff !important" class="label" transform="translate(-45.416664123535156, -12)">
+                    <rect></rect>
+                    <foreignObject height="24" width="90.83332824707031">
+                        <div style="color: rgb(255, 255, 255) !important; display: table-cell; white-space: nowrap; line-height: 1.5; max-width: 200px; text-align: center;"
+                            xmlns="http://www.w3.org/1999/xhtml">
+                            <span style="color:#fff !important" class="nodeLabel">
+                                <p>presentation</p>
+                            </span>
+                        </div>
+                    </foreignObject>
+                </g>
+            </g>
+            <g class="node default kotlin-jvm" id="flowchart-:pokemon:domain-7388"
+                transform="translate(457.76666259765625, 333.2)">
+                <rect style="fill:#8150FF !important;stroke:#fff !important;stroke-width:2px !important" class="basic label-container" height="54" width="112.5"
+                    x="-56.25"
+                    y="-27"></rect>
+                <g style="color:#fff !important" class="label" transform="translate(-26.25, -12)">
+                    <rect></rect>
+                    <foreignObject height="24" width="52.5">
+                        <div style="color: rgb(255, 255, 255) !important; display: table-cell; white-space: nowrap; line-height: 1.5; max-width: 200px; text-align: center;"
+                            xmlns="http://www.w3.org/1999/xhtml">
+                            <span style="color:#fff !important" class="nodeLabel">
+                                <p>domain</p>
+                            </span>
+                        </div>
+                    </foreignObject>
+                </g>
+            </g>
+            <g class="node default android-library" id="flowchart-:pokemon:store-7389"
+                transform="translate(82.5, 183.2)">
+                <rect style="fill:#3BD482 !important;stroke:#fff !important;stroke-width:2px !important" class="basic label-container" height="54" width="96.36666870117188"
+                    x="-48.18333435058594"
+                    y="-27"></rect>
+                <g style="color:#fff !important" class="label" transform="translate(-18.183334350585938, -12)">
+                    <rect></rect>
+                    <foreignObject height="24" width="36.366668701171875">
+                        <div style="color: rgb(255, 255, 255) !important; display: table-cell; white-space: nowrap; line-height: 1.5; max-width: 200px; text-align: center;"
+                            xmlns="http://www.w3.org/1999/xhtml">
+                            <span style="color:#fff !important" class="nodeLabel">
+                                <p>store</p>
+                            </span>
+                        </div>
+                    </foreignObject>
+                </g>
+            </g>
+            <g class="node default android-library" id="flowchart-:core:source-7379"
+                transform="translate(658.8583297729492, 421)">
+                <rect style="fill:#3BD482 !important;stroke:#fff !important;stroke-width:2px !important" class="basic label-container" height="54" width="106.68333435058594"
+                    x="-53.34166717529297"
+                    y="-27"></rect>
+                <g style="color:#fff !important" class="label" transform="translate(-23.34166717529297, -12)">
+                    <rect></rect>
+                    <foreignObject height="24" width="46.68333435058594">
+                        <div style="color: rgb(255, 255, 255) !important; display: table-cell; white-space: nowrap; line-height: 1.5; max-width: 200px; text-align: center;"
+                            xmlns="http://www.w3.org/1999/xhtml">
+                            <span style="color:#fff !important" class="nodeLabel">
+                                <p>source</p>
+                            </span>
+                        </div>
+                    </foreignObject>
+                </g>
+            </g>
+            <g class="node default android-library" id="flowchart-:core:presentation-7380"
+                transform="translate(817.6166610717773, 252)">
+                <rect style="fill:#3BD482 !important;stroke:#fff !important;stroke-width:2px !important" class="basic label-container" height="54" width="150.8333282470703"
+                    x="-75.41666412353516"
+                    y="-27"></rect>
+                <g style="color:#fff !important" class="label" transform="translate(-45.416664123535156, -12)">
+                    <rect></rect>
+                    <foreignObject height="24" width="90.83332824707031">
+                        <div style="color: rgb(255, 255, 255) !important; display: table-cell; white-space: nowrap; line-height: 1.5; max-width: 200px; text-align: center;"
+                            xmlns="http://www.w3.org/1999/xhtml">
+                            <span style="color:#fff !important" class="nodeLabel">
+                                <p>presentation</p>
+                            </span>
+                        </div>
+                    </foreignObject>
+                </g>
+            </g>
+            <g class="node default kotlin-jvm" id="flowchart-:core:utils-7381"
+                transform="translate(968.4666595458984, 252)">
+                <rect style="fill:#8150FF !important;stroke:#fff !important;stroke-width:2px !important" class="basic label-container" height="54" width="90.86666870117188"
+                    x="-45.43333435058594"
+                    y="-27"></rect>
+                <g style="color:#fff !important" class="label" transform="translate(-15.433334350585938, -12)">
+                    <rect></rect>
+                    <foreignObject height="24" width="30.866668701171875">
+                        <div style="color: rgb(255, 255, 255) !important; display: table-cell; white-space: nowrap; line-height: 1.5; max-width: 200px; text-align: center;"
+                            xmlns="http://www.w3.org/1999/xhtml">
+                            <span style="color:#fff !important" class="nodeLabel">
+                                <p>utils</p>
+                            </span>
+                        </div>
+                    </foreignObject>
+                </g>
+            </g>
+            <g class="node default android-library" id="flowchart-:core:ui-7382"
+                transform="translate(658.8583297729492, 337)">
+                <rect style="fill:#3BD482 !important;stroke:#fff !important;stroke-width:2px !important" class="basic label-container" height="54" width="73.31666564941406"
+                    x="-36.65833282470703"
+                    y="-27"></rect>
+                <g style="color:#fff !important" class="label" transform="translate(-6.658332824707031, -12)">
+                    <rect></rect>
+                    <foreignObject height="24" width="13.316665649414062">
+                        <div style="color: rgb(255, 255, 255) !important; display: table-cell; white-space: nowrap; line-height: 1.5; max-width: 200px; text-align: center;"
+                            xmlns="http://www.w3.org/1999/xhtml">
+                            <span style="color:#fff !important" class="nodeLabel">
+                                <p>ui</p>
+                            </span>
+                        </div>
+                    </foreignObject>
+                </g>
+            </g>
+            <g class="node default android-library" id="flowchart-:core:store-7383"
+                transform="translate(653.6999969482422, 167)">
+                <rect style="fill:#3BD482 !important;stroke:#fff !important;stroke-width:2px !important" class="basic label-container" height="54" width="96.36666870117188"
+                    x="-48.18333435058594"
+                    y="-27"></rect>
+                <g style="color:#fff !important" class="label" transform="translate(-18.183334350585938, -12)">
+                    <rect></rect>
+                    <foreignObject height="24" width="36.366668701171875">
+                        <div style="color: rgb(255, 255, 255) !important; display: table-cell; white-space: nowrap; line-height: 1.5; max-width: 200px; text-align: center;"
+                            xmlns="http://www.w3.org/1999/xhtml">
+                            <span style="color:#fff !important" class="nodeLabel">
+                                <p>store</p>
+                            </span>
+                        </div>
+                    </foreignObject>
+                </g>
+            </g>
+            <g class="node default android-library" id="flowchart-:database-7411"
+                transform="translate(658.7583312988281, 39)">
+                <rect style="fill:#3BD482 !important;stroke:#fff !important;stroke-width:2px !important" class="basic label-container" height="54" width="130.48333740234375"
+                    x="-65.24166870117188"
+                    y="-27"></rect>
+                <g style="color:#fff !important" class="label" transform="translate(-35.241668701171875, -12)">
+                    <rect></rect>
+                    <foreignObject height="24" width="70.48333740234375">
+                        <div style="color: rgb(255, 255, 255) !important; display: table-cell; white-space: nowrap; line-height: 1.5; max-width: 200px; text-align: center;"
+                            xmlns="http://www.w3.org/1999/xhtml">
+                            <span style="color:#fff !important" class="nodeLabel">
+                                <p>:database</p>
+                            </span>
+                        </div>
+                    </foreignObject>
+                </g>
+            </g>
+        </g>
+        <g class="edges edgePaths">
+            <path style="" class="edge-thickness-normal edge-pattern-solid edge-thickness-normal edge-pattern-solid flowchart-link"
+                d="M130.683,369.2L132.35,369.2C134.017,369.2,137.35,369.2,139.488,369.562C141.626,369.924,142.569,370.648,143.402,371.481C144.236,372.314,144.959,373.257,145.321,377.229C145.683,381.2,145.683,388.2,146.045,392.171C146.407,396.143,147.131,397.086,147.964,397.919C148.798,398.752,149.741,399.476,214.017,399.838C278.294,400.2,405.906,400.2,471.794,400.2C537.683,400.2,541.85,400.2,544.405,400.562C546.959,400.924,547.902,401.648,548.736,402.481C549.569,403.314,550.293,404.257,550.655,406.529C551.017,408.8,551.017,412.4,551.379,414.671C551.741,416.943,552.464,417.886,553.298,418.719C554.131,419.552,555.074,420.276,560.545,420.638C566.017,421,576.017,421,583.6,421C591.183,421,596.35,421,598.933,421L601.517,421"
+                id="L_:pokemon:source_:core:source_0_0"
+                marker-end="url(#graph-div_flowchart-elk-pointEnd)"></path>
+            <path style="" class="edge-thickness-normal edge-pattern-solid edge-thickness-normal edge-pattern-solid flowchart-link"
+                d="M130.683,351.2L236.272,351.2"
+                id="L_:pokemon:source_:pokemon:data_1_0" marker-end="url(#graph-div_flowchart-elk-pointEnd)"></path>
+            <path style="" class="edge-thickness-normal edge-pattern-solid edge-thickness-normal edge-pattern-solid flowchart-link"
+                d="M893.033,252L919.033,252"
+                id="L_:core:presentation_:core:utils_2_0" marker-end="url(#graph-div_flowchart-elk-pointEnd)"></path>
+            <path style="" class="edge-thickness-normal edge-pattern-solid edge-thickness-normal edge-pattern-solid flowchart-link"
+                d="M695.517,337L699.964,337C704.411,337,713.306,337,718.224,336.638C723.143,336.276,724.086,335.552,724.919,334.719C725.752,333.886,726.476,332.943,726.838,321.471C727.2,310,727.2,288,727.562,276.529C727.924,265.057,728.648,264.114,729.481,263.281C730.314,262.448,731.257,261.724,732.729,261.362C734.2,261,736.2,261,737.2,261L738.2,261"
+                id="L_:core:ui_:core:presentation_3_0"
+                marker-end="url(#graph-div_flowchart-elk-pointEnd)"></path>
+            <path style="" class="edge-thickness-normal edge-pattern-solid edge-thickness-normal edge-pattern-solid flowchart-link"
+                d="M130.683,276.2L134.85,276.2C139.017,276.2,147.35,276.2,151.988,276.562C156.626,276.924,157.569,277.648,158.402,278.481C159.236,279.314,159.959,280.257,160.321,297.062C160.683,313.867,160.683,346.533,161.045,363.338C161.407,380.143,162.131,381.086,162.964,381.919C163.798,382.752,164.741,383.476,226.517,383.838C288.294,384.2,410.906,384.2,474.294,384.2C537.683,384.2,541.85,384.2,544.405,383.838C546.959,383.476,547.902,382.752,548.736,381.919C549.569,381.086,550.293,380.143,550.655,373.471C551.017,366.8,551.017,354.4,551.379,347.729C551.741,341.057,552.464,340.114,553.298,339.281C554.131,338.448,555.074,337.724,560.545,337.362C566.017,337,576.017,337,586.381,337C596.744,337,607.472,337,612.836,337L618.2,337"
+                id="L_:pokemon:ui_:core:ui_4_0"
+                marker-end="url(#graph-div_flowchart-elk-pointEnd)"></path>
+            <path style="" class="edge-thickness-normal edge-pattern-solid edge-thickness-normal edge-pattern-solid flowchart-link"
+                d="M130.683,258.2L216.683,258.2"
+                id="L_:pokemon:ui_:pokemon:presentation_5_0" marker-end="url(#graph-div_flowchart-elk-pointEnd)"></path>
+            <path style="" class="edge-thickness-normal edge-pattern-solid edge-thickness-normal edge-pattern-solid flowchart-link"
+                d="M371.517,244.7L398.517,244.7C425.517,244.7,479.517,244.7,509.433,244.7C539.35,244.7,545.183,244.7,548.1,244.417C551.017,244.133,551.017,243.567,556.85,243.283C562.683,243,574.35,243,605.547,243C636.744,243,687.472,243,712.836,243L738.2,243"
+                id="L_:pokemon:presentation_:core:presentation_6_0"
+                marker-end="url(#graph-div_flowchart-elk-pointEnd)"></path>
+            <path style="" class="edge-thickness-normal edge-pattern-solid edge-thickness-normal edge-pattern-solid flowchart-link"
+                d="M371.517,258.2L374.017,258.2C376.517,258.2,381.517,258.2,384.017,258.617C386.517,259.033,386.517,259.867,411.017,260.283C435.517,260.7,484.517,260.7,511.1,260.7C537.683,260.7,541.85,260.7,544.405,261.062C546.959,261.424,547.902,262.148,548.736,262.981C549.569,263.814,550.293,264.757,550.655,269.112C551.017,273.467,551.017,281.233,551.379,285.588C551.741,289.943,552.464,290.886,553.298,291.719C554.131,292.552,555.074,293.276,560.545,293.638C566.017,294,576.017,294,633.853,294C691.689,294,797.361,294,850.669,293.638C903.976,293.276,904.919,292.552,905.752,291.719C906.586,290.886,907.309,289.943,907.671,286.388C908.033,282.833,908.033,276.667,908.395,273.112C908.757,269.557,909.481,268.614,910.314,267.781C911.148,266.948,912.091,266.224,913.562,265.862C915.033,265.5,917.033,265.5,918.033,265.5L919.033,265.5"
+                id="L_:pokemon:presentation_:core:utils_7_0"
+                marker-end="url(#graph-div_flowchart-elk-pointEnd)"></path>
+            <path style="" class="edge-thickness-normal edge-pattern-solid edge-thickness-normal edge-pattern-solid flowchart-link"
+                d="M371.517,271.7L373.183,271.7C374.85,271.7,378.183,271.7,380.321,272.062C382.459,272.424,383.402,273.148,384.236,273.981C385.069,274.814,385.793,275.757,386.155,283.312C386.517,290.867,386.517,305.033,386.879,312.588C387.241,320.143,387.964,321.086,388.798,321.919C389.631,322.752,390.574,323.476,392.045,323.838C393.517,324.2,395.517,324.2,396.517,324.2L397.517,324.2"
+                id="L_:pokemon:presentation_:pokemon:domain_8_0"
+                marker-end="url(#graph-div_flowchart-elk-pointEnd)"></path>
+            <path style="" class="edge-thickness-normal edge-pattern-solid edge-thickness-normal edge-pattern-solid flowchart-link"
+                d="M332.339,342.2L397.517,342.2"
+                id="L_:pokemon:data_:pokemon:domain_9_0" marker-end="url(#graph-div_flowchart-elk-pointEnd)"></path>
+            <path style="" class="edge-thickness-normal edge-pattern-solid edge-thickness-normal edge-pattern-solid flowchart-link"
+                d="M130.683,188.6L139.85,188.6C149.017,188.6,167.35,188.6,176.988,188.962C186.626,189.324,187.569,190.048,188.402,190.881C189.236,191.714,189.959,192.657,190.321,193.195C190.683,193.733,190.683,193.867,191.045,194.405C191.407,194.943,192.131,195.886,192.964,196.719C193.798,197.552,194.741,198.276,251.517,198.638C308.294,199,420.906,199,479.294,199C537.683,199,541.85,199,544.405,198.638C546.959,198.276,547.902,197.552,548.736,196.719C549.569,195.886,550.293,194.943,550.655,169.471C551.017,144,551.017,94,551.379,68.529C551.741,43.057,552.464,42.114,553.298,41.281C554.131,40.448,555.074,39.724,561.129,39.362C567.183,39,578.35,39,583.933,39L589.517,39"
+                id="L_:pokemon:store_:database_10_0"
+                marker-end="url(#graph-div_flowchart-elk-pointEnd)"></path>
+            <path style="" class="edge-thickness-normal edge-pattern-solid edge-thickness-normal edge-pattern-solid flowchart-link"
+                d="M130.683,167L197.822,167C264.961,167,399.239,167,475.128,167C551.017,167,568.517,167,579.85,167C591.183,167,596.35,167,598.933,167L601.517,167"
+                id="L_:pokemon:store_:core:store_11_0"
+                marker-end="url(#graph-div_flowchart-elk-pointEnd)"></path>
+            <path style="" class="edge-thickness-normal edge-pattern-solid edge-thickness-normal edge-pattern-solid flowchart-link"
+                d="M130.683,177.8L142.35,177.8C154.017,177.8,177.35,177.8,189.85,177.8C202.35,177.8,204.017,177.8,204.85,178.633C205.683,179.467,205.683,181.133,205.683,181.167C205.683,181.2,205.683,179.6,205.683,179.633C205.683,179.667,205.683,181.333,206.517,182.167C207.35,183,209.017,183,263.656,183C318.294,183,425.906,183,484.711,183C543.517,183,553.517,183,558.988,183.362C564.459,183.724,565.402,184.448,566.236,185.281C567.069,186.114,567.793,187.057,568.155,190.195C568.517,193.333,568.517,198.667,568.879,201.805C569.241,204.943,569.964,205.886,570.798,206.719C571.631,207.552,572.574,208.276,575.129,208.638C577.683,209,581.85,209,636.769,209C691.689,209,797.361,209,850.669,209.362C903.976,209.724,904.919,210.448,905.752,211.281C906.586,212.114,907.309,213.057,907.671,216.779C908.033,220.5,908.033,227,908.395,230.721C908.757,234.443,909.481,235.386,910.314,236.219C911.148,237.052,912.091,237.776,913.562,238.138C915.033,238.5,917.033,238.5,918.033,238.5L919.033,238.5"
+                id="L_:pokemon:store_:core:utils_12_0"
+                marker-end="url(#graph-div_flowchart-elk-pointEnd)"></path>
+            <path style="" class="edge-thickness-normal edge-pattern-solid edge-thickness-normal edge-pattern-solid flowchart-link"
+                d="M130.683,199.4L137.35,199.4C144.017,199.4,157.35,199.4,164.488,199.762C171.626,200.124,172.569,200.848,173.402,201.681C174.236,202.514,174.959,203.457,175.321,224.562C175.683,245.667,175.683,286.933,176.045,308.038C176.407,329.143,177.131,330.086,177.964,330.919C178.798,331.752,179.741,332.476,189.477,332.838C199.213,333.2,217.743,333.2,227.007,333.2L236.272,333.2"
+                id="L_:pokemon:store_:pokemon:data_13_0"
+                marker-end="url(#graph-div_flowchart-elk-pointEnd)"></path>
+        </g>
+        <g class="edgeLabels">
+            <g class="edgeLabel">
+                <g class="label" transform="translate(0, 0)">
+                    <foreignObject height="0" width="0">
+                        <div style="display: table-cell; white-space: nowrap; line-height: 1.5; max-width: 200px; text-align: center;" class="labelBkg"
+                            xmlns="http://www.w3.org/1999/xhtml">
+                            <span class="edgeLabel"></span>
+                        </div>
+                    </foreignObject>
+                </g>
+            </g>
+            <g class="edgeLabel">
+                <g class="label" transform="translate(0, 0)">
+                    <foreignObject height="0" width="0">
+                        <div style="display: table-cell; white-space: nowrap; line-height: 1.5; max-width: 200px; text-align: center;" class="labelBkg"
+                            xmlns="http://www.w3.org/1999/xhtml">
+                            <span class="edgeLabel"></span>
+                        </div>
+                    </foreignObject>
+                </g>
+            </g>
+            <g class="edgeLabel">
+                <g class="label" transform="translate(0, 0)">
+                    <foreignObject height="0" width="0">
+                        <div style="display: table-cell; white-space: nowrap; line-height: 1.5; max-width: 200px; text-align: center;" class="labelBkg"
+                            xmlns="http://www.w3.org/1999/xhtml">
+                            <span class="edgeLabel"></span>
+                        </div>
+                    </foreignObject>
+                </g>
+            </g>
+            <g class="edgeLabel">
+                <g class="label" transform="translate(0, 0)">
+                    <foreignObject height="0" width="0">
+                        <div style="display: table-cell; white-space: nowrap; line-height: 1.5; max-width: 200px; text-align: center;" class="labelBkg"
+                            xmlns="http://www.w3.org/1999/xhtml">
+                            <span class="edgeLabel"></span>
+                        </div>
+                    </foreignObject>
+                </g>
+            </g>
+            <g class="edgeLabel">
+                <g class="label" transform="translate(0, 0)">
+                    <foreignObject height="0" width="0">
+                        <div style="display: table-cell; white-space: nowrap; line-height: 1.5; max-width: 200px; text-align: center;" class="labelBkg"
+                            xmlns="http://www.w3.org/1999/xhtml">
+                            <span class="edgeLabel"></span>
+                        </div>
+                    </foreignObject>
+                </g>
+            </g>
+            <g class="edgeLabel">
+                <g class="label" transform="translate(0, 0)">
+                    <foreignObject height="0" width="0">
+                        <div style="display: table-cell; white-space: nowrap; line-height: 1.5; max-width: 200px; text-align: center;" class="labelBkg"
+                            xmlns="http://www.w3.org/1999/xhtml">
+                            <span class="edgeLabel"></span>
+                        </div>
+                    </foreignObject>
+                </g>
+            </g>
+            <g class="edgeLabel">
+                <g class="label" transform="translate(0, 0)">
+                    <foreignObject height="0" width="0">
+                        <div style="display: table-cell; white-space: nowrap; line-height: 1.5; max-width: 200px; text-align: center;" class="labelBkg"
+                            xmlns="http://www.w3.org/1999/xhtml">
+                            <span class="edgeLabel"></span>
+                        </div>
+                    </foreignObject>
+                </g>
+            </g>
+            <g class="edgeLabel">
+                <g class="label" transform="translate(0, 0)">
+                    <foreignObject height="0" width="0">
+                        <div style="display: table-cell; white-space: nowrap; line-height: 1.5; max-width: 200px; text-align: center;" class="labelBkg"
+                            xmlns="http://www.w3.org/1999/xhtml">
+                            <span class="edgeLabel"></span>
+                        </div>
+                    </foreignObject>
+                </g>
+            </g>
+            <g class="edgeLabel">
+                <g class="label" transform="translate(0, 0)">
+                    <foreignObject height="0" width="0">
+                        <div style="display: table-cell; white-space: nowrap; line-height: 1.5; max-width: 200px; text-align: center;" class="labelBkg"
+                            xmlns="http://www.w3.org/1999/xhtml">
+                            <span class="edgeLabel"></span>
+                        </div>
+                    </foreignObject>
+                </g>
+            </g>
+            <g class="edgeLabel">
+                <g class="label" transform="translate(0, 0)">
+                    <foreignObject height="0" width="0">
+                        <div style="display: table-cell; white-space: nowrap; line-height: 1.5; max-width: 200px; text-align: center;" class="labelBkg"
+                            xmlns="http://www.w3.org/1999/xhtml">
+                            <span class="edgeLabel"></span>
+                        </div>
+                    </foreignObject>
+                </g>
+            </g>
+            <g class="edgeLabel">
+                <g class="label" transform="translate(0, 0)">
+                    <foreignObject height="0" width="0">
+                        <div style="display: table-cell; white-space: nowrap; line-height: 1.5; max-width: 200px; text-align: center;" class="labelBkg"
+                            xmlns="http://www.w3.org/1999/xhtml">
+                            <span class="edgeLabel"></span>
+                        </div>
+                    </foreignObject>
+                </g>
+            </g>
+            <g class="edgeLabel">
+                <g class="label" transform="translate(0, 0)">
+                    <foreignObject height="0" width="0">
+                        <div style="display: table-cell; white-space: nowrap; line-height: 1.5; max-width: 200px; text-align: center;" class="labelBkg"
+                            xmlns="http://www.w3.org/1999/xhtml">
+                            <span class="edgeLabel"></span>
+                        </div>
+                    </foreignObject>
+                </g>
+            </g>
+            <g class="edgeLabel">
+                <g class="label" transform="translate(0, 0)">
+                    <foreignObject height="0" width="0">
+                        <div style="display: table-cell; white-space: nowrap; line-height: 1.5; max-width: 200px; text-align: center;" class="labelBkg"
+                            xmlns="http://www.w3.org/1999/xhtml">
+                            <span class="edgeLabel"></span>
+                        </div>
+                    </foreignObject>
+                </g>
+            </g>
+            <g class="edgeLabel">
+                <g class="label" transform="translate(0, 0)">
+                    <foreignObject height="0" width="0">
+                        <div style="display: table-cell; white-space: nowrap; line-height: 1.5; max-width: 200px; text-align: center;" class="labelBkg"
+                            xmlns="http://www.w3.org/1999/xhtml">
+                            <span class="edgeLabel"></span>
+                        </div>
+                    </foreignObject>
+                </g>
+            </g>
+        </g>
+    </g>
+    <defs>
+        <style id="svg-pan-zoom-controls-styles" type="text/css">.svg-pan-zoom-control { cursor: pointer; fill: black;
+            fill-opacity: 0.333; } .svg-pan-zoom-control:hover { fill-opacity: 0.8; } .svg-pan-zoom-control-background {
+            fill: white; fill-opacity: 0.5; } .svg-pan-zoom-control-background { fill-opacity: 0.8; }
+        </style>
+    </defs>
+    <g class="svg-pan-zoom-control" id="svg-pan-zoom-controls" transform="translate(801 620) scale(0.75)">
+        <g class="svg-pan-zoom-control" id="svg-pan-zoom-zoom-in" transform="translate(30.5 5) scale(0.015)">
+            <rect class="svg-pan-zoom-control-background" height="1400" width="1500" x="0" y="0"></rect>
+            <path
+                class="svg-pan-zoom-control-element"
+                d="M1280 576v128q0 26 -19 45t-45 19h-320v320q0 26 -19 45t-45 19h-128q-26 0 -45 -19t-19 -45v-320h-320q-26 0 -45 -19t-19 -45v-128q0 -26 19 -45t45 -19h320v-320q0 -26 19 -45t45 -19h128q26 0 45 19t19 45v320h320q26 0 45 19t19 45zM1536 1120v-960 q0 -119 -84.5 -203.5t-203.5 -84.5h-960q-119 0 -203.5 84.5t-84.5 203.5v960q0 119 84.5 203.5t203.5 84.5h960q119 0 203.5 -84.5t84.5 -203.5z"></path>
+        </g>
+        <g class="svg-pan-zoom-control" id="svg-pan-zoom-reset-pan-zoom" transform="translate(5 35) scale(0.4)">
+            <rect class="svg-pan-zoom-control-background" height="58" width="182" x="2" y="2"></rect>
+            <path
+                class="svg-pan-zoom-control-element"
+                d="M33.051,20.632c-0.742-0.406-1.854-0.609-3.338-0.609h-7.969v9.281h7.769c1.543,0,2.701-0.188,3.473-0.562c1.365-0.656,2.048-1.953,2.048-3.891C35.032,22.757,34.372,21.351,33.051,20.632z"></path>
+            <path
+                class="svg-pan-zoom-control-element"
+                d="M170.231,0.5H15.847C7.102,0.5,0.5,5.708,0.5,11.84v38.861C0.5,56.833,7.102,61.5,15.847,61.5h154.384c8.745,0,15.269-4.667,15.269-10.798V11.84C185.5,5.708,178.976,0.5,170.231,0.5z M42.837,48.569h-7.969c-0.219-0.766-0.375-1.383-0.469-1.852c-0.188-0.969-0.289-1.961-0.305-2.977l-0.047-3.211c-0.03-2.203-0.41-3.672-1.142-4.406c-0.732-0.734-2.103-1.102-4.113-1.102h-7.05v13.547h-7.055V14.022h16.524c2.361,0.047,4.178,0.344,5.45,0.891c1.272,0.547,2.351,1.352,3.234,2.414c0.731,0.875,1.31,1.844,1.737,2.906s0.64,2.273,0.64,3.633c0,1.641-0.414,3.254-1.242,4.84s-2.195,2.707-4.102,3.363c1.594,0.641,2.723,1.551,3.387,2.73s0.996,2.98,0.996,5.402v2.32c0,1.578,0.063,2.648,0.19,3.211c0.19,0.891,0.635,1.547,1.333,1.969V48.569z M75.579,48.569h-26.18V14.022h25.336v6.117H56.454v7.336h16.781v6H56.454v8.883h19.125V48.569z M104.497,46.331c-2.44,2.086-5.887,3.129-10.34,3.129c-4.548,0-8.125-1.027-10.731-3.082s-3.909-4.879-3.909-8.473h6.891c0.224,1.578,0.662,2.758,1.316,3.539c1.196,1.422,3.246,2.133,6.15,2.133c1.739,0,3.151-0.188,4.236-0.562c2.058-0.719,3.087-2.055,3.087-4.008c0-1.141-0.504-2.023-1.512-2.648c-1.008-0.609-2.607-1.148-4.796-1.617l-3.74-0.82c-3.676-0.812-6.201-1.695-7.576-2.648c-2.328-1.594-3.492-4.086-3.492-7.477c0-3.094,1.139-5.664,3.417-7.711s5.623-3.07,10.036-3.07c3.685,0,6.829,0.965,9.431,2.895c2.602,1.93,3.966,4.73,4.093,8.402h-6.938c-0.128-2.078-1.057-3.555-2.787-4.43c-1.154-0.578-2.587-0.867-4.301-0.867c-1.907,0-3.428,0.375-4.565,1.125c-1.138,0.75-1.706,1.797-1.706,3.141c0,1.234,0.561,2.156,1.682,2.766c0.721,0.406,2.25,0.883,4.589,1.43l6.063,1.43c2.657,0.625,4.648,1.461,5.975,2.508c2.059,1.625,3.089,3.977,3.089,7.055C108.157,41.624,106.937,44.245,104.497,46.331z M139.61,48.569h-26.18V14.022h25.336v6.117h-18.281v7.336h16.781v6h-16.781v8.883h19.125V48.569z M170.337,20.14h-10.336v28.43h-7.266V20.14h-10.383v-6.117h27.984V20.14z"></path>
+        </g>
+        <g class="svg-pan-zoom-control" id="svg-pan-zoom-zoom-out" transform="translate(30.5 70) scale(0.015)">
+            <rect class="svg-pan-zoom-control-background" height="1400" width="1500" x="0" y="0"></rect>
+            <path
+                class="svg-pan-zoom-control-element"
+                d="M1280 576v128q0 26 -19 45t-45 19h-896q-26 0 -45 -19t-19 -45v-128q0 -26 19 -45t45 -19h896q26 0 45 19t19 45zM1536 1120v-960q0 -119 -84.5 -203.5t-203.5 -84.5h-960q-119 0 -203.5 84.5t-84.5 203.5v960q0 119 84.5 203.5t203.5 84.5h960q119 0 203.5 -84.5 t84.5 -203.5z"></path>
+        </g>
+    </g>
+</svg>
