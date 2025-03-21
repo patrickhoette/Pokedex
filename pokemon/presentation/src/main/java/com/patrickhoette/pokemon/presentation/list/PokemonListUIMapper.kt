@@ -7,7 +7,6 @@ import com.patrickhoette.pokedex.entity.pokemon.PokemonList
 import com.patrickhoette.pokemon.presentation.list.model.PokemonListEntryUIModel.*
 import com.patrickhoette.pokemon.presentation.list.model.PokemonListUIModel
 import com.patrickhoette.pokemon.presentation.model.PokemonTypeUIModel
-import io.github.aakira.napier.Napier
 import kotlinx.collections.immutable.toImmutableList
 import org.koin.core.annotation.Factory
 
@@ -24,7 +23,6 @@ class PokemonListUIMapper {
         entries = buildList {
             addAll(model.pokemon.map(::mapToEntry))
             if (!model.hasNext) add(End)
-            Napier.d("!!! hasNext=${model.hasNext}")
         }.toImmutableList(),
     )
 

@@ -24,16 +24,16 @@ class PokemonListResponseMapperTest {
             count = 1304,
             next = "https://pokeapi.co/api/v2/pokemon?offset=20&limit=20",
             previous = null,
-            results = mapOf(
-                0 to PokemonListEntryResponse(
+            results = listOf(
+                PokemonListEntryResponse(
                     name = "bulbasaur",
                     url = "https://pokeapi.co/api/v2/pokemon/1/",
                 ),
-                1 to PokemonListEntryResponse(
+                PokemonListEntryResponse(
                     name = "ivysaur",
                     url = "https://pokeapi.co/api/v2/pokemon/2/",
                 ),
-                2 to PokemonListEntryResponse(
+                PokemonListEntryResponse(
                     name = "venusaur",
                     url = "https://pokeapi.co/api/v2/pokemon/3/",
                 ),
@@ -71,7 +71,7 @@ class PokemonListResponseMapperTest {
             count = 1304,
             next = null,
             previous = null,
-            results = emptyMap(),
+            results = emptyList(),
         )
 
         // When
@@ -92,16 +92,16 @@ class PokemonListResponseMapperTest {
             count = 1304,
             next = "https://pokeapi.co/api/v2/pokemon?offset=20&limit=20",
             previous = null,
-            results = mapOf(
-                0 to PokemonListEntryResponse(
+            results = listOf(
+                PokemonListEntryResponse(
                     name = "bulbasaur",
                     url = "https://pokeapi.co/api/v2/pokemon/1/",
                 ),
-                1 to PokemonListEntryResponse(
+                PokemonListEntryResponse(
                     name = "ivysaur",
                     url = "https://pokeapi.co/api/v2/pokemon",
                 ),
-                2 to PokemonListEntryResponse(
+                PokemonListEntryResponse(
                     name = "venusaur",
                     url = "https://pokeapi.co/api/v2/pokemon/3/",
                 ),
@@ -119,8 +119,8 @@ class PokemonListResponseMapperTest {
             count = 1304,
             next = "https://pokeapi.co/api/v2/pokemon?offset=20&limit=20",
             previous = null,
-            results = mapOf(
-                0 to PokemonListEntryResponse(
+            results = listOf(
+                PokemonListEntryResponse(
                     name = "wigglytuff",
                     url = "https://pokeapi.co/api/v2/pokemon/40/",
                 ),
@@ -141,16 +141,16 @@ class PokemonListResponseMapperTest {
             count = 1304,
             next = "https://pokeapi.co/api/v2/pokemon?offset=20&limit=20",
             previous = null,
-            results = mapOf(
-                0 to PokemonListEntryResponse(
+            results = listOf(
+                PokemonListEntryResponse(
                     name = "bulbasaur",
                     url = "https://pokeapi.co/api/v2/pokemon/1/",
                 ),
-                1 to PokemonListEntryResponse(
+                PokemonListEntryResponse(
                     name = "ivysaur",
                     url = "https://pokeapi.co/api/v2/pokemon//",
                 ),
-                2 to PokemonListEntryResponse(
+                PokemonListEntryResponse(
                     name = "venusaur",
                     url = "https://pokeapi.co/api/v2/pokemon/3/",
                 ),
@@ -168,16 +168,16 @@ class PokemonListResponseMapperTest {
             count = 1304,
             next = "https://pokeapi.co/api/v2/pokemon?offset=20&limit=20",
             previous = null,
-            results = mapOf(
-                0 to PokemonListEntryResponse(
+            results = listOf(
+                PokemonListEntryResponse(
                     name = "bulbasaur",
                     url = "https://pokeapi.co/api/v2/pokemon/1/",
                 ),
-                1 to PokemonListEntryResponse(
+                PokemonListEntryResponse(
                     name = "ivysaur",
                     url = "https://pokeapi.co/api/v2/pokemon/gg/",
                 ),
-                2 to PokemonListEntryResponse(
+                PokemonListEntryResponse(
                     name = "venusaur",
                     url = "https://pokeapi.co/api/v2/pokemon/3/",
                 ),

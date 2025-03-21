@@ -12,7 +12,6 @@ import com.patrickhoette.pokemon.data.list.PokemonListStore
 import com.patrickhoette.pokemon.store.database.pokemon.Pokemon
 import com.patrickhoette.pokemon.store.database.pokemon.PokemonListQueries
 import com.patrickhoette.pokemon.store.database.pokemon.PokemonQueries
-import io.github.aakira.napier.Napier
 import kotlinx.coroutines.flow.*
 import java.util.Date
 import kotlin.time.Duration.Companion.days
@@ -62,7 +61,6 @@ class DatabasePokemonListStore(
         observeMaxCount(),
     ) { entries, maxCount ->
         if (maxCount != null && entries.isNotEmpty()) {
-            Napier.d("!!! pages=$pages, pageSize=$pageSize, count=${pages * pageSize}, maxCount=$maxCount")
             mapper.mapToList(entries = entries, maxCount = maxCount, hasNext = pages * pageSize < maxCount)
         } else {
             null

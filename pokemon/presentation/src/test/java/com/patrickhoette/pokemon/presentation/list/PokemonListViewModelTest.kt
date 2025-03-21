@@ -2,17 +2,19 @@ package com.patrickhoette.pokemon.presentation.list
 
 import app.cash.turbine.test
 import com.patrickhoette.core.presentation.model.GenericError.Unknown
-import com.patrickhoette.core.presentation.model.TypedUIState.*
+import com.patrickhoette.pokedex.entity.generic.Type
 import com.patrickhoette.pokedex.entity.pokemon.PokemonList
 import com.patrickhoette.pokemon.domain.list.FetchNextPokemonPage
 import com.patrickhoette.pokemon.domain.list.ObservePokemonList
 import com.patrickhoette.pokemon.presentation.list.model.PokemonListEntryUIModel
-import com.patrickhoette.pokemon.presentation.list.model.PokemonListEvent.ShowError
+import com.patrickhoette.pokemon.presentation.list.model.PokemonListEvent.OpenPokemonDetails
 import com.patrickhoette.pokemon.presentation.list.model.PokemonListUIModel
+import com.patrickhoette.pokemon.presentation.model.PokemonTypeUIModel.MonoType
 import com.patrickhoette.test.android.ArchComponentsExtension
 import com.patrickhoette.test.assertEquals
 import com.patrickhoette.test.coroutine.TestDispatcherProvider
 import com.patrickhoette.test.model.TestException
+import com.patrickhoette.test.verifyNever
 import io.mockk.*
 import io.mockk.impl.annotations.InjectMockKs
 import io.mockk.impl.annotations.MockK
@@ -25,7 +27,7 @@ import kotlinx.coroutines.test.runTest
 import kotlinx.coroutines.test.setMain
 import org.junit.jupiter.api.AfterEach
 import org.junit.jupiter.api.BeforeEach
-import org.junit.jupiter.api.RepeatedTest
+import org.junit.jupiter.api.Test
 import org.junit.jupiter.api.extension.ExtendWith
 
 @ExtendWith(MockKExtension::class, ArchComponentsExtension::class)
@@ -55,21 +57,31 @@ class PokemonListViewModelTest {
         Dispatchers.resetMain()
     }
 
-    @RepeatedTest(200)
-    fun `When starting to collect state, then state should be loading`() = runTest {
+    @Test
+    fun `When starting to collect state, then state should be loading list`() = runTest {
         // Given
+        val loadingPokemonList = PokemonListUIModel(
+            hasNext = false,
+            entries = persistentListOf(),
+        )
         every { observePokemonList() } returns flowOf()
+        every { mapper.createLoading() } returns loadingPokemonList
 
         // When
         viewModel.list.test {
             // Then
-            awaitItem() assertEquals Loading
+            awaitItem() assertEquals loadingPokemonList
         }
     }
 
-    @RepeatedTest(200)
+    @Test
     fun `When starting to collect state, then observe pokemon list`() = runTest {
         // Given
+        val loadingPokemonList = PokemonListUIModel(
+            hasNext = false,
+            entries = persistentListOf(),
+        )
+        every { mapper.createLoading() } returns loadingPokemonList
         every { observePokemonList() } returns flowOf()
 
         // When
@@ -79,20 +91,30 @@ class PokemonListViewModelTest {
         verify { observePokemonList() }
     }
 
-    @RepeatedTest(200)
+    @Test
     fun `Given observing pokemon list fails, when starting to collect state, then state should be error`() = runTest {
         // Given
+        val loadingPokemonList = PokemonListUIModel(
+            hasNext = false,
+            entries = persistentListOf(),
+        )
+        val errorPokemonList = PokemonListUIModel(
+            hasNext = false,
+            entries = persistentListOf(PokemonListEntryUIModel.Error(Unknown)),
+        )
+        every { mapper.createLoading() } returns loadingPokemonList
+        every { mapper.addErrorEntry(loadingPokemonList, TestException) } returns errorPokemonList
         every { observePokemonList() } throws TestException
 
         // When
         viewModel.list.test {
             // Then
-            awaitItem() assertEquals Error(Unknown)
+            awaitItem() assertEquals errorPokemonList
         }
     }
 
-    @RepeatedTest(200)
-    fun `Given observing pokemon list succeeds, when starting to collect state, then state should be normal with mapped model`() =
+    @Test
+    fun `Given observing pokemon list succeeds, when starting to collect state, then state should be mapped model`() =
         runTest {
             // Given
             val model = PokemonList(
@@ -104,18 +126,23 @@ class PokemonListViewModelTest {
                 hasNext = true,
                 entries = persistentListOf(),
             )
+            val loadingPokemonList = PokemonListUIModel(
+                hasNext = false,
+                entries = persistentListOf(),
+            )
             every { observePokemonList() } returns flowOf(model)
+            every { mapper.createLoading() } returns loadingPokemonList
             every { mapper.mapToUIModel(model) } returns mappedModel
 
             // When
             viewModel.list.test {
                 // Then
-                awaitItem() assertEquals Normal(mappedModel)
+                awaitItem() assertEquals mappedModel
             }
         }
 
-    @RepeatedTest(200)
-    fun `Given last pokemon list item is end, when get more pokemon has been selected, then do not update normal state`() =
+    @Test
+    fun `Given last pokemon list item is loading, when get more pokemon has been selected, then do not add loading entries`() =
         runTest {
             // Given
             val model = PokemonList(
@@ -130,43 +157,16 @@ class PokemonListViewModelTest {
                         id = 1,
                         name = "Bulbasaur",
                         imageUrl = "",
-                    ),
-                    PokemonListEntryUIModel.End,
-                ),
-            )
-            every { observePokemonList() } returns flowOf(model)
-            every { mapper.mapToUIModel(model) } returns mappedModel
-
-            // When
-            viewModel.list.test {
-                skipItems(1)
-                viewModel.onGetMorePokemon()
-
-                // Then
-                expectNoEvents()
-            }
-        }
-
-    @RepeatedTest(200)
-    fun `Given last pokemon list item is loading, when get more pokemon has been selected, then do not update normal state`() =
-        runTest {
-            // Given
-            val model = PokemonList(
-                maxCount = 1304,
-                hasNext = true,
-                pokemon = emptyList(),
-            )
-            val mappedModel = PokemonListUIModel(
-                hasNext = true,
-                entries = persistentListOf(
-                    PokemonListEntryUIModel.Entry(
-                        id = 1,
-                        name = "Bulbasaur",
-                        imageUrl = "",
+                        type = MonoType(Type.Unknown),
                     ),
                     PokemonListEntryUIModel.Loading,
                 ),
             )
+            val loadingPokemonList = PokemonListUIModel(
+                hasNext = true,
+                entries = persistentListOf(PokemonListEntryUIModel.Loading),
+            )
+            every { mapper.createLoading() } returns loadingPokemonList
             every { observePokemonList() } returns flowOf(model)
             every { mapper.mapToUIModel(model) } returns mappedModel
             coEvery { fetchNextPokemonPage() } just awaits
@@ -179,9 +179,10 @@ class PokemonListViewModelTest {
                 // Then
                 expectNoEvents()
             }
+            verifyNever { mapper.addLoadingEntries(any()) }
         }
 
-    @RepeatedTest(200)
+    @Test
     fun `Given list does not have next, when get more pokemon has been selected, then do not update normal state and do not fetch next page`() =
         runTest {
             // Given
@@ -194,6 +195,11 @@ class PokemonListViewModelTest {
                 hasNext = false,
                 entries = persistentListOf(),
             )
+            val loadingPokemonList = PokemonListUIModel(
+                hasNext = false,
+                entries = persistentListOf(),
+            )
+            every { mapper.createLoading() } returns loadingPokemonList
             every { observePokemonList() } returns flowOf(model)
             every { mapper.mapToUIModel(model) } returns mappedModel
 
@@ -207,8 +213,8 @@ class PokemonListViewModelTest {
             }
         }
 
-    @RepeatedTest(200)
-    fun `Given list does have next, when get more pokemon has been selected, then state should be normal with previous pokemon list + 5 loading items`() =
+    @Test
+    fun `Given list does have next, when get more pokemon has been selected, then state should be add loading entries`() =
         runTest {
             // Given
             val model = PokemonList(
@@ -221,25 +227,34 @@ class PokemonListViewModelTest {
                     id = 1,
                     name = "Bulbasaur",
                     imageUrl = "",
+                    type = MonoType(Type.Unknown),
                 ),
                 PokemonListEntryUIModel.Entry(
                     id = 2,
                     name = "Ivysaur",
                     imageUrl = "",
+                    type = MonoType(Type.Unknown),
                 ),
                 PokemonListEntryUIModel.Entry(
                     id = 3,
                     name = "Venusaur",
                     imageUrl = "",
+                    type = MonoType(Type.Unknown),
                 ),
             )
             val mappedModel = PokemonListUIModel(
                 hasNext = true,
                 entries = entries,
             )
+            val loadingPokemonList = PokemonListUIModel(
+                hasNext = true,
+                entries = persistentListOf(PokemonListEntryUIModel.Loading),
+            )
+            every { mapper.createLoading() } returns loadingPokemonList
             every { observePokemonList() } returns flowOf(model)
             every { mapper.mapToUIModel(model) } returns mappedModel
             coEvery { fetchNextPokemonPage() } just awaits
+            every { mapper.addLoadingEntries(mappedModel) } returns loadingPokemonList
 
             // When
             viewModel.list.test {
@@ -247,59 +262,12 @@ class PokemonListViewModelTest {
                 viewModel.onGetMorePokemon()
 
                 // Then
-                awaitItem().normalDataOrNull()?.pokemon assertEquals entries + List(5) {
-                    PokemonListEntryUIModel.Loading
-                }
+                awaitItem() assertEquals loadingPokemonList
             }
         }
 
-    @RepeatedTest(200)
-    fun `Given fetching next page fails, when get more pokemon has been selected, then state should be normal without loading items`() =
-        runTest {
-            // Given
-            val model = PokemonList(
-                maxCount = 1304,
-                hasNext = true,
-                pokemon = emptyList(),
-            )
-            val entries = persistentListOf(
-                PokemonListEntryUIModel.Entry(
-                    id = 1,
-                    name = "Bulbasaur",
-                    imageUrl = "",
-                ),
-                PokemonListEntryUIModel.Entry(
-                    id = 2,
-                    name = "Ivysaur",
-                    imageUrl = "",
-                ),
-                PokemonListEntryUIModel.Entry(
-                    id = 3,
-                    name = "Venusaur",
-                    imageUrl = "",
-                ),
-            )
-            val mappedModel = PokemonListUIModel(
-                hasNext = true,
-                entries = entries,
-            )
-            every { observePokemonList() } returns flowOf(model)
-            every { mapper.mapToUIModel(model) } returns mappedModel
-            coEvery { fetchNextPokemonPage() } throws TestException
-
-            // When
-            viewModel.list.test {
-                skipItems(1)
-                viewModel.onGetMorePokemon()
-                skipItems(1)
-
-                // Then
-                awaitItem().normalDataOrNull()?.pokemon assertEquals entries
-            }
-        }
-
-    @RepeatedTest(200)
-    fun `Given fetching next page fails, when get more pokemon has been selected, then show error`() = runTest {
+    @Test
+    fun `Given fetching next page fails, when get more pokemon has been selected, then add error entry`() = runTest {
         // Given
         val model = PokemonList(
             maxCount = 1304,
@@ -310,18 +278,53 @@ class PokemonListViewModelTest {
             hasNext = true,
             entries = persistentListOf(),
         )
+        val errorPokemonList = PokemonListUIModel(
+            hasNext = true,
+            entries = persistentListOf(PokemonListEntryUIModel.Error(Unknown)),
+        )
+        val loadingPokemonList = PokemonListUIModel(
+            hasNext = true,
+            entries = persistentListOf(PokemonListEntryUIModel.Loading),
+        )
+        every { mapper.createLoading() } returns loadingPokemonList
         every { observePokemonList() } returns flowOf(model)
         every { mapper.mapToUIModel(model) } returns mappedModel
         coEvery { fetchNextPokemonPage() } throws TestException
+        every { mapper.addErrorEntry(loadingPokemonList, TestException) } returns errorPokemonList
+        every { mapper.addLoadingEntries(mappedModel) } returns loadingPokemonList
 
         // When
-        viewModel.list.test { cancelAndIgnoreRemainingEvents() }
-        viewModel.events.test {
+        viewModel.list.test {
             skipItems(1)
             viewModel.onGetMorePokemon()
 
             // Then
-            awaitItem()?.retrieve() assertEquals ShowError(Unknown)
+            awaitItem() assertEquals errorPokemonList
+        }
+    }
+
+    @Test
+    fun `When pokemon has been selected, then open pokemon details`() = runTest {
+        // Given
+        val selectedEntry = PokemonListEntryUIModel.Entry(
+            id = 1,
+            name = "Bulbasaur",
+            imageUrl = "",
+            type = MonoType(Type.Unknown),
+        )
+        val loadingPokemonList = PokemonListUIModel(
+            hasNext = false,
+            entries = persistentListOf(),
+        )
+        every { mapper.createLoading() } returns loadingPokemonList
+
+        // When
+        viewModel.events.test {
+            skipItems(1)
+            viewModel.onPokemon(selectedEntry)
+
+            // Then
+            awaitItem()?.retrieve() assertEquals OpenPokemonDetails(selectedEntry.id)
         }
     }
 }

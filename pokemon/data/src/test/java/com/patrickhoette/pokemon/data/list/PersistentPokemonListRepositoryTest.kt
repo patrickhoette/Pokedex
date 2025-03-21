@@ -86,7 +86,7 @@ class PersistentPokemonListRepositoryTest {
     @Test
     fun `Given page is available in cache, when fetching next page, then increment page`() = runTest {
         // Given
-        coEvery { store.getPageStatus(1, 20) } returns Available
+        coEvery { store.getPageStatus(1, 40) } returns Available
         every { store.currentPage } returns 0
         coEvery { store.incrementCurrentPage() } just runs
 
@@ -102,7 +102,7 @@ class PersistentPokemonListRepositoryTest {
         runTest {
             // Given
             every { store.currentPage } returns 0
-            coEvery { store.getPageStatus(1, 20) } returns Missing
+            coEvery { store.getPageStatus(1, 40) } returns Missing
             coEvery { source.fetchPokemonPage(any(), any()) } throws TestException
 
             // When -> Then
@@ -115,7 +115,7 @@ class PersistentPokemonListRepositoryTest {
         runTest {
             // Given
             every { store.currentPage } returns 0
-            coEvery { store.getPageStatus(1, 20) } returns Stale
+            coEvery { store.getPageStatus(1, 40) } returns Stale
             coEvery { store.incrementCurrentPage() } just runs
             coEvery { source.fetchPokemonPage(any(), any()) } throws TestException
 
@@ -139,8 +139,8 @@ class PersistentPokemonListRepositoryTest {
                 pokemon = pokemon,
             )
             every { store.currentPage } returns 0
-            coEvery { store.getPageStatus(1, 20) } returns Stale
-            coEvery { source.fetchPokemonPage(20, 20) } returns list
+            coEvery { store.getPageStatus(1, 40) } returns Stale
+            coEvery { source.fetchPokemonPage(40, 40) } returns list
             coEvery { store.storePokemonList(list) } just runs
             coEvery { store.incrementCurrentPage() } just runs
 
@@ -157,7 +157,7 @@ class PersistentPokemonListRepositoryTest {
         runTest {
             // Given
             every { store.currentPage } returns 1
-            coEvery { store.getPageStatus(2, 20) } returns Missing
+            coEvery { store.getPageStatus(2, 40) } returns Missing
             coEvery { source.fetchPokemonPage(any(), any()) } throws TestException
 
             // When -> Then
@@ -171,7 +171,7 @@ class PersistentPokemonListRepositoryTest {
             // Given
             every { store.currentPage } returns 1
             coEvery { store.incrementCurrentPage() } just runs
-            coEvery { store.getPageStatus(2, 20) } returns Stale
+            coEvery { store.getPageStatus(2, 40) } returns Stale
             coEvery { source.fetchPokemonPage(any(), any()) } throws TestException
 
             // When -> Then
@@ -194,8 +194,8 @@ class PersistentPokemonListRepositoryTest {
                 pokemon = pokemon,
             )
             every { store.currentPage } returns 1
-            coEvery { store.getPageStatus(2, 20) } returns Missing
-            coEvery { source.fetchPokemonPage(40, 20) } returns list
+            coEvery { store.getPageStatus(2, 40) } returns Missing
+            coEvery { source.fetchPokemonPage(80, 40) } returns list
             coEvery { store.storePokemonList(list) } just runs
             coEvery { store.incrementCurrentPage() } just runs
 
@@ -221,8 +221,8 @@ class PersistentPokemonListRepositoryTest {
             pokemon = pokemon,
         )
         every { store.currentPage } returns 1
-        coEvery { store.getPageStatus(2, 20) } returns Stale
-        coEvery { source.fetchPokemonPage(40, 20) } returns list
+        coEvery { store.getPageStatus(2, 40) } returns Stale
+        coEvery { source.fetchPokemonPage(80, 40) } returns list
         coEvery { store.storePokemonList(list) } just runs
         coEvery { store.incrementCurrentPage() } just runs
 
@@ -239,15 +239,15 @@ class PersistentPokemonListRepositoryTest {
         runTest {
             // Given
             every { store.observeCurrentPage() } returns flowOf(0)
-            every { store.observePokemonList(1, 20) } returns flowOf()
+            every { store.observePokemonList(1, 40) } returns flowOf()
             every { store.currentPage } returns 0
-            coEvery { store.getPageStatus(1, 20) } returns Available
+            coEvery { store.getPageStatus(0, 40) } returns Available
 
             // When
             repository.observePokemonList().test { cancelAndIgnoreRemainingEvents() }
 
             // Then
-            coVerify { store.observePokemonList(1, 20) }
+            coVerify { store.observePokemonList(1, 40) }
         }
 
     @Test
@@ -265,17 +265,17 @@ class PersistentPokemonListRepositoryTest {
                 pokemon = pokemon,
             )
             every { store.observeCurrentPage() } returns flowOf(0)
-            every { store.observePokemonList(1, 20) } returns flowOf()
+            every { store.observePokemonList(1, 40) } returns flowOf()
             every { store.currentPage } returns 0
-            coEvery { store.getPageStatus(1, 20) } returns Missing
-            coEvery { source.fetchPokemonPage(0, 20) } returns list
+            coEvery { store.getPageStatus(0, 40) } returns Missing
+            coEvery { source.fetchPokemonPage(0, 40) } returns list
             coEvery { store.storePokemonList(list) }
 
             // When
             repository.observePokemonList().test { cancelAndIgnoreRemainingEvents() }
 
             // Then
-            coVerify { source.fetchPokemonPage(0, 20) }
+            coVerify { source.fetchPokemonPage(0, 40) }
             coVerify { store.storePokemonList(list) }
         }
 
@@ -293,10 +293,10 @@ class PersistentPokemonListRepositoryTest {
             pokemon = pokemon,
         )
         every { store.observeCurrentPage() } returns flowOf(0)
-        every { store.observePokemonList(1, 20) } returns flowOf()
+        every { store.observePokemonList(1, 40) } returns flowOf()
         every { store.currentPage } returns 0
-        coEvery { store.getPageStatus(1, 20) } returns Missing
-        coEvery { source.fetchPokemonPage(0, 20) } returns list
+        coEvery { store.getPageStatus(0, 40) } returns Missing
+        coEvery { source.fetchPokemonPage(0, 40) } returns list
         coEvery { store.storePokemonList(list) } just runs
 
         // When
@@ -304,7 +304,7 @@ class PersistentPokemonListRepositoryTest {
         repository.observePokemonList().test { cancelAndIgnoreRemainingEvents() }
 
         // Then
-        coVerify(exactly = 2) { source.fetchPokemonPage(0, 20) }
+        coVerify(exactly = 2) { source.fetchPokemonPage(0, 40) }
         coVerify(exactly = 2) { store.storePokemonList(list) }
     }
 
@@ -313,15 +313,15 @@ class PersistentPokemonListRepositoryTest {
         runTest {
             // Given
             every { store.observeCurrentPage() } returns flowOf(0)
-            every { store.observePokemonList(1, 20) } returns flowOf()
+            every { store.observePokemonList(1, 40) } returns flowOf()
             every { store.currentPage } returns 0
-            coEvery { store.getPageStatus(1, 20) } returns Available
+            coEvery { store.getPageStatus(1, 40) } returns Available
 
             // When
             repository.observePokemonList().test { cancelAndIgnoreRemainingEvents() }
 
             // Then
-            coVerifyNever { source.fetchPokemonPage(0, 20) }
+            coVerifyNever { source.fetchPokemonPage(0, 40) }
             coVerifyNever { store.storePokemonList(any()) }
         }
 
@@ -330,11 +330,11 @@ class PersistentPokemonListRepositoryTest {
         runTest {
             // Given
             every { store.observeCurrentPage() } returns flowOf(2)
-            every { store.observePokemonList(3, 20) } returns flowOf()
+            every { store.observePokemonList(3, 40) } returns flowOf()
             every { store.currentPage } returns 2
-            coEvery { store.getPageStatus(1, 20) } returns Available
-            coEvery { store.getPageStatus(2, 20) } returns Available
-            coEvery { store.getPageStatus(3, 20) } returns Available
+            coEvery { store.getPageStatus(1, 40) } returns Available
+            coEvery { store.getPageStatus(2, 40) } returns Available
+            coEvery { store.getPageStatus(3, 40) } returns Available
 
             // When
             repository.observePokemonList().test { cancelAndIgnoreRemainingEvents() }
@@ -345,7 +345,7 @@ class PersistentPokemonListRepositoryTest {
         }
 
     @Test
-    fun `Given page is 3 but all pages are stale or missing, when observing list, then make 1 call for all the pages and store them`() =
+    fun `Given page is 2 but all pages are stale or missing, when observing list, then make 1 call for all the pages and store them`() =
         runTest {
             // Given
             val pokemon = listOf(
@@ -359,23 +359,23 @@ class PersistentPokemonListRepositoryTest {
                 pokemon = pokemon,
             )
             every { store.observeCurrentPage() } returns flowOf(2)
-            every { store.observePokemonList(3, 20) } returns flowOf()
+            every { store.observePokemonList(3, 40) } returns flowOf()
             every { store.currentPage } returns 2
-            coEvery { store.getPageStatus(1, 20) } returns Missing
-            coEvery { store.getPageStatus(2, 20) } returns Stale
-            coEvery { store.getPageStatus(3, 20) } returns Missing
-            coEvery { source.fetchPokemonPage(0, 60) } returns list
+            coEvery { store.getPageStatus(0, 40) } returns Missing
+            coEvery { store.getPageStatus(1, 40) } returns Stale
+            coEvery { store.getPageStatus(2, 40) } returns Missing
+            coEvery { source.fetchPokemonPage(0, 120) } returns list
 
             // When
             repository.observePokemonList().test { cancelAndIgnoreRemainingEvents() }
 
             // Then
-            coVerify { source.fetchPokemonPage(0, 60) }
+            coVerify { source.fetchPokemonPage(0, 120) }
             coVerify { store.storePokemonList(list) }
         }
 
     @Test
-    fun `Given page is 10 and some pages are stale or missing, when observing list, then make optimized calls for pages and store them`() =
+    fun `Given page is 9 and some pages are stale or missing, when observing list, then make optimized calls for pages and store them`() =
         runTest {
             // Given
             val pokemonOne = listOf(
@@ -409,21 +409,21 @@ class PersistentPokemonListRepositoryTest {
                 pokemon = pokemonThree,
             )
             every { store.observeCurrentPage() } returns flowOf(9)
-            every { store.observePokemonList(10, 20) } returns flowOf()
+            every { store.observePokemonList(10, 40) } returns flowOf()
             every { store.currentPage } returns 9
-            coEvery { store.getPageStatus(1, 20) } returns Missing
-            coEvery { store.getPageStatus(2, 20) } returns Available
-            coEvery { store.getPageStatus(3, 20) } returns Available
-            coEvery { store.getPageStatus(4, 20) } returns Missing
-            coEvery { store.getPageStatus(5, 20) } returns Stale
-            coEvery { store.getPageStatus(6, 20) } returns Available
-            coEvery { store.getPageStatus(7, 20) } returns Stale
-            coEvery { store.getPageStatus(8, 20) } returns Stale
-            coEvery { store.getPageStatus(9, 20) } returns Missing
-            coEvery { store.getPageStatus(10, 20) } returns Available
-            coEvery { source.fetchPokemonPage(0, 20) } returns listOne
-            coEvery { source.fetchPokemonPage(60, 40) } returns listTwo
-            coEvery { source.fetchPokemonPage(120, 60) } returns listThree
+            coEvery { store.getPageStatus(0, 40) } returns Missing
+            coEvery { store.getPageStatus(1, 40) } returns Available
+            coEvery { store.getPageStatus(2, 40) } returns Available
+            coEvery { store.getPageStatus(3, 40) } returns Missing
+            coEvery { store.getPageStatus(4, 40) } returns Stale
+            coEvery { store.getPageStatus(5, 40) } returns Available
+            coEvery { store.getPageStatus(6, 40) } returns Stale
+            coEvery { store.getPageStatus(7, 40) } returns Stale
+            coEvery { store.getPageStatus(8, 40) } returns Missing
+            coEvery { store.getPageStatus(9, 40) } returns Available
+            coEvery { source.fetchPokemonPage(0, 40) } returns listOne
+            coEvery { source.fetchPokemonPage(120, 80) } returns listTwo
+            coEvery { source.fetchPokemonPage(240, 120) } returns listThree
             coEvery { store.storePokemonList(listOne) } just runs
             coEvery { store.storePokemonList(listTwo) } just runs
             coEvery { store.storePokemonList(listThree) } just runs
@@ -432,9 +432,9 @@ class PersistentPokemonListRepositoryTest {
             repository.observePokemonList().test { cancelAndIgnoreRemainingEvents() }
 
             // Then
-            coVerify { source.fetchPokemonPage(0, 20) }
-            coVerify { source.fetchPokemonPage(60, 40) }
-            coVerify { source.fetchPokemonPage(120, 60) }
+            coVerify { source.fetchPokemonPage(0, 40) }
+            coVerify { source.fetchPokemonPage(120, 80) }
+            coVerify { source.fetchPokemonPage(240, 120) }
             coVerify { store.storePokemonList(listOne) }
             coVerify { store.storePokemonList(listTwo) }
             coVerify { store.storePokemonList(listThree) }

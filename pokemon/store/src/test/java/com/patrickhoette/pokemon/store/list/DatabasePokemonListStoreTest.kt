@@ -1,7 +1,6 @@
 package com.patrickhoette.pokemon.store.list
 
 import app.cash.sqldelight.SuspendingTransactionWithoutReturn
-import app.cash.sqldelight.async.coroutines.awaitAsOne
 import app.cash.sqldelight.async.coroutines.awaitAsOneOrNull
 import app.cash.sqldelight.coroutines.asFlow
 import app.cash.sqldelight.coroutines.mapToList
@@ -184,6 +183,7 @@ class DatabasePokemonListStoreTest {
             hasNext = true,
             pokemon = emptyList(),
         )
+        coEvery { pokemonListQueries.deleteAll() } just runs
         coEvery { pokemonQueries.transaction(any(), any()) } just runs
         coEvery { pokemonListQueries.transaction(any(), any()) } coAnswers {
             secondArg<suspend SuspendingTransactionWithoutReturn.() -> Unit>().invoke(mockk())
@@ -236,6 +236,7 @@ class DatabasePokemonListStoreTest {
         coEvery { pokemonListQueries.transaction(any(), any()) } coAnswers {
             secondArg<suspend SuspendingTransactionWithoutReturn.() -> Unit>().invoke(mockk())
         }
+        coEvery { pokemonListQueries.deleteAll() } just runs
         every { mapper.mapToEntry(pokemonOne) } returns entryOne
         every { mapper.mapToEntry(pokemonTwo) } returns entryTwo
         every { mapper.mapToEntry(pokemonThree) } returns entryThree
@@ -249,7 +250,10 @@ class DatabasePokemonListStoreTest {
         coVerify { pokemonQueries.insert(entryOne) }
         coVerify { pokemonQueries.insert(entryTwo) }
         coVerify { pokemonQueries.insert(entryThree) }
-        coVerify { pokemonListQueries.insert(maxCount.toLong()) }
+        coVerifyOrder {
+            pokemonListQueries.deleteAll()
+            pokemonListQueries.insert(maxCount.toLong())
+        }
     }
 
     @Test
@@ -268,10 +272,10 @@ class DatabasePokemonListStoreTest {
         runTest {
             // Given
             mockkStatic("app.cash.sqldelight.async.coroutines.QueryExtensionsKt")
-            val page = 1
+            val page = 0
             val pageSize = 20
             coEvery { pokemonQueries.isFullPageInDatabase(any(), any()) } returns mockk {
-                coEvery { awaitAsOne() } returns false
+                coEvery { awaitAsOneOrNull() } returns false
             }
 
             // When
@@ -287,10 +291,10 @@ class DatabasePokemonListStoreTest {
         runTest {
             // Given
             mockkStatic("app.cash.sqldelight.async.coroutines.QueryExtensionsKt")
-            val page = 2
+            val page = 1
             val pageSize = 20
             coEvery { pokemonQueries.isFullPageInDatabase(any(), any()) } returns mockk {
-                coEvery { awaitAsOne() } returns false
+                coEvery { awaitAsOneOrNull() } returns false
             }
 
             // When
@@ -308,7 +312,7 @@ class DatabasePokemonListStoreTest {
         val page = 1
         val pageSize = 20
         coEvery { pokemonQueries.isFullPageInDatabase(any(), any()) } returns mockk {
-            coEvery { awaitAsOne() } returns false
+            coEvery { awaitAsOneOrNull() } returns false
         }
 
         // When
@@ -327,7 +331,7 @@ class DatabasePokemonListStoreTest {
             val page = 0
             val pageSize = 20
             coEvery { pokemonQueries.isFullPageInDatabase(any(), any()) } returns mockk {
-                coEvery { awaitAsOne() } returns true
+                coEvery { awaitAsOneOrNull() } returns true
             }
             coEvery { pokemonQueries.getOldestUpdated(any(), any()) } throws TestException
 
@@ -346,7 +350,7 @@ class DatabasePokemonListStoreTest {
             val page = 0
             val pageSize = 20
             coEvery { pokemonQueries.isFullPageInDatabase(any(), any()) } returns mockk {
-                coEvery { awaitAsOne() } returns true
+                coEvery { awaitAsOneOrNull() } returns true
             }
             coEvery { pokemonQueries.getOldestUpdated(any(), any()) } returns mockk {
                 coEvery { awaitAsOneOrNull() } returns null
@@ -368,7 +372,7 @@ class DatabasePokemonListStoreTest {
             val page = 0
             val pageSize = 20
             coEvery { pokemonQueries.isFullPageInDatabase(any(), any()) } returns mockk {
-                coEvery { awaitAsOne() } returns true
+                coEvery { awaitAsOneOrNull() } returns true
             }
             coEvery { pokemonQueries.getOldestUpdated(any(), any()) } returns mockk {
                 coEvery { awaitAsOneOrNull() } returns mockk {
@@ -392,7 +396,7 @@ class DatabasePokemonListStoreTest {
             val page = 0
             val pageSize = 20
             coEvery { pokemonQueries.isFullPageInDatabase(any(), any()) } returns mockk {
-                coEvery { awaitAsOne() } returns true
+                coEvery { awaitAsOneOrNull() } returns true
             }
             coEvery { pokemonQueries.getOldestUpdated(any(), any()) } returns mockk {
                 coEvery { awaitAsOneOrNull() } returns mockk {

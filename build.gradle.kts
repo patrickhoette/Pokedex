@@ -1,3 +1,4 @@
+
 import com.android.build.gradle.internal.tasks.factory.dependsOn
 import com.google.devtools.ksp.gradle.KspExtension
 import com.google.devtools.ksp.gradle.KspGradleSubplugin
@@ -8,6 +9,7 @@ import org.jetbrains.kotlin.gradle.internal.ensureParentDirsCreated
 import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
 
 plugins {
+    alias(libs.plugins.modulegraph)
     alias(libs.plugins.android.application) apply false
     alias(libs.plugins.kotlin.android) apply false
     alias(libs.plugins.kotlin.compose) apply false
@@ -16,7 +18,7 @@ plugins {
     alias(libs.plugins.ksp) apply false
     alias(libs.plugins.kotlin.serialization) apply false
     alias(libs.plugins.sqldelight) apply false
-    alias(libs.plugins.modulegraph)
+    alias(libs.plugins.mannodermaus) apply false
 }
 
 allprojects {
@@ -57,6 +59,10 @@ subprojects {
                 arg("KOIN_DEFAULT_MODULE", "false")
             }
         }
+
+        // if (project.extensions.findByType(BaseExtension::class.java) != null) {
+        //     plugins.apply(libs.plugins.mannodermaus.get().pluginId)
+        // }
     }
 }
 

@@ -24,7 +24,7 @@ class PokemonListViewModel(
     private val dispatchers: DispatcherProvider,
 ) : ViewModel() {
 
-    private val _list = MutableStateFlow(mapper.createLoading())
+    private val _list by lazy { MutableStateFlow(mapper.createLoading()) }
     val list by lazy {
         startObservingPokemonList()
         _list.asStateFlow()
@@ -43,7 +43,6 @@ class PokemonListViewModel(
             .filterNotNull()
             .mapLatest(mapper::mapToUIModel)
             .collectLatest {
-                Napier.d("!!! entries=${it.entries.size}")
                 _list.value = it
             }
     }
