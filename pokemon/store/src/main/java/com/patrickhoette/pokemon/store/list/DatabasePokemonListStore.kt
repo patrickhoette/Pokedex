@@ -13,12 +13,12 @@ import com.patrickhoette.pokemon.data.generic.model.CacheStatus
 import com.patrickhoette.pokemon.data.generic.model.CacheStatus.*
 import com.patrickhoette.pokemon.data.list.PokemonListStore
 import kotlinx.coroutines.flow.*
-import org.koin.core.annotation.Factory
+import org.koin.core.annotation.Single
 import java.util.Date
 import kotlin.time.Duration.Companion.days
 import kotlin.time.Duration.Companion.milliseconds
 
-@Factory
+@Single
 class DatabasePokemonListStore(
     private val pokemonQueries: PokemonQueries,
     private val pokemonListQueries: PokemonListQueries,
