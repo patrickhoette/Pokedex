@@ -18,7 +18,7 @@ SELECT *
 FROM sprite
 WHERE pokemonId = :pokemonId;
 
-selectAbilitesById:
+selectAbilitiesById:
 SELECT
     ability.id                  AS id,
     ability.name                AS name,
@@ -27,7 +27,7 @@ FROM pokemon_ability
 JOIN ability ON ability.id = pokemon_ability.abilityId
 WHERE pokemon_ability.pokemonId = :pokemonId;
 
-selectMoveById:
+selectMovesById:
 SELECT
     move.id             AS id,
     move.name           AS name,
