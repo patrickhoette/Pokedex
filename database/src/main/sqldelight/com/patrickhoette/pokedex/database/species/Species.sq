@@ -1,0 +1,20 @@
+-----------
+-- Upsert |
+-----------
+
+upsert {
+    UPDATE species
+    SET name = :name
+    WHERE id = :id;
+
+    INSERT OR IGNORE INTO species (id, name)
+    VALUES (:id, :name);
+}
+
+----------
+-- Clean |
+----------
+
+deleteAll:
+DELETE
+FROM species;

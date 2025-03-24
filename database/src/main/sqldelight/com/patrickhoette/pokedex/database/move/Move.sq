@@ -1,0 +1,21 @@
+-----------
+-- Upsert |
+-----------
+
+upsert {
+    UPDATE move
+    SET name = :name
+    WHERE id = :id;
+
+    INSERT OR IGNORE INTO move (id, name)
+    VALUES (:id, :name);
+}
+
+----------
+-- Clean |
+----------
+
+deleteAll:
+DELETE
+FROM move;
+

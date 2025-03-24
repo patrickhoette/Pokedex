@@ -1,17 +1,27 @@
-CREATE TABLE IF NOT EXISTS pokemon_list (
-    id              INTEGER NOT NULL    PRIMARY KEY AUTOINCREMENT,
-    maxPokemonCount INTEGER
-);
-
-deleteAll:
-DELETE
-FROM pokemon_list;
-
-insert:
-INSERT OR REPLACE
-INTO pokemon_list (maxPokemonCount)
-VALUES (:maxCount);
+-----------
+-- Select |
+-----------
 
 select:
 SELECT *
+FROM pokemon_list;
+
+-----------
+-- Upsert |
+-----------
+
+upsert {
+    UPDATE pokemon_list
+    SET maxPokemonCount = :maxCount;
+
+    INSERT OR IGNORE INTO pokemon_list (maxPokemonCount)
+    VALUES (:maxCount);
+}
+
+----------
+-- Clean |
+----------
+
+deleteAll:
+DELETE
 FROM pokemon_list;

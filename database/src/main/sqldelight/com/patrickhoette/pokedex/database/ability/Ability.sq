@@ -1,0 +1,20 @@
+-----------
+-- Upsert |
+-----------
+
+upsert {
+    UPDATE ability
+    SET name = :name
+    WHERE id = :id;
+
+    INSERT OR IGNORE INTO ability (id, name)
+    VALUES (:id, :name);
+}
+
+----------
+-- Clean |
+----------
+
+deleteAll:
+DELETE
+FROM ability;

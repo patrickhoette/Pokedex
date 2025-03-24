@@ -1,0 +1,118 @@
+------------
+-- Pokémon |
+------------
+
+CREATE TABLE IF NOT EXISTS pokemon (
+    id              INTEGER NOT NULL    PRIMARY KEY,
+    name            TEXT    NOT NULL    UNIQUE,
+    lastUpdate      INTEGER NOT NULL
+);
+
+CREATE TABLE IF NOT EXISTS pokemon_list (
+    id              INTEGER NOT NULL    PRIMARY KEY AUTOINCREMENT,
+    maxPokemonCount INTEGER
+);
+
+CREATE TABLE IF NOT EXISTS pokemon_detail (
+    pokemonId       INTEGER NOT NULL    PRIMARY KEY REFERENCES pokemon(id)  ON DELETE CASCADE,
+    baseExperience  INTEGER NOT NULL,
+    heightCm        REAL    NOT NULL,
+    weightG         REAL    NOT NULL,
+    cry             TEXT    NOT NULL,
+    speciesId       INTEGER NOT NULL,
+    hp              INTEGER NOT NULL,
+    attack          INTEGER NOT NULL,
+    defense         INTEGER NOT NULL,
+    specialAttack   INTEGER NOT NULL,
+    specialDefense  INTEGER NOT NULL,
+    speed           INTEGER NOT NULL,
+    primaryType     TEXT    NOT NULL,
+    secondaryType   TEXT
+);
+
+CREATE TABLE IF NOT EXISTS pokemon_ability (
+    pokemonId       INTEGER NOT NULL    REFERENCES pokemon(id)  ON DELETE CASCADE,
+    abilityId       INTEGER NOT NULL,
+    isHidden        INTEGER NOT NULL,
+    PRIMARY KEY (pokemonId, abilityId),
+    CHECK (isHidden = 0 OR isHidden = 1)
+);
+
+CREATE TABLE IF NOT EXISTS pokemon_move (
+    pokemonId       INTEGER NOT NULL    REFERENCES pokemon(id)  ON DELETE CASCADE,
+    moveId          INTEGER NOT NULL,
+    method          TEXT    NOT NULL,
+    level           INTEGER NOT NULL,
+    PRIMARY KEY (pokemonId, moveId)
+);
+
+CREATE TABLE IF NOT EXISTS sprite (
+    pokemonId       INTEGER NOT NULL    REFERENCES pokemon(id)  ON DELETE CASCADE,
+    name            TEXT    NOT NULL,
+    url             TEXT    NOT NULL
+);
+
+CREATE VIEW IF NOT EXISTS pokemon_list_entry AS
+SELECT
+    p.id            AS id,
+    p.name          AS name,
+    p.lastUpdate    AS lastUpdate,
+
+    d.primaryType   AS primaryType,
+    d.secondaryType AS secondaryType
+FROM pokemon p
+LEFT JOIN pokemon_detail d ON d.pokemonId = p.id;
+
+CREATE VIEW IF NOT EXISTS pokemon_full_view AS
+SELECT
+    p.id                AS id,
+    p.name              AS name,
+    p.lastUpdate        AS lastUpdate,
+
+    d.baseExperience    AS baseExperience,
+    d.heightCm          AS heightCm,
+    d.weightG           AS weightG,
+    d.cry               AS cry,
+
+    d.hp                AS hp,
+    d.attack            AS attack,
+    d.defense           AS defense,
+    d.specialAttack     AS specialAttack,
+    d.specialDefense    AS specialDefense,
+    d.speed             AS speed,
+
+    d.primaryType       AS primaryType,
+    d.secondaryType     AS secondaryType,
+
+    s.id                AS speciesId,
+    s.name              AS speciesName
+FROM pokemon p
+LEFT JOIN pokemon_detail d ON d.pokemonId = p.id
+LEFT JOIN species s ON s.id = d.speciesId;
+
+------------
+-- Species |
+------------
+
+CREATE TABLE IF NOT EXISTS species (
+    id              INTEGER NOT NULL    PRIMARY KEY,
+    name            TEXT    NOT NULL    UNIQUE
+);
+
+--------------
+-- Abilities |
+--------------
+
+CREATE TABLE IF NOT EXISTS ability (
+    id              INTEGER NOT NULL    PRIMARY KEY,
+    name            TEXT    NOT NULL
+);
+
+----------
+-- Moves |
+----------
+
+CREATE TABLE IF NOT EXISTS move (
+    id              INTEGER NOT NULL    PRIMARY KEY,
+    name            TEXT    NOT NULL    UNIQUE
+);

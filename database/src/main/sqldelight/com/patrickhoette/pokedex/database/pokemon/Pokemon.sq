@@ -1,14 +1,45 @@
-CREATE TABLE IF NOT EXISTS pokemon (
-    id          INTEGER NOT NULL    PRIMARY KEY,
-    name        TEXT    NOT NULL    UNIQUE,
-    lastUpdate  INTEGER NOT NULL
-);
+-----------
+-- Select |
+-----------
 
 selectAllInPages:
 SELECT *
-FROM pokemon
+FROM pokemon_list_entry
 ORDER BY id ASC
 LIMIT :pageCount * :pageSize;
+
+selectFullById:
+SELECT *
+FROM pokemon_full_view
+WHERE id = :id;
+
+selectSpritesById:
+SELECT *
+FROM sprite
+WHERE pokemonId = :pokemonId;
+
+selectAbilitesById:
+SELECT
+    ability.id                  AS id,
+    ability.name                AS name,
+    pokemon_ability.isHidden    AS isHidden
+FROM pokemon_ability
+JOIN ability ON ability.id = pokemon_ability.abilityId
+WHERE pokemon_ability.pokemonId = :pokemonId;
+
+selectMoveById:
+SELECT
+    move.id             AS id,
+    move.name           AS name,
+    pokemon_move.method AS method,
+    pokemon_move.level  AS level
+FROM pokemon_move
+JOIN move ON move.id = pokemon_move.moveId
+WHERE pokemon_move.pokemonId = :pokemonId;
+
+-----------
+-- Checks |
+-----------
 
 isFullPageInDatabase:
 SELECT COUNT(*) = COALESCE(MIN(:pageSize, maxPokemonCount - :offset), :pageSize)
@@ -18,11 +49,6 @@ FROM (
     LIMIT :pageSize OFFSET :offset
 ), pokemon_list;
 
-insert:
-INSERT OR REPLACE
-INTO pokemon
-VALUES ?;
-
 getOldestUpdated:
 SELECT MIN(lastUpdate)
 FROM (
@@ -31,3 +57,100 @@ FROM (
     LIMIT :pageSize
     OFFSET :offset
 );
+
+-----------
+-- Upsert |
+-----------
+
+upsertPokemon {
+    UPDATE pokemon
+    SET name = :name,
+        lastUpdate = :lastUpdate
+    WHERE id = :id;
+
+    INSERT OR IGNORE INTO pokemon (id, name, lastUpdate)
+    VALUES (:id, :name, :lastUpdate);
+}
+
+upsertPokemonDetails {
+    UPDATE pokemon_detail
+    SET baseExperience = :baseExperience,
+        heightCm = :heightCm,
+        weightG = :weightG,
+        cry = :cry,
+        speciesId = :speciesId,
+        hp = :hp,
+        attack = :attack,
+        defense = :defense,
+        specialAttack = :specialAttack,
+        specialDefense = :specialDefense,
+        speed = :speed,
+        primaryType = :primaryType,
+        secondaryType = :secondaryType
+    WHERE pokemonId = :pokemonId;
+
+    INSERT OR IGNORE INTO pokemon_detail (
+        pokemonId, baseExperience, heightCm, weightG, cry, speciesId, hp, attack, defense, specialAttack,
+        specialDefense, speed, primaryType, secondaryType
+    ) VALUES (
+        :pokemonId, :baseExperience, :heightCm, :weightG, :cry, :speciesId, :hp, :attack, :defense, :specialAttack,
+        :specialDefense, :speed,:primaryType, :secondaryType
+    );
+}
+
+upsertPokemonAbility {
+    UPDATE pokemon_ability
+    SET abilityId = :abilityId,
+        isHidden = :isHidden
+    WHERE pokemonId = :pokemonId;
+
+    INSERT OR IGNORE INTO pokemon_ability (pokemonId, abilityId, isHidden)
+    VALUES (:pokemonId, :abilityId, :isHidden);
+}
+
+upsertPokemonMove {
+    UPDATE pokemon_move
+    SET moveId = :moveId,
+        method = :method,
+        level = :level
+    WHERE pokemonId = :pokemonId;
+
+    INSERT OR IGNORE INTO pokemon_move (pokemonId, moveId, method, level)
+    VALUES (:pokemonId, :moveId, :method, :level);
+}
+
+upsertSprites {
+    UPDATE sprite
+    SET name = :name,
+        url = :url
+    WHERE pokemonId = :pokemonId;
+
+    INSERT OR IGNORE INTO sprite (pokemonId, name, url)
+    VALUES (:pokemonId, :name, :url);
+}
+
+----------
+-- Clean |
+----------
+
+deleteAll:
+DELETE
+FROM pokemon;
+
+deleteOldPokemonAbilities:
+DELETE
+FROM pokemon_ability
+WHERE pokemonId = :pokemonId
+  AND abilityId NOT IN (:abilityIds);
+
+deleteOldPokemonMove:
+DELETE
+FROM pokemon_move
+WHERE pokemonId = :pokemonId
+  AND moveId NOT IN (:moveIds);
+
+deleteOldSprite:
+DELETE
+FROM sprite
+WHERE pokemonId = :pokemonId
+  AND name NOT IN (:names);
