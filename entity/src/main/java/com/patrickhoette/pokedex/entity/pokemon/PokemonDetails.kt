@@ -2,7 +2,6 @@ package com.patrickhoette.pokedex.entity.pokemon
 
 import com.patrickhoette.pokedex.entity.ability.Ability
 import com.patrickhoette.pokedex.entity.generic.Length
-import com.patrickhoette.pokedex.entity.generic.Type
 import com.patrickhoette.pokedex.entity.generic.Weight
 import com.patrickhoette.pokedex.entity.move.Move
 
@@ -16,5 +15,4 @@ data class PokemonDetails(
     val cry: String,
     val species: Species,
     val stats: PokemonStats,
-    val types: List<Type>,
 )
