@@ -20,6 +20,8 @@ class PokemonListResponseMapper {
     private fun mapToPokemon(response: PokemonListEntryResponse) = Pokemon(
         id = parseId(response.url),
         name = response.name,
+        types = emptyList(),
+        details = null,
     )
 
     private fun parseId(url: String): Int {

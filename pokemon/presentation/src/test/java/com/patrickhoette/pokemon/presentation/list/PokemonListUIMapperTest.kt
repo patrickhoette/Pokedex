@@ -33,14 +33,20 @@ class PokemonListUIMapperTest {
                 Pokemon(
                     id = 1,
                     name = "Bulbasaur",
+                    types = emptyList(),
+                    details = null,
                 ),
                 Pokemon(
                     id = 2,
                     name = "Ivysaur",
+                    types = emptyList(),
+                    details = null,
                 ),
                 Pokemon(
                     id = 3,
                     name = "Venusaur",
+                    types = emptyList(),
+                    details = null,
                 ),
             ),
         )
@@ -84,14 +90,20 @@ class PokemonListUIMapperTest {
                 Pokemon(
                     id = 1,
                     name = "Bulbasaur",
+                    types = emptyList(),
+                    details = null,
                 ),
                 Pokemon(
                     id = 2,
                     name = "Ivysaur",
+                    types = emptyList(),
+                    details = null,
                 ),
                 Pokemon(
                     id = 3,
                     name = "Venusaur",
+                    types = emptyList(),
+                    details = null,
                 ),
             ),
         )

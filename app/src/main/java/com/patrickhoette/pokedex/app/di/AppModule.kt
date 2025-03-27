@@ -18,6 +18,7 @@ import com.patrickhoette.pokemon.presentation.di.PokemonPresentationModule
 import com.patrickhoette.pokemon.source.di.PokemonSourceModule
 import com.patrickhoette.pokemon.store.di.PokemonStoreModule
 import com.patrickhoette.pokemon.ui.di.PokemonUIModule
+import kotlinx.datetime.Clock
 import org.koin.core.annotation.ComponentScan
 import org.koin.core.annotation.Factory
 import org.koin.core.annotation.Module
@@ -54,4 +55,7 @@ class AppModule {
 
     @Factory(binds = [InspectionHandler::class])
     fun provideInspectionHandler() = InspektifyHandler()
+
+    @Factory(binds = [Clock::class])
+    fun provideClock() = Clock.System
 }

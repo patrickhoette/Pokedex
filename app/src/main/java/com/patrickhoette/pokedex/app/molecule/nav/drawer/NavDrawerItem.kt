@@ -101,7 +101,7 @@ fun NavDrawerItem(
                 selected = entry.isSelected,
                 role = Role.Button,
                 onClick = entry.onClick,
-            )
+            ),
     ) { _, constraints ->
         val iconWidth = entry.icon.defaultWidth.toPx()
         val iconHeight = entry.icon.defaultHeight.toPx()

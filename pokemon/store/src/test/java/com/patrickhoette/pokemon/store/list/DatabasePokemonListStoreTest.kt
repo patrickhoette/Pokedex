@@ -6,15 +6,18 @@ import app.cash.sqldelight.coroutines.asFlow
 import app.cash.sqldelight.coroutines.mapToList
 import app.cash.sqldelight.coroutines.mapToOneOrNull
 import app.cash.turbine.test
+import com.patrickhoette.pokedex.database.pokemon.PokemonListQueries
+import com.patrickhoette.pokedex.database.pokemon.PokemonQueries
+import com.patrickhoette.pokedex.entity.generic.Type.Grass
+import com.patrickhoette.pokedex.entity.generic.Type.Poison
 import com.patrickhoette.pokedex.entity.pokemon.Pokemon
 import com.patrickhoette.pokedex.entity.pokemon.PokemonList
 import com.patrickhoette.pokemon.data.generic.model.CacheStatus.*
-import com.patrickhoette.pokemon.store.database.pokemon.PokemonListQueries
-import com.patrickhoette.pokemon.store.database.pokemon.PokemonQueries
 import com.patrickhoette.test.assertEquals
 import com.patrickhoette.test.assertNull
 import com.patrickhoette.test.assertTestException
 import com.patrickhoette.test.coroutine.TestDispatcherProvider
+import com.patrickhoette.test.date.StaticClock
 import com.patrickhoette.test.model.TestException
 import io.mockk.*
 import io.mockk.impl.annotations.InjectMockKs
@@ -28,7 +31,7 @@ import org.junit.jupiter.api.extension.ExtendWith
 import java.util.Date
 import kotlin.time.Duration.Companion.days
 import kotlin.time.Duration.Companion.hours
-import com.patrickhoette.pokemon.store.database.pokemon.Pokemon as PokemonEntry
+import com.patrickhoette.pokedex.database.Pokemon_list_entry as PokemonListEntryEntity
 
 @ExtendWith(MockKExtension::class)
 class DatabasePokemonListStoreTest {
@@ -43,6 +46,8 @@ class DatabasePokemonListStoreTest {
     private lateinit var mapper: PokemonListEntryMapper
 
     private val dispatchers = TestDispatcherProvider()
+
+    private val clock = StaticClock(2025, 3, 26, 3, 16, 50)
 
     @InjectMockKs
     private lateinit var store: DatabasePokemonListStore
@@ -143,22 +148,20 @@ class DatabasePokemonListStoreTest {
         val pokemon = Pokemon(
             id = 1,
             name = "bulbasaur",
+            types = emptyList(),
+            details = null,
         )
         val pokemonList = PokemonList(
             maxCount = 1304,
             hasNext = true,
             pokemon = listOf(pokemon),
         )
-        val entry = PokemonEntry(
-            id = 1,
-            name = "bulbasaur",
-            lastUpdate = 0,
-        )
         coEvery { pokemonQueries.transaction(any(), any()) } coAnswers {
             secondArg<suspend SuspendingTransactionWithoutReturn.() -> Unit>().invoke(mockk())
         }
-        coEvery { pokemonQueries.insert(entry) } throws TestException
-        every { mapper.mapToEntry(pokemon) } returns entry
+        coEvery {
+            pokemonQueries.upsertPokemon(pokemon.name, clock.now().epochSeconds, pokemon.id.toLong())
+        } throws TestException
 
         // When -> Then
         assertTestException { store.storePokemonList(pokemonList) }
@@ -188,7 +191,7 @@ class DatabasePokemonListStoreTest {
         coEvery { pokemonListQueries.transaction(any(), any()) } coAnswers {
             secondArg<suspend SuspendingTransactionWithoutReturn.() -> Unit>().invoke(mockk())
         }
-        coEvery { pokemonListQueries.insert(any()) } throws TestException
+        coEvery { pokemonListQueries.upsert(any()) } throws TestException
 
         // When -> Then
         assertTestException { store.storePokemonList(pokemonList) }
@@ -201,34 +204,25 @@ class DatabasePokemonListStoreTest {
         val pokemonOne = Pokemon(
             id = 1,
             name = "bulbasaur",
+            types = emptyList(),
+            details = null,
         )
         val pokemonTwo = Pokemon(
             id = 2,
             name = "ivysaur",
+            types = emptyList(),
+            details = null,
         )
         val pokemonThree = Pokemon(
             id = 3,
             name = "venusaur",
+            types = emptyList(),
+            details = null,
         )
         val list = PokemonList(
             maxCount = maxCount,
             hasNext = true,
             pokemon = listOf(pokemonOne, pokemonTwo, pokemonThree),
-        )
-        val entryOne = PokemonEntry(
-            id = 1,
-            name = "bulbasaur",
-            lastUpdate = 0,
-        )
-        val entryTwo = PokemonEntry(
-            id = 2,
-            name = "ivysaur",
-            lastUpdate = 0,
-        )
-        val entryThree = PokemonEntry(
-            id = 3,
-            name = "venusaur",
-            lastUpdate = 0,
         )
         coEvery { pokemonQueries.transaction(any(), any()) } coAnswers {
             secondArg<suspend SuspendingTransactionWithoutReturn.() -> Unit>().invoke(mockk())
@@ -237,23 +231,17 @@ class DatabasePokemonListStoreTest {
             secondArg<suspend SuspendingTransactionWithoutReturn.() -> Unit>().invoke(mockk())
         }
         coEvery { pokemonListQueries.deleteAll() } just runs
-        every { mapper.mapToEntry(pokemonOne) } returns entryOne
-        every { mapper.mapToEntry(pokemonTwo) } returns entryTwo
-        every { mapper.mapToEntry(pokemonThree) } returns entryThree
-        coEvery { pokemonQueries.insert(any()) } just runs
-        coEvery { pokemonListQueries.insert(any()) } just runs
+        coEvery { pokemonQueries.upsertPokemon(any(), any(), any()) } just runs
+        coEvery { pokemonListQueries.upsert(any()) } just runs
 
         // When
         store.storePokemonList(list)
 
         // Then
-        coVerify { pokemonQueries.insert(entryOne) }
-        coVerify { pokemonQueries.insert(entryTwo) }
-        coVerify { pokemonQueries.insert(entryThree) }
-        coVerifyOrder {
-            pokemonListQueries.deleteAll()
-            pokemonListQueries.insert(maxCount.toLong())
-        }
+        coVerify { pokemonQueries.upsertPokemon(pokemonOne.name, clock.now().epochSeconds, pokemonOne.id.toLong()) }
+        coVerify { pokemonQueries.upsertPokemon(pokemonTwo.name, clock.now().epochSeconds, pokemonTwo.id.toLong()) }
+        coVerify { pokemonQueries.upsertPokemon(pokemonThree.name, clock.now().epochSeconds, pokemonThree.id.toLong()) }
+        coVerify { pokemonListQueries.upsert(maxCount.toLong()) }
     }
 
     @Test
@@ -376,7 +364,7 @@ class DatabasePokemonListStoreTest {
             }
             coEvery { pokemonQueries.getOldestUpdated(any(), any()) } returns mockk {
                 coEvery { awaitAsOneOrNull() } returns mockk {
-                    every { MIN } returns Date().time - 2.days.inWholeMilliseconds
+                    every { MIN } returns (clock.now() - 2.days).epochSeconds
                 }
             }
 
@@ -549,20 +537,26 @@ class DatabasePokemonListStoreTest {
         val pages = 1
         val pageSize = 20
         val maxCount = 1304
-        val entryOne = PokemonEntry(
+        val entryOne = PokemonListEntryEntity(
             id = 1,
             name = "bulbasaur",
             lastUpdate = 0,
+            primaryType = Grass.name,
+            secondaryType = Poison.name,
         )
-        val entryTwo = PokemonEntry(
+        val entryTwo = PokemonListEntryEntity(
             id = 2,
             name = "ivysaur",
             lastUpdate = 0,
+            primaryType = Grass.name,
+            secondaryType = Poison.name,
         )
-        val entryThree = PokemonEntry(
+        val entryThree = PokemonListEntryEntity(
             id = 3,
             name = "venusaur",
             lastUpdate = 0,
+            primaryType = Grass.name,
+            secondaryType = Poison.name,
         )
         val pokemonList = PokemonList(
             maxCount = maxCount,
@@ -571,14 +565,20 @@ class DatabasePokemonListStoreTest {
                 Pokemon(
                     id = 1,
                     name = "bulbasaur",
+                    types = listOf(Grass, Poison),
+                    details = null,
                 ),
                 Pokemon(
                     id = 2,
                     name = "ivysaur",
+                    types = listOf(Grass, Poison),
+                    details = null,
                 ),
                 Pokemon(
                     id = 3,
                     name = "venusaur",
+                    types = listOf(Grass, Poison),
+                    details = null,
                 ),
             ),
         )

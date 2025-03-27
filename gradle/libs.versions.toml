@@ -19,8 +19,9 @@ junit5 = "5.12.0"
 koin = "4.1.0-Beta5"
 koin-annotations = "2.0.0"
 kotlin = "2.1.10"
-kotlinx-collections = "0.3.8"
-kotlinx-serialization-json = "1.8.0"
+kotlin-collections = "0.3.8"
+kotlin-datetime = "0.6.2"
+kotlin-serialization-json = "1.8.0"
 ksp = "2.1.10-1.0.31"
 ktor = "3.1.1"
 lifecycle = "2.8.7"
@@ -70,8 +71,9 @@ koin-compose = { group = "io.insert-koin", name = "koin-compose", version.ref = 
 koin-compose-viewmodel = { group = "io.insert-koin", name = "koin-compose-viewmodel", version.ref = "koin" }
 koin-compose-viewmodel-navigation = { group = "io.insert-koin", name = "koin-compose-viewmodel-navigation", version.ref = "koin" }
 koin-core = { group = "io.insert-koin", name = "koin-core" }
-kotlin-collections-immutable = { group = "org.jetbrains.kotlinx", name = "kotlinx-collections-immutable", version.ref = "kotlinx-collections" }
-kotlin-serialization-json = { group = "org.jetbrains.kotlinx", name = "kotlinx-serialization-json", version.ref = "kotlinx-serialization-json" }
+kotlin-collections-immutable = { group = "org.jetbrains.kotlinx", name = "kotlinx-collections-immutable", version.ref = "kotlin-collections" }
+kotlin-datetime = { group = "org.jetbrains.kotlinx", name = "kotlinx-datetime", version.ref = "kotlin-datetime" }
+kotlin-serialization-json = { group = "org.jetbrains.kotlinx", name = "kotlinx-serialization-json", version.ref = "kotlin-serialization-json" }
 kotlin-test-junit5 = { group = "org.jetbrains.kotlin", name = "kotlin-test-junit5", version.ref = "kotlin" }
 ktor = { group = "io.ktor", name = "ktor-client-core", version.ref = "ktor" }
 ktor-content-negotiation = { group = "io.ktor", name = "ktor-client-content-negotiation", version.ref = "ktor" }

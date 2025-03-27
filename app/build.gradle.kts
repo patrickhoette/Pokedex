@@ -115,4 +115,7 @@ dependencies {
 
     // Squircle
     implementation(libs.squircle)
+
+    // DateTime
+    implementation(libs.kotlin.datetime)
 }

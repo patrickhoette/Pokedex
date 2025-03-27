@@ -47,6 +47,9 @@ dependencies {
     // Logging
     implementation(libs.napier)
 
+    // DateTime
+    implementation(libs.kotlin.datetime)
+
     // Test
     testImplementation(project(":test"))
 }

@@ -1,6 +1,8 @@
 package com.patrickhoette.pokemon.domain.list
 
 import app.cash.turbine.test
+import com.patrickhoette.pokedex.entity.generic.Type.Grass
+import com.patrickhoette.pokedex.entity.generic.Type.Poison
 import com.patrickhoette.pokedex.entity.pokemon.Pokemon
 import com.patrickhoette.pokedex.entity.pokemon.PokemonList
 import com.patrickhoette.test.assertEquals
@@ -31,7 +33,9 @@ class ObservePokemonListTest {
         every { repository.observePokemonList() } throws TestException
 
         // When -> Then
-        assertTestException { observePokemonList() }
+        assertTestException {
+            observePokemonList().test { cancelAndIgnoreRemainingEvents() }
+        }
     }
 
     @Test
@@ -56,14 +60,20 @@ class ObservePokemonListTest {
                 Pokemon(
                     id = 1,
                     name = "Bulbasaur",
+                    types = listOf(Grass, Poison),
+                    details = null,
                 ),
                 Pokemon(
                     id = 2,
                     name = "Ivysaur",
+                    types = listOf(Grass, Poison),
+                    details = null,
                 ),
                 Pokemon(
                     id = 3,
                     name = "Venusaur",
+                    types = listOf(Grass, Poison),
+                    details = null,
                 ),
             ),
         )

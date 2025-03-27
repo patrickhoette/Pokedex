@@ -6,4 +6,7 @@ dependencies {
     // Test
     api(libs.bundles.test)
     runtimeOnly(libs.junit.jupiter.engine)
+
+    // DateTime
+    implementation(libs.kotlin.datetime)
 }

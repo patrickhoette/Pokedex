@@ -5,7 +5,6 @@ import app.cash.sqldelight.coroutines.asFlow
 import app.cash.sqldelight.coroutines.mapToList
 import app.cash.sqldelight.coroutines.mapToOneOrNull
 import com.patrickhoette.core.utils.coroutine.DispatcherProvider
-import com.patrickhoette.pokedex.database.pokemon.Pokemon
 import com.patrickhoette.pokedex.database.pokemon.PokemonListQueries
 import com.patrickhoette.pokedex.database.pokemon.PokemonQueries
 import com.patrickhoette.pokedex.entity.pokemon.PokemonList
@@ -13,10 +12,11 @@ import com.patrickhoette.pokemon.data.generic.model.CacheStatus
 import com.patrickhoette.pokemon.data.generic.model.CacheStatus.*
 import com.patrickhoette.pokemon.data.list.PokemonListStore
 import kotlinx.coroutines.flow.*
+import kotlinx.datetime.Clock
+import kotlinx.datetime.Instant
 import org.koin.core.annotation.Single
-import java.util.Date
 import kotlin.time.Duration.Companion.days
-import kotlin.time.Duration.Companion.milliseconds
+import com.patrickhoette.pokedex.database.Pokemon_list_entry as PokemonListEntryEntity
 
 @Single
 class DatabasePokemonListStore(
@@ -24,6 +24,7 @@ class DatabasePokemonListStore(
     private val pokemonListQueries: PokemonListQueries,
     private val mapper: PokemonListEntryMapper,
     private val dispatchers: DispatcherProvider,
+    private val clock: Clock,
 ) : PokemonListStore {
 
     private val _currentPage = MutableStateFlow(0)
@@ -32,11 +33,16 @@ class DatabasePokemonListStore(
 
     override suspend fun storePokemonList(list: PokemonList) {
         pokemonQueries.transaction {
-            for (entry in list.pokemon) pokemonQueries.insert(pokemon = mapper.mapToEntry(entry))
+            for (entry in list.pokemon) {
+                pokemonQueries.upsertPokemon(
+                    name = entry.name,
+                    lastUpdate = clock.now().epochSeconds,
+                    id = entry.id.toLong(),
+                )
+            }
         }
         pokemonListQueries.transaction {
-            pokemonListQueries.deleteAll()
-            pokemonListQueries.insert(maxCount = list.maxCount.toLong())
+            pokemonListQueries.upsert(list.maxCount.toLong())
         }
     }
 
@@ -48,11 +54,11 @@ class DatabasePokemonListStore(
             val oldestUpdate = pokemonQueries.getOldestUpdated(offset = offset, pageSize = pageSize.toLong())
                 .awaitAsOneOrNull()
                 ?.MIN
-                ?.milliseconds
                 ?: return Stale
 
-            val now = Date().time.milliseconds
-            if (now - oldestUpdate > CacheUpdateInterval) Stale else Available
+            val now = clock.now()
+            val updateTime = Instant.fromEpochSeconds(oldestUpdate)
+            if (now - updateTime > CacheUpdateInterval) Stale else Available
         } else {
             Missing
         }
@@ -69,7 +75,7 @@ class DatabasePokemonListStore(
         }
     }
 
-    private fun observePokemonPage(pages: Int, pageSize: Int): Flow<List<Pokemon>> {
+    private fun observePokemonPage(pages: Int, pageSize: Int): Flow<List<PokemonListEntryEntity>> {
         return pokemonQueries
             .selectAllInPages(pageCount = pages.toLong(), pageSize = pageSize.toLong())
             .asFlow()
