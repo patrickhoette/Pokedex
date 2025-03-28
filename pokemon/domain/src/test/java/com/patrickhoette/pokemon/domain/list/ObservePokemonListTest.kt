@@ -1,12 +1,9 @@
 package com.patrickhoette.pokemon.domain.list
 
 import app.cash.turbine.test
-import com.patrickhoette.pokedex.entity.generic.Type.Grass
-import com.patrickhoette.pokedex.entity.generic.Type.Poison
-import com.patrickhoette.pokedex.entity.pokemon.Pokemon
-import com.patrickhoette.pokedex.entity.pokemon.PokemonList
 import com.patrickhoette.test.assertEquals
 import com.patrickhoette.test.assertTestException
+import com.patrickhoette.test.factory.pokemon.PokemonListFactory
 import com.patrickhoette.test.model.TestException
 import io.mockk.every
 import io.mockk.impl.annotations.InjectMockKs
@@ -53,30 +50,7 @@ class ObservePokemonListTest {
     @Test
     fun `Given list is emitted, when invoked, then emit list`() = runTest {
         // Given
-        val list = PokemonList(
-            maxCount = 1304,
-            hasNext = true,
-            pokemon = listOf(
-                Pokemon(
-                    id = 1,
-                    name = "Bulbasaur",
-                    types = listOf(Grass, Poison),
-                    details = null,
-                ),
-                Pokemon(
-                    id = 2,
-                    name = "Ivysaur",
-                    types = listOf(Grass, Poison),
-                    details = null,
-                ),
-                Pokemon(
-                    id = 3,
-                    name = "Venusaur",
-                    types = listOf(Grass, Poison),
-                    details = null,
-                ),
-            ),
-        )
+        val list = PokemonListFactory.create()
         every { repository.observePokemonList() } returns flowOf(list)
 
         // When

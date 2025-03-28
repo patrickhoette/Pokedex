@@ -1,6 +1,7 @@
 plugins { alias(libs.plugins.kotlin.jvm) }
 
 dependencies {
+    implementation(project(":entity"))
     implementation(project(":core:utils"))
 
     // Test

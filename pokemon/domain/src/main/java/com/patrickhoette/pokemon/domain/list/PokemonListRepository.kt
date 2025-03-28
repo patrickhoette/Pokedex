@@ -6,7 +6,6 @@ import kotlinx.coroutines.flow.Flow
 interface PokemonListRepository {
 
     fun observePokemonList(): Flow<PokemonList?>
-    // fun observePokemon(id: Int): Flow<Pokemon>
 
     suspend fun fetchNextPokemonPage()
 }

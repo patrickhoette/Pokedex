@@ -4,6 +4,7 @@ import com.patrickhoette.pokedex.entity.ability.Ability
 import com.patrickhoette.pokedex.entity.generic.Length
 import com.patrickhoette.pokedex.entity.generic.Weight
 import com.patrickhoette.pokedex.entity.move.Move
+import com.patrickhoette.pokedex.entity.species.Species
 
 data class PokemonDetails(
     val baseExperience: Int,

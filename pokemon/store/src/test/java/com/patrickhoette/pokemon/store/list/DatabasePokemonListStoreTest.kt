@@ -18,6 +18,8 @@ import com.patrickhoette.test.assertNull
 import com.patrickhoette.test.assertTestException
 import com.patrickhoette.test.coroutine.TestDispatcherProvider
 import com.patrickhoette.test.date.StaticClock
+import com.patrickhoette.test.factory.pokemon.PokemonFactory
+import com.patrickhoette.test.factory.pokemon.PokemonListFactory
 import com.patrickhoette.test.model.TestException
 import io.mockk.*
 import io.mockk.impl.annotations.InjectMockKs
@@ -145,17 +147,8 @@ class DatabasePokemonListStoreTest {
     @Test
     fun `Given inserting pokemon fails, when inserting pokemon list, then throw error`() = runTest {
         // Given
-        val pokemon = Pokemon(
-            id = 1,
-            name = "bulbasaur",
-            types = emptyList(),
-            details = null,
-        )
-        val pokemonList = PokemonList(
-            maxCount = 1304,
-            hasNext = true,
-            pokemon = listOf(pokemon),
-        )
+        val pokemon = PokemonFactory.create()
+        val pokemonList = PokemonListFactory.create(pokemon = listOf(pokemon))
         coEvery { pokemonQueries.transaction(any(), any()) } coAnswers {
             secondArg<suspend SuspendingTransactionWithoutReturn.() -> Unit>().invoke(mockk())
         }
@@ -180,12 +173,7 @@ class DatabasePokemonListStoreTest {
     @Test
     fun `Given inserting max count fails, when inserting pokemon list, then throw error`() = runTest {
         // Given
-        val maxCount = 1304
-        val pokemonList = PokemonList(
-            maxCount = maxCount,
-            hasNext = true,
-            pokemon = emptyList(),
-        )
+        val pokemonList = PokemonListFactory.create()
         coEvery { pokemonListQueries.deleteAll() } just runs
         coEvery { pokemonQueries.transaction(any(), any()) } just runs
         coEvery { pokemonListQueries.transaction(any(), any()) } coAnswers {
@@ -200,30 +188,9 @@ class DatabasePokemonListStoreTest {
     @Test
     fun `When inserting pokemon list, then insert all pokemon and max count`() = runTest {
         // Given
-        val maxCount = 1304
-        val pokemonOne = Pokemon(
-            id = 1,
-            name = "bulbasaur",
-            types = emptyList(),
-            details = null,
-        )
-        val pokemonTwo = Pokemon(
-            id = 2,
-            name = "ivysaur",
-            types = emptyList(),
-            details = null,
-        )
-        val pokemonThree = Pokemon(
-            id = 3,
-            name = "venusaur",
-            types = emptyList(),
-            details = null,
-        )
-        val list = PokemonList(
-            maxCount = maxCount,
-            hasNext = true,
-            pokemon = listOf(pokemonOne, pokemonTwo, pokemonThree),
-        )
+        val pokemon = PokemonFactory.createMultiple(3)
+        val (pokemonOne, pokemonTwo, pokemonThree) = pokemon
+        val list = PokemonListFactory.create(pokemon = pokemon)
         coEvery { pokemonQueries.transaction(any(), any()) } coAnswers {
             secondArg<suspend SuspendingTransactionWithoutReturn.() -> Unit>().invoke(mockk())
         }
@@ -241,7 +208,7 @@ class DatabasePokemonListStoreTest {
         coVerify { pokemonQueries.upsertPokemon(pokemonOne.name, clock.now().epochSeconds, pokemonOne.id.toLong()) }
         coVerify { pokemonQueries.upsertPokemon(pokemonTwo.name, clock.now().epochSeconds, pokemonTwo.id.toLong()) }
         coVerify { pokemonQueries.upsertPokemon(pokemonThree.name, clock.now().epochSeconds, pokemonThree.id.toLong()) }
-        coVerify { pokemonListQueries.upsert(maxCount.toLong()) }
+        coVerify { pokemonListQueries.upsert(list.maxCount.toLong()) }
     }
 
     @Test
