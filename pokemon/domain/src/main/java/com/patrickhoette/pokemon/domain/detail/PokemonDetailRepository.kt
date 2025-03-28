@@ -5,5 +5,5 @@ import kotlinx.coroutines.flow.Flow
 
 interface PokemonDetailRepository {
 
-    fun observePokemon(id: Int): Flow<Pokemon>
+    fun observePokemon(id: Int): Flow<Pokemon?>
 }
