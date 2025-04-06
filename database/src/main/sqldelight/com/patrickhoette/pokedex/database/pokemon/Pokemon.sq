@@ -49,13 +49,26 @@ FROM (
     LIMIT :pageSize OFFSET :offset
 ), pokemon_list;
 
-getOldestUpdated:
+getOldestUpdatedForPage:
 SELECT MIN(lastUpdate)
 FROM (
     SELECT lastUpdate FROM pokemon
     ORDER BY id ASC
     LIMIT :pageSize
     OFFSET :offset
+);
+
+getLastDetailUpdated:
+SELECT lastUpdate
+FROM pokemon_detail
+WHERE pokemonId = :id;
+
+isDetailInDatabase:
+SELECT EXISTS (
+    SELECT 1
+    FROM pokemon_detail
+    WHERE pokemonId = :id
+    LIMIT 1
 );
 
 -----------
@@ -91,10 +104,10 @@ upsertPokemonDetails {
 
     INSERT OR IGNORE INTO pokemon_detail (
         pokemonId, baseExperience, heightCm, weightG, cry, speciesId, hp, attack, defense, specialAttack,
-        specialDefense, speed, primaryType, secondaryType
+        specialDefense, speed, primaryType, secondaryType, lastUpdate
     ) VALUES (
         :pokemonId, :baseExperience, :heightCm, :weightG, :cry, :speciesId, :hp, :attack, :defense, :specialAttack,
-        :specialDefense, :speed,:primaryType, :secondaryType
+        :specialDefense, :speed,:primaryType, :secondaryType, :lastUpdate
     );
 }
 

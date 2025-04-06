@@ -256,7 +256,7 @@ class PokemonDetailResponseMapperTest {
             id = 6,
             name = "charizard",
             types = listOf(Fire, Flying),
-            details = PokemonDetail(
+            detail = PokemonDetail(
                 baseExperience = 267,
                 height = Length.Centimeters(170),
                 weight = Weight.Grams(90500),

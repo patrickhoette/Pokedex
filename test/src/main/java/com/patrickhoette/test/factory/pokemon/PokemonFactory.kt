@@ -58,6 +58,6 @@ object PokemonFactory {
         id = id ?: 1,
         name = name ?: "Bulbasaur",
         types = types ?: listOf(Grass, Poison),
-        details = details ?: PokemonDetailsFactory.create(),
+        detail = details ?: PokemonDetailsFactory.create(),
     )
 }

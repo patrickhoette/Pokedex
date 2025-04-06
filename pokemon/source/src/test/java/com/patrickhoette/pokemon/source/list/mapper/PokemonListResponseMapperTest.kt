@@ -52,19 +52,19 @@ class PokemonListResponseMapperTest {
                     id = 1,
                     name = "bulbasaur",
                     types = emptyList(),
-                    details = null,
+                    detail = null,
                 ),
                 Pokemon(
                     id = 2,
                     name = "ivysaur",
                     types = emptyList(),
-                    details = null,
+                    detail = null,
                 ),
                 Pokemon(
                     id = 3,
                     name = "venusaur",
                     types = emptyList(),
-                    details = null,
+                    detail = null,
                 ),
             ),
         )

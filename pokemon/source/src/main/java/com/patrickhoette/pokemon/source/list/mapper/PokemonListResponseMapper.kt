@@ -21,6 +21,6 @@ class PokemonListResponseMapper {
         id = response.parseId(),
         name = response.name,
         types = emptyList(),
-        details = null,
+        detail = null,
     )
 }

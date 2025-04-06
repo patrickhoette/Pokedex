@@ -288,7 +288,7 @@ class DatabasePokemonListStoreTest {
             coEvery { pokemonQueries.isFullPageInDatabase(any(), any()) } returns mockk {
                 coEvery { awaitAsOneOrNull() } returns true
             }
-            coEvery { pokemonQueries.getOldestUpdated(any(), any()) } throws TestException
+            coEvery { pokemonQueries.getOldestUpdatedForPage(any(), any()) } throws TestException
 
             // When
             assertTestException { store.getPageStatus(page, pageSize) }
@@ -307,7 +307,7 @@ class DatabasePokemonListStoreTest {
             coEvery { pokemonQueries.isFullPageInDatabase(any(), any()) } returns mockk {
                 coEvery { awaitAsOneOrNull() } returns true
             }
-            coEvery { pokemonQueries.getOldestUpdated(any(), any()) } returns mockk {
+            coEvery { pokemonQueries.getOldestUpdatedForPage(any(), any()) } returns mockk {
                 coEvery { awaitAsOneOrNull() } returns null
             }
 
@@ -329,7 +329,7 @@ class DatabasePokemonListStoreTest {
             coEvery { pokemonQueries.isFullPageInDatabase(any(), any()) } returns mockk {
                 coEvery { awaitAsOneOrNull() } returns true
             }
-            coEvery { pokemonQueries.getOldestUpdated(any(), any()) } returns mockk {
+            coEvery { pokemonQueries.getOldestUpdatedForPage(any(), any()) } returns mockk {
                 coEvery { awaitAsOneOrNull() } returns mockk {
                     every { MIN } returns (clock.now() - 2.days).epochSeconds
                 }
@@ -353,7 +353,7 @@ class DatabasePokemonListStoreTest {
             coEvery { pokemonQueries.isFullPageInDatabase(any(), any()) } returns mockk {
                 coEvery { awaitAsOneOrNull() } returns true
             }
-            coEvery { pokemonQueries.getOldestUpdated(any(), any()) } returns mockk {
+            coEvery { pokemonQueries.getOldestUpdatedForPage(any(), any()) } returns mockk {
                 coEvery { awaitAsOneOrNull() } returns mockk {
                     every { MIN } returns Date().time - 12.hours.inWholeMilliseconds
                 }
@@ -533,19 +533,19 @@ class DatabasePokemonListStoreTest {
                     id = 1,
                     name = "bulbasaur",
                     types = listOf(Grass, Poison),
-                    details = null,
+                    detail = null,
                 ),
                 Pokemon(
                     id = 2,
                     name = "ivysaur",
                     types = listOf(Grass, Poison),
-                    details = null,
+                    detail = null,
                 ),
                 Pokemon(
                     id = 3,
                     name = "venusaur",
                     types = listOf(Grass, Poison),
-                    details = null,
+                    detail = null,
                 ),
             ),
         )

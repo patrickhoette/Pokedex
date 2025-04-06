@@ -59,19 +59,19 @@ class PokemonListEntryMapperTest {
                     id = 1,
                     name = "bulbasaur",
                     types = listOf(Grass, Poison),
-                    details = null,
+                    detail = null,
                 ),
                 Pokemon(
                     id = 2,
                     name = "ivysaur",
                     types = listOf(Grass),
-                    details = null,
+                    detail = null,
                 ),
                 Pokemon(
                     id = 3,
                     name = "venusaur",
                     types = emptyList(),
-                    details = null,
+                    detail = null,
                 ),
             ),
         )

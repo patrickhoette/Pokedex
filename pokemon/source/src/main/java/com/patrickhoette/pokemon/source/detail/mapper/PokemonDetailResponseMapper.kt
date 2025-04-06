@@ -25,7 +25,7 @@ class PokemonDetailResponseMapper(
         id = response.id,
         name = response.name,
         types = mapTypes(response),
-        details = mapDetail(response),
+        detail = mapDetail(response),
     )
 
     private fun mapTypes(response: PokemonDetailResponse) = response.types

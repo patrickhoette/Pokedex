@@ -27,7 +27,8 @@ CREATE TABLE IF NOT EXISTS pokemon_detail (
     specialDefense  INTEGER NOT NULL,
     speed           INTEGER NOT NULL,
     primaryType     TEXT    NOT NULL,
-    secondaryType   TEXT
+    secondaryType   TEXT,
+    lastUpdate      INTEGER NOT NULL
 );
 
 CREATE TABLE IF NOT EXISTS pokemon_ability (

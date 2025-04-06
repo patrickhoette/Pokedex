@@ -22,6 +22,6 @@ class PokemonListEntryMapper {
             entry.primaryType?.let(Type::valueOf),
             entry.secondaryType?.let(Type::valueOf),
         ),
-        details = null,
+        detail = null,
     )
 }

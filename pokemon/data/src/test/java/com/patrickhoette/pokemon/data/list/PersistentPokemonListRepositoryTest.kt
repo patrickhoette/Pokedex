@@ -129,9 +129,9 @@ class PersistentPokemonListRepositoryTest {
         runTest {
             // Given
             val pokemon = listOf(
-                Pokemon(id = 1, name = "Bulbasaur", types = emptyList(), details = null),
-                Pokemon(id = 2, name = "Ivysaur", types = emptyList(), details = null),
-                Pokemon(id = 3, name = "Venusaur", types = emptyList(), details = null),
+                Pokemon(id = 1, name = "Bulbasaur", types = emptyList(), detail = null),
+                Pokemon(id = 2, name = "Ivysaur", types = emptyList(), detail = null),
+                Pokemon(id = 3, name = "Venusaur", types = emptyList(), detail = null),
             )
             val list = PokemonList(
                 maxCount = 1304,
@@ -184,9 +184,9 @@ class PersistentPokemonListRepositoryTest {
         runTest {
             // Given
             val pokemon = listOf(
-                Pokemon(id = 1, name = "Bulbasaur", types = emptyList(), details = null),
-                Pokemon(id = 2, name = "Ivysaur", types = emptyList(), details = null),
-                Pokemon(id = 3, name = "Venusaur", types = emptyList(), details = null),
+                Pokemon(id = 1, name = "Bulbasaur", types = emptyList(), detail = null),
+                Pokemon(id = 2, name = "Ivysaur", types = emptyList(), detail = null),
+                Pokemon(id = 3, name = "Venusaur", types = emptyList(), detail = null),
             )
             val list = PokemonList(
                 maxCount = 1304,
@@ -211,9 +211,9 @@ class PersistentPokemonListRepositoryTest {
     fun `Given page is 1 and status is stale, when fetching next page, then fetch and store the next page`() = runTest {
         // Given
         val pokemon = listOf(
-            Pokemon(id = 1, name = "Bulbasaur", types = emptyList(), details = null),
-            Pokemon(id = 2, name = "Ivysaur", types = emptyList(), details = null),
-            Pokemon(id = 3, name = "Venusaur", types = emptyList(), details = null),
+            Pokemon(id = 1, name = "Bulbasaur", types = emptyList(), detail = null),
+            Pokemon(id = 2, name = "Ivysaur", types = emptyList(), detail = null),
+            Pokemon(id = 3, name = "Venusaur", types = emptyList(), detail = null),
         )
         val list = PokemonList(
             maxCount = 1304,
@@ -255,9 +255,9 @@ class PersistentPokemonListRepositoryTest {
         runTest {
             // Given
             val pokemon = listOf(
-                Pokemon(id = 1, name = "Bulbasaur", types = emptyList(), details = null),
-                Pokemon(id = 2, name = "Ivysaur", types = emptyList(), details = null),
-                Pokemon(id = 3, name = "Venusaur", types = emptyList(), details = null),
+                Pokemon(id = 1, name = "Bulbasaur", types = emptyList(), detail = null),
+                Pokemon(id = 2, name = "Ivysaur", types = emptyList(), detail = null),
+                Pokemon(id = 3, name = "Venusaur", types = emptyList(), detail = null),
             )
             val list = PokemonList(
                 maxCount = 1304,
@@ -283,9 +283,9 @@ class PersistentPokemonListRepositoryTest {
     fun `Given observed before, when observing again, then fetch and store the first page`() = runTest {
         // Given
         val pokemon = listOf(
-            Pokemon(id = 1, name = "Bulbasaur", types = emptyList(), details = null),
-            Pokemon(id = 2, name = "Ivysaur", types = emptyList(), details = null),
-            Pokemon(id = 3, name = "Venusaur", types = emptyList(), details = null),
+            Pokemon(id = 1, name = "Bulbasaur", types = emptyList(), detail = null),
+            Pokemon(id = 2, name = "Ivysaur", types = emptyList(), detail = null),
+            Pokemon(id = 3, name = "Venusaur", types = emptyList(), detail = null),
         )
         val list = PokemonList(
             maxCount = 1304,
@@ -349,9 +349,9 @@ class PersistentPokemonListRepositoryTest {
         runTest {
             // Given
             val pokemon = listOf(
-                Pokemon(id = 1, name = "Bulbasaur", types = emptyList(), details = null),
-                Pokemon(id = 2, name = "Ivysaur", types = emptyList(), details = null),
-                Pokemon(id = 3, name = "Venusaur", types = emptyList(), details = null),
+                Pokemon(id = 1, name = "Bulbasaur", types = emptyList(), detail = null),
+                Pokemon(id = 2, name = "Ivysaur", types = emptyList(), detail = null),
+                Pokemon(id = 3, name = "Venusaur", types = emptyList(), detail = null),
             )
             val list = PokemonList(
                 maxCount = 1304,
@@ -379,9 +379,9 @@ class PersistentPokemonListRepositoryTest {
         runTest {
             // Given
             val pokemonOne = listOf(
-                Pokemon(id = 1, name = "Bulbasaur", types = emptyList(), details = null),
-                Pokemon(id = 2, name = "Ivysaur", types = emptyList(), details = null),
-                Pokemon(id = 3, name = "Venusaur", types = emptyList(), details = null),
+                Pokemon(id = 1, name = "Bulbasaur", types = emptyList(), detail = null),
+                Pokemon(id = 2, name = "Ivysaur", types = emptyList(), detail = null),
+                Pokemon(id = 3, name = "Venusaur", types = emptyList(), detail = null),
             )
             val listOne = PokemonList(
                 maxCount = 1304,
@@ -389,9 +389,9 @@ class PersistentPokemonListRepositoryTest {
                 pokemon = pokemonOne,
             )
             val pokemonTwo = listOf(
-                Pokemon(id = 4, name = "Charmander", types = emptyList(), details = null),
-                Pokemon(id = 5, name = "Charmeleon", types = emptyList(), details = null),
-                Pokemon(id = 6, name = "Charizard", types = emptyList(), details = null),
+                Pokemon(id = 4, name = "Charmander", types = emptyList(), detail = null),
+                Pokemon(id = 5, name = "Charmeleon", types = emptyList(), detail = null),
+                Pokemon(id = 6, name = "Charizard", types = emptyList(), detail = null),
             )
             val listTwo = PokemonList(
                 maxCount = 1304,
@@ -399,9 +399,9 @@ class PersistentPokemonListRepositoryTest {
                 pokemon = pokemonTwo,
             )
             val pokemonThree = listOf(
-                Pokemon(id = 7, name = "Squirtle", types = emptyList(), details = null),
-                Pokemon(id = 8, name = "Wartortle", types = emptyList(), details = null),
-                Pokemon(id = 9, name = "Blastoise", types = emptyList(), details = null),
+                Pokemon(id = 7, name = "Squirtle", types = emptyList(), detail = null),
+                Pokemon(id = 8, name = "Wartortle", types = emptyList(), detail = null),
+                Pokemon(id = 9, name = "Blastoise", types = emptyList(), detail = null),
             )
             val listThree = PokemonList(
                 maxCount = 1304,

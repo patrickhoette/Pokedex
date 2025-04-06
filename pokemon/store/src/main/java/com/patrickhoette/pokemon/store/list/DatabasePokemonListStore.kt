@@ -51,7 +51,7 @@ class DatabasePokemonListStore(
         val exists = pokemonQueries.isFullPageInDatabase(offset = offset, pageSize = pageSize.toLong())
             .awaitAsOneOrNull()
         return if (exists == true) {
-            val oldestUpdate = pokemonQueries.getOldestUpdated(offset = offset, pageSize = pageSize.toLong())
+            val oldestUpdate = pokemonQueries.getOldestUpdatedForPage(offset = offset, pageSize = pageSize.toLong())
                 .awaitAsOneOrNull()
                 ?.MIN
                 ?: return Stale
