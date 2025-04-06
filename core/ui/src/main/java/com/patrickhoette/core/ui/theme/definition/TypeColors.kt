@@ -119,6 +119,12 @@ object LightThemeTypeColors : ThemeTypeColors {
             container = Color(0xFFF9DCE7),
             onContainer = Color(0xFF33001D),
         )
+        Stellar -> ColorVariations(
+            base = Color(0xFF4B4E89),
+            onBase = Color.White,
+            container = Color(0xFFD8D9F2),
+            onContainer = Color(0xFF1A1B33),
+        )
         Unknown -> ColorVariations(
             base = Color(0xFF808080),
             onBase = Color.White,
@@ -239,6 +245,12 @@ object DarkThemeTypeColors : ThemeTypeColors {
             onBase = Color(0xFF33001D),
             container = Color(0xFFD685AD),
             onContainer = Color(0xFF1A000F),
+        )
+        Stellar -> ColorVariations(
+            base = Color(0xFF6C71C4),
+            onBase = Color.White,
+            container = Color(0xFF383A5E),
+            onContainer = Color(0xFFC3C5D0),
         )
         Unknown -> ColorVariations(
             base = Color(0xFFA0A0A0),

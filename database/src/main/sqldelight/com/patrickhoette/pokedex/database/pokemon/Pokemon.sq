@@ -122,11 +122,12 @@ upsertPokemonMove {
 upsertSprites {
     UPDATE sprite
     SET name = :name,
-        url = :url
+        url = :url,
+        groupName = :groupName
     WHERE pokemonId = :pokemonId;
 
-    INSERT OR IGNORE INTO sprite (pokemonId, name, url)
-    VALUES (:pokemonId, :name, :url);
+    INSERT OR IGNORE INTO sprite (pokemonId, name, url, groupName)
+    VALUES (:pokemonId, :name, :url, :groupName);
 }
 
 ----------

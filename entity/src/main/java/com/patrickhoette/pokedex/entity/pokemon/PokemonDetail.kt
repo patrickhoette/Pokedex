@@ -6,14 +6,14 @@ import com.patrickhoette.pokedex.entity.generic.Weight
 import com.patrickhoette.pokedex.entity.move.Move
 import com.patrickhoette.pokedex.entity.species.Species
 
-data class PokemonDetails(
+data class PokemonDetail(
     val baseExperience: Int,
     val height: Length,
     val weight: Weight,
     val abilities: List<Ability>,
     val moves: List<Move>,
-    val sprites: List<Sprite>,
-    val cry: String,
+    val sprites: List<SpriteGroup>,
+    val cry: String?,
     val species: Species,
     val stats: PokemonStats,
 )

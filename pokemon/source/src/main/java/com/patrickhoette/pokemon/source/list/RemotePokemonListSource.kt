@@ -2,6 +2,7 @@ package com.patrickhoette.pokemon.source.list
 
 import com.patrickhoette.pokedex.entity.pokemon.PokemonList
 import com.patrickhoette.pokemon.data.list.PokemonListSource
+import com.patrickhoette.pokemon.source.list.mapper.PokemonListResponseMapper
 import com.patrickhoette.pokemon.source.list.response.PokemonListResponse
 import io.ktor.client.HttpClient
 import io.ktor.client.call.body

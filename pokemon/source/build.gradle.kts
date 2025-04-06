@@ -22,6 +22,7 @@ dependencies {
     implementation(project(":entity"))
 
     implementation(project(":core:source"))
+    implementation(project(":core:utils"))
 
     implementation(project(":pokemon:data"))
 
@@ -49,6 +50,9 @@ dependencies {
 
     // Serialization
     implementation(libs.kotlin.serialization.json)
+
+    // Logging
+    implementation(libs.napier)
 
     // Test
     testImplementation(project(":test"))

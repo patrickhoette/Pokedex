@@ -3,7 +3,7 @@ package com.patrickhoette.test.factory.pokemon
 import com.patrickhoette.pokedex.entity.generic.Type
 import com.patrickhoette.pokedex.entity.generic.Type.*
 import com.patrickhoette.pokedex.entity.pokemon.Pokemon
-import com.patrickhoette.pokedex.entity.pokemon.PokemonDetails
+import com.patrickhoette.pokedex.entity.pokemon.PokemonDetail
 import com.patrickhoette.test.factory.FactoryConstants.DefaultCollectionSize
 import com.patrickhoette.test.factory.FactoryConstants.moduloGet
 
@@ -39,7 +39,7 @@ object PokemonFactory {
         amount: Int = DefaultCollectionSize,
         names: List<String> = DefaultNames,
         types: List<List<Type>> = DefaultTypes,
-        details: List<PokemonDetails> = PokemonDetailsFactory.createMultiple(),
+        details: List<PokemonDetail> = PokemonDetailsFactory.createMultiple(),
     ) = List(amount) {
         create(
             id = it + 1,
@@ -53,7 +53,7 @@ object PokemonFactory {
         id: Int? = null,
         name: String? = null,
         types: List<Type>? = null,
-        details: PokemonDetails? = null,
+        details: PokemonDetail? = null,
     ) = Pokemon(
         id = id ?: 1,
         name = name ?: "Bulbasaur",

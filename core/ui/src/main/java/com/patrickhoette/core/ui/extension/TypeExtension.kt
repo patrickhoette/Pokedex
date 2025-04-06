@@ -26,5 +26,6 @@ val Type.nameRes: Int
         Dark -> R.string.type_dark
         Steel -> R.string.type_steel
         Fairy -> R.string.type_fairy
+        Stellar -> R.string.type_stellar
         Unknown -> R.string.type_unknown
     }

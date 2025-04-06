@@ -1,5 +1,6 @@
 package com.patrickhoette.pokemon.source.list.response
 
+import com.patrickhoette.core.source.response.RemoteReferenceResponse
 import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
 
@@ -16,5 +17,5 @@ data class PokemonListResponse(
     val previous: String?,
 
     @SerialName("results")
-    val results: List<PokemonListEntryResponse>,
+    val results: List<RemoteReferenceResponse>,
 )

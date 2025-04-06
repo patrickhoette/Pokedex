@@ -69,5 +69,6 @@
     <string name="type_dark">Dark</string>
     <string name="type_steel">Steel</string>
     <string name="type_fairy">Fairy</string>
+    <string name="type_stellar">Stellar</string>
     <string name="type_unknown">Unknown</string>
 </resources>

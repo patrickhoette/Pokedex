@@ -20,5 +20,6 @@ enum class Type {
     Dark,
     Steel,
     Fairy,
+    Stellar,
     Unknown,
 }

@@ -1,8 +1,8 @@
-package com.patrickhoette.pokemon.source.list
+package com.patrickhoette.pokemon.source.list.mapper
 
+import com.patrickhoette.core.source.response.RemoteReferenceResponse
 import com.patrickhoette.pokedex.entity.pokemon.Pokemon
 import com.patrickhoette.pokedex.entity.pokemon.PokemonList
-import com.patrickhoette.pokemon.source.list.response.PokemonListEntryResponse
 import com.patrickhoette.pokemon.source.list.response.PokemonListResponse
 import com.patrickhoette.test.assertEquals
 import io.mockk.impl.annotations.InjectMockKs
@@ -25,15 +25,15 @@ class PokemonListResponseMapperTest {
             next = "https://pokeapi.co/api/v2/pokemon?offset=20&limit=20",
             previous = null,
             results = listOf(
-                PokemonListEntryResponse(
+                RemoteReferenceResponse(
                     name = "bulbasaur",
                     url = "https://pokeapi.co/api/v2/pokemon/1/",
                 ),
-                PokemonListEntryResponse(
+                RemoteReferenceResponse(
                     name = "ivysaur",
                     url = "https://pokeapi.co/api/v2/pokemon/2/",
                 ),
-                PokemonListEntryResponse(
+                RemoteReferenceResponse(
                     name = "venusaur",
                     url = "https://pokeapi.co/api/v2/pokemon/3/",
                 ),
@@ -99,15 +99,15 @@ class PokemonListResponseMapperTest {
             next = "https://pokeapi.co/api/v2/pokemon?offset=20&limit=20",
             previous = null,
             results = listOf(
-                PokemonListEntryResponse(
+                RemoteReferenceResponse(
                     name = "bulbasaur",
                     url = "https://pokeapi.co/api/v2/pokemon/1/",
                 ),
-                PokemonListEntryResponse(
+                RemoteReferenceResponse(
                     name = "ivysaur",
                     url = "https://pokeapi.co/api/v2/pokemon",
                 ),
-                PokemonListEntryResponse(
+                RemoteReferenceResponse(
                     name = "venusaur",
                     url = "https://pokeapi.co/api/v2/pokemon/3/",
                 ),
@@ -126,7 +126,7 @@ class PokemonListResponseMapperTest {
             next = "https://pokeapi.co/api/v2/pokemon?offset=20&limit=20",
             previous = null,
             results = listOf(
-                PokemonListEntryResponse(
+                RemoteReferenceResponse(
                     name = "wigglytuff",
                     url = "https://pokeapi.co/api/v2/pokemon/40/",
                 ),
@@ -148,15 +148,15 @@ class PokemonListResponseMapperTest {
             next = "https://pokeapi.co/api/v2/pokemon?offset=20&limit=20",
             previous = null,
             results = listOf(
-                PokemonListEntryResponse(
+                RemoteReferenceResponse(
                     name = "bulbasaur",
                     url = "https://pokeapi.co/api/v2/pokemon/1/",
                 ),
-                PokemonListEntryResponse(
+                RemoteReferenceResponse(
                     name = "ivysaur",
                     url = "https://pokeapi.co/api/v2/pokemon//",
                 ),
-                PokemonListEntryResponse(
+                RemoteReferenceResponse(
                     name = "venusaur",
                     url = "https://pokeapi.co/api/v2/pokemon/3/",
                 ),
@@ -175,15 +175,15 @@ class PokemonListResponseMapperTest {
             next = "https://pokeapi.co/api/v2/pokemon?offset=20&limit=20",
             previous = null,
             results = listOf(
-                PokemonListEntryResponse(
+                RemoteReferenceResponse(
                     name = "bulbasaur",
                     url = "https://pokeapi.co/api/v2/pokemon/1/",
                 ),
-                PokemonListEntryResponse(
+                RemoteReferenceResponse(
                     name = "ivysaur",
                     url = "https://pokeapi.co/api/v2/pokemon/gg/",
                 ),
-                PokemonListEntryResponse(
+                RemoteReferenceResponse(
                     name = "venusaur",
                     url = "https://pokeapi.co/api/v2/pokemon/3/",
                 ),

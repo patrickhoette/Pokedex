@@ -18,7 +18,7 @@ CREATE TABLE IF NOT EXISTS pokemon_detail (
     baseExperience  INTEGER NOT NULL,
     heightCm        REAL    NOT NULL,
     weightG         REAL    NOT NULL,
-    cry             TEXT    NOT NULL,
+    cry             TEXT,
     speciesId       INTEGER NOT NULL,
     hp              INTEGER NOT NULL,
     attack          INTEGER NOT NULL,
@@ -49,7 +49,8 @@ CREATE TABLE IF NOT EXISTS pokemon_move (
 CREATE TABLE IF NOT EXISTS sprite (
     pokemonId       INTEGER NOT NULL    REFERENCES pokemon(id)  ON DELETE CASCADE,
     name            TEXT    NOT NULL,
-    url             TEXT    NOT NULL
+    url             TEXT    NOT NULL,
+    groupName       TEXT    NOT NULL
 );
 
 CREATE VIEW IF NOT EXISTS pokemon_list_entry AS

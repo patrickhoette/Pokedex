@@ -13,4 +13,5 @@ enum class MoveMethod {
     XDPurification,
     FormChange,
     ZygardeCube,
+    Unknown,
 }

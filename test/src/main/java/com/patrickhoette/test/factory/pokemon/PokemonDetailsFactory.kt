@@ -4,9 +4,9 @@ import com.patrickhoette.pokedex.entity.ability.Ability
 import com.patrickhoette.pokedex.entity.generic.Length
 import com.patrickhoette.pokedex.entity.generic.Weight
 import com.patrickhoette.pokedex.entity.move.Move
-import com.patrickhoette.pokedex.entity.pokemon.PokemonDetails
+import com.patrickhoette.pokedex.entity.pokemon.PokemonDetail
 import com.patrickhoette.pokedex.entity.pokemon.PokemonStats
-import com.patrickhoette.pokedex.entity.pokemon.Sprite
+import com.patrickhoette.pokedex.entity.pokemon.SpriteGroup
 import com.patrickhoette.pokedex.entity.species.Species
 import com.patrickhoette.test.factory.FactoryConstants.DefaultCollectionSize
 import com.patrickhoette.test.factory.FactoryConstants.moduloGet
@@ -23,7 +23,7 @@ object PokemonDetailsFactory {
         weights: List<Weight> = emptyList(),
         abilities: List<List<Ability>> = emptyList(),
         moves: List<List<Move>> = emptyList(),
-        sprites: List<List<Sprite>> = emptyList(),
+        spriteGroups: List<List<SpriteGroup>> = emptyList(),
         cries: List<String> = emptyList(),
         species: List<Species> = emptyList(),
         stats: List<PokemonStats> = emptyList(),
@@ -34,7 +34,7 @@ object PokemonDetailsFactory {
             weight = weights.moduloGet(it),
             abilities = abilities.moduloGet(it),
             moves = moves.moduloGet(it),
-            sprites = sprites.moduloGet(it),
+            spriteGroups = spriteGroups.moduloGet(it),
             cry = cries.moduloGet(it),
             species = species.moduloGet(it),
             stats = stats.moduloGet(it),
@@ -47,17 +47,17 @@ object PokemonDetailsFactory {
         weight: Weight? = null,
         abilities: List<Ability>? = null,
         moves: List<Move>? = null,
-        sprites: List<Sprite>? = null,
+        spriteGroups: List<SpriteGroup>? = null,
         cry: String? = null,
         species: Species? = null,
         stats: PokemonStats? = null,
-    ) = PokemonDetails(
+    ) = PokemonDetail(
         baseExperience = baseExperience ?: 100,
         height = height ?: Length.Meters(1.76),
         weight = weight ?: Weight.Kilograms(52.5),
         abilities = abilities ?: AbilityFactory.createMultiple(),
         moves = moves ?: MoveFactory.createMultiple(),
-        sprites = sprites ?: SpriteFactory.createMultiple(),
+        sprites = spriteGroups ?: SpriteGroupFactory.createMultiple(),
         cry = cry ?: "https://www.google.com/",
         species = species ?: SpeciesFactory.create(),
         stats = stats ?: PokemonStatsFactory.create(),
