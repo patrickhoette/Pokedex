@@ -30,6 +30,7 @@ import com.patrickhoette.core.ui.theme.Theme.colors
 import com.patrickhoette.core.ui.theme.Theme.typeColors
 import com.patrickhoette.core.ui.theme.Theme.typography
 import com.patrickhoette.core.ui.theme.definition.Spacing
+import com.patrickhoette.core.ui.utils.stringResource
 import com.patrickhoette.pokemon.presentation.list.model.PokemonListEntryUIModel
 import com.patrickhoette.pokemon.presentation.model.PokemonTypeUIModel.DualType
 import com.patrickhoette.pokemon.presentation.model.PokemonTypeUIModel.MonoType
@@ -47,11 +48,11 @@ fun PokemonListEntry(
         when (type) {
             is DualType -> Brush.verticalGradient(
                 colors = listOf(
-                    typeColors[type.primary].container,
-                    typeColors[type.secondary].container,
+                    typeColors[type.primary.value].container,
+                    typeColors[type.secondary.value].container,
                 )
             )
-            is MonoType -> SolidColor(typeColors[type.value].container)
+            is MonoType -> SolidColor(typeColors[type.value.value].container)
         }
     }
     Column(
@@ -96,7 +97,7 @@ fun PokemonListEntry(
             )
 
             Text(
-                text = model.name.capitalize(Locale.current),
+                text = stringResource(model.name).capitalize(Locale.current),
                 color = colors.background.onSurface,
                 textAlign = TextAlign.Center,
                 style = typography.body.medium,

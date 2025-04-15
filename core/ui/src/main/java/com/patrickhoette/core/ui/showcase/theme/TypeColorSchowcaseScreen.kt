@@ -12,7 +12,6 @@ import androidx.compose.ui.semantics.heading
 import androidx.compose.ui.semantics.semantics
 import androidx.compose.ui.tooling.preview.Preview
 import com.patrickhoette.core.ui.R
-import com.patrickhoette.core.ui.extension.nameRes
 import com.patrickhoette.core.ui.showcase.utils.ColorSquare
 import com.patrickhoette.core.ui.showcase.utils.LightDarkSideBySide
 import com.patrickhoette.core.ui.theme.AppTheme
@@ -57,7 +56,7 @@ private fun ColorSection(
     verticalArrangement = Arrangement.spacedBy(Spacing.x2),
 ) {
     Text(
-        text = stringResource(type.nameRes),
+        text = type.name,
         modifier = Modifier.semantics { heading() },
         style = typography.headings.small,
     )

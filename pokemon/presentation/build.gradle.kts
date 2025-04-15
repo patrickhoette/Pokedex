@@ -24,6 +24,7 @@ dependencies {
     implementation(project(":entity"))
 
     api(project(":core:presentation"))
+    implementation(project(":core:domain"))
     implementation(project(":core:utils"))
 
     implementation(project(":pokemon:domain"))

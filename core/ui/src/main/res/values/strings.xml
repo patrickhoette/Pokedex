@@ -1,5 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+    <!-- Generic -->
+    <string name="unknown">Unknown</string>
+
     <!-- Accessibility Labels -->
     <string name="accessibility_label_button_state_loading">Loading</string>
     <string name="accessibility_label_image_error">Failed to load image</string>
@@ -70,5 +73,45 @@
     <string name="type_steel">Steel</string>
     <string name="type_fairy">Fairy</string>
     <string name="type_stellar">Stellar</string>
-    <string name="type_unknown">Unknown</string>
+
+    <!-- Move Method Names -->
+    <string name="move_method_level_up">Level up</string>
+    <string name="move_method_egg">Egg</string>
+    <string name="move_method_tutor">Tutor</string>
+    <string name="move_method_machine">Machine</string>
+    <string name="move_method_stadium_surfing_pickachu">Stadium surfing pickachu</string>
+    <string name="move_method_light_ball_egg">Light ball egg</string>
+    <string name="move_method_colosseum_purification">Colosseum purification</string>
+    <string name="move_method_xd_shadow">XD shadow</string>
+    <string name="move_method_xd_purification">XD purification</string>
+    <string name="move_method_form_change">Form change</string>
+    <string name="move_method_zygard_cube">Zygard cube</string>
+
+    <!-- Length Units -->
+    <string name="unit_metric_millimeter">%s mm</string>
+    <string name="unit_metric_centimeter">%s cm</string>
+    <string name="unit_metric_decimeter">%s dm</string>
+    <string name="unit_metric_meter">%s m</string>
+    <string name="unit_metric_decameter">%s dam</string>
+    <string name="unit_metric_hectometer">%s hm</string>
+    <string name="unit_metric_kilometer">%s km</string>
+
+    <string name="unit_imperial_inch">%s in</string>
+    <string name="unit_imperial_foot">%s ft</string>
+    <string name="unit_imperial_yard">%s yd</string>
+    <string name="unit_imperial_mile">%s mi</string>
+
+    <!-- Weight Units -->
+    <string name="unit_metric_milligram">%s mg</string>
+    <string name="unit_metric_centigram">%s cg</string>
+    <string name="unit_metric_decigram">%s dg</string>
+    <string name="unit_metric_gram">%s g</string>
+    <string name="unit_metric_decagram">%s dag</string>
+    <string name="unit_metric_hectogram">%s hg</string>
+    <string name="unit_metric_kilogram">%s kg</string>
+    <string name="unit_metric_tonne">%s t</string>
+
+    <string name="unit_imperial_ounce">%s oz</string>
+    <string name="unit_imperial_pound">%s lb</string>
+    <string name="unit_imperial_stone">%s st</string>
 </resources>

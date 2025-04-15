@@ -83,7 +83,7 @@ class DatabasePokemonDetailStore(
     private suspend fun storePokemonDetail(pokemon: Pokemon, detail: PokemonDetail) {
         pokemonQueries.upsertPokemonDetails(
             baseExperience = detail.baseExperience.toLong(),
-            heightCm = detail.height.centimeter,
+            heightCm = detail.height.centimeters,
             weightG = detail.weight.grams,
             cry = detail.cry,
             speciesId = detail.species.id.toLong(),

@@ -44,45 +44,39 @@ class PokemonDetailEntryMapper {
         moves: List<MoveEntry>,
         sprites: List<SpriteEntry>,
     ): PokemonDetail? {
-        val baseExperience = full.baseExperience
-        val height = full.heightCm?.let(Length::Centimeters)
-        val weight = full.weightG?.let(Weight::Grams)
-        val speciesId = full.speciesId
-        val speciesName = full.speciesName
-        val hp = full.hp
-        val attack = full.attack
-        val defense = full.defense
-        val specialAttack = full.specialAttack
-        val specialDefense = full.specialDefense
-        val speed = full.speed
-        return if (baseExperience != null && height != null && weight != null && speciesId != null &&
-            speciesName != null && hp != null && attack != null && defense != null && specialAttack != null &&
-            specialDefense != null && speed != null
-        ) {
-            PokemonDetail(
-                baseExperience = baseExperience.toInt(),
-                height = height,
-                weight = weight,
-                abilities = mapAbilities(abilities),
-                moves = mapMoves(moves),
-                sprites = mapSpriteGroups(sprites),
-                cry = full.cry,
-                species = Species(
-                    id = speciesId.toInt(),
-                    name = speciesName,
-                ),
-                stats = PokemonStats(
-                    hp = hp.toInt(),
-                    attack = attack.toInt(),
-                    defense = defense.toInt(),
-                    specialAttack = specialAttack.toInt(),
-                    specialDefense = specialDefense.toInt(),
-                    speed = speed.toInt(),
-                ),
-            )
-        } else {
-            null
-        }
+        val baseExperience = full.baseExperience ?: return null
+        val height = full.heightCm?.let(Length::Centimeters) ?: return null
+        val weight = full.weightG?.let(Weight::Grams) ?: return null
+        val speciesId = full.speciesId ?: return null
+        val speciesName = full.speciesName ?: return null
+        val hp = full.hp ?: return null
+        val attack = full.attack ?: return null
+        val defense = full.defense ?: return null
+        val specialAttack = full.specialAttack ?: return null
+        val specialDefense = full.specialDefense ?: return null
+        val speed = full.speed ?: return null
+
+        return PokemonDetail(
+            baseExperience = baseExperience.toInt(),
+            height = height,
+            weight = weight,
+            abilities = mapAbilities(abilities),
+            moves = mapMoves(moves),
+            sprites = mapSpriteGroups(sprites),
+            cry = full.cry,
+            species = Species(
+                id = speciesId.toInt(),
+                name = speciesName,
+            ),
+            stats = PokemonStats(
+                hp = hp.toInt(),
+                attack = attack.toInt(),
+                defense = defense.toInt(),
+                specialAttack = specialAttack.toInt(),
+                specialDefense = specialDefense.toInt(),
+                speed = speed.toInt(),
+            ),
+        )
     }
 
     private fun mapAbilities(abilities: List<AbilityEntry>) = abilities.map {

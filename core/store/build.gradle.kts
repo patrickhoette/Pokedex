@@ -16,6 +16,12 @@ android {
 }
 
 dependencies {
+    // Internal
+    implementation(project(":core:domain"))
+    implementation(project(":core:data"))
+    implementation(project(":core:utils"))
+
+    implementation(project(":entity"))
 
     // Android
     implementation(libs.androidx.core.ktx)
@@ -31,4 +37,7 @@ dependencies {
 
     // Coroutines
     implementation(libs.coroutines.core)
+
+    // Test
+    testImplementation(project(":test-android"))
 }

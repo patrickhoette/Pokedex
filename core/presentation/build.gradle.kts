@@ -53,5 +53,5 @@ dependencies {
     implementation(libs.atomicfu)
 
     // Test
-    testImplementation(project(":test"))
+    testImplementation(project(":test-android"))
 }

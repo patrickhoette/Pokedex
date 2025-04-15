@@ -1,17 +1,19 @@
 package com.patrickhoette.pokemon.presentation.list
 
 import com.patrickhoette.core.presentation.extension.toGenericError
-import com.patrickhoette.pokedex.entity.generic.Type
+import com.patrickhoette.core.presentation.model.StringUIModel
 import com.patrickhoette.pokedex.entity.pokemon.Pokemon
 import com.patrickhoette.pokedex.entity.pokemon.PokemonList
+import com.patrickhoette.pokemon.presentation.PokemonTypeUIMapper
 import com.patrickhoette.pokemon.presentation.list.model.PokemonListEntryUIModel.*
 import com.patrickhoette.pokemon.presentation.list.model.PokemonListUIModel
-import com.patrickhoette.pokemon.presentation.model.PokemonTypeUIModel
 import kotlinx.collections.immutable.toImmutableList
 import org.koin.core.annotation.Factory
 
 @Factory
-class PokemonListUIMapper {
+class PokemonListUIMapper(
+    private val typeUIMapper: PokemonTypeUIMapper,
+) {
 
     fun createLoading() = PokemonListUIModel(
         hasNext = true,
@@ -28,13 +30,13 @@ class PokemonListUIMapper {
 
     private fun mapToEntry(model: Pokemon) = Entry(
         id = model.id,
-        name = model.name,
+        name = StringUIModel.Raw(model.name),
         imageUrl = buildString {
             append("https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/")
             append(model.id)
             append(".png")
         },
-        type = PokemonTypeUIModel.MonoType(Type.Unknown),
+        type = typeUIMapper.mapToUIModel(model.types),
     )
 
     fun addLoadingEntries(list: PokemonListUIModel): PokemonListUIModel {

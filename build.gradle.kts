@@ -1,7 +1,5 @@
-
 import com.android.build.gradle.internal.tasks.factory.dependsOn
 import com.google.devtools.ksp.gradle.KspExtension
-import com.google.devtools.ksp.gradle.KspGradleSubplugin
 import dev.iurysouza.modulegraph.Theme
 import org.jetbrains.kotlin.gradle.dsl.KotlinAndroidProjectExtension
 import org.jetbrains.kotlin.gradle.dsl.KotlinProjectExtension
@@ -18,7 +16,6 @@ plugins {
     alias(libs.plugins.ksp) apply false
     alias(libs.plugins.kotlin.serialization) apply false
     alias(libs.plugins.sqldelight) apply false
-    alias(libs.plugins.mannodermaus) apply false
 }
 
 allprojects {
@@ -28,42 +25,40 @@ allprojects {
 }
 
 subprojects {
+    val moduleName = path
+        .removePrefix(":")
+        .replace(':', '-')
+
+    tasks.withType(KotlinCompile::class).configureEach {
+        val args = removeModuleName(compilerOptions.freeCompilerArgs.orNull ?: listOf())
+        args += "-Xcontext-receivers"
+        args += "-Xskip-prerelease-check"
+        args += "-opt-in=kotlinx.coroutines.ExperimentalCoroutinesApi"
+        args += "-opt-in=androidx.compose.material3.ExperimentalMaterial3Api"
+        args += "-module-name=$moduleName"
+        compilerOptions.freeCompilerArgs.set(args)
+    }
+
+    tasks.withType<Test>().configureEach {
+        useJUnitPlatform()
+        maxParallelForks = (Runtime.getRuntime().availableProcessors() / 2).coerceAtLeast(1)
+    }
+
     afterEvaluate {
-        val moduleName = displayName
-            .removePrefix("project ':")
-            .removeSuffix("'")
-            .replace(':', '-')
-
-        tasks.withType(KotlinCompile::class) {
-            compilerOptions.freeCompilerArgs.addAll(
-                "-Xcontext-receivers",
-                "-Xskip-prerelease-check",
-                "-opt-in=kotlinx.coroutines.ExperimentalCoroutinesApi",
-                "-opt-in=androidx.compose.material3.ExperimentalMaterial3Api",
-                "-module-name=$moduleName"
-            )
-        }
-
-        tasks.withType<Test> {
-            useJUnitPlatform()
-            maxParallelForks = (Runtime.getRuntime().availableProcessors() / 2).coerceAtLeast(1)
-        }
-
         extensions.findByType<KotlinAndroidProjectExtension>()
             ?.jvmToolchain(libs.versions.jvm.get().toInt())
             ?: extensions.findByType<KotlinProjectExtension>()
                 ?.jvmToolchain(libs.versions.jvm.get().toInt())
 
-        plugins.withType<KspGradleSubplugin> {
-            extensions.configure<KspExtension> {
-                arg("KOIN_DEFAULT_MODULE", "false")
-            }
-        }
-
-        // if (project.extensions.findByType(BaseExtension::class.java) != null) {
-        //     plugins.apply(libs.plugins.mannodermaus.get().pluginId)
-        // }
+        extensions.findByType<KspExtension>()?.arg("KOIN_DEFAULT_MODULE", "false")
     }
+}
+
+// Bit dirty but Gradle/Kotlin keeps nagging me about suspicious receivers
+fun removeModuleName(args: List<String>): MutableList<String> {
+    val mutableArgs = args.toMutableList()
+    mutableArgs.removeAll { arg -> arg.startsWith("-module-name=") }
+    return mutableArgs
 }
 
 val moduleGraphReportFile = layout.buildDirectory.file("reports/project-connections/graph.md")

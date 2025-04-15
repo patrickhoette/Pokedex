@@ -8,6 +8,7 @@ import com.patrickhoette.core.source.di.CoreSourceModule
 import com.patrickhoette.core.store.di.CoreStoreModule
 import com.patrickhoette.core.ui.di.CoreUIModule
 import com.patrickhoette.core.utils.coroutine.DispatcherProvider
+import com.patrickhoette.core.utils.di.CoreUtilsModule
 import com.patrickhoette.pokedex.app.BuildConfig
 import com.patrickhoette.pokedex.app.coroutine.DefaultDispatcherProvider
 import com.patrickhoette.pokedex.app.network.InspektifyHandler
@@ -32,6 +33,7 @@ import org.koin.core.annotation.Single
         CoreSourceModule::class,
         CoreStoreModule::class,
         CoreUIModule::class,
+        CoreUtilsModule::class,
         PokemonDataModule::class,
         PokemonDomainModule::class,
         PokemonPresentationModule::class,
