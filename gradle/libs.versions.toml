@@ -7,7 +7,7 @@ minSdk = "26"
 jvm = "17"
 
 activity-compose = "1.10.1"
-agp = "8.9.1"
+agp = "8.9.2"
 appcompat = "1.7.0"
 atomicfu = "0.27.0"
 coil = "3.1.0"
