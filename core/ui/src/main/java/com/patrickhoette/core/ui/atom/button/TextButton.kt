@@ -8,7 +8,7 @@ import androidx.compose.material3.RippleConfiguration
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.graphics.compositeOver
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.text.AnnotatedString
 import androidx.compose.ui.tooling.preview.PreviewLightDark
@@ -22,26 +22,16 @@ import com.patrickhoette.core.ui.theme.definition.Spacing
 
 @Composable
 private fun rememberTheme(): ButtonTheme {
-    val backgroundEnabled = colors.primary.base
-    val backgroundDisabled = colors.primary.base.copy(alpha = 0.5F).compositeOver(colors.background.base)
-    val backgroundFocussed = colors.primary.base.copy(alpha = 0.75F).compositeOver(colors.background.onBase)
-    val foregroundEnabled = colors.primary.onBase
-    val foregroundDisabled = colors.primary.onBase
+    val foregroundEnabled = colors.primary.base
+    val foregroundDisabled = colors.primary.base
     val ripple = colors.primary.container
     return remember(
-        backgroundEnabled,
-        backgroundDisabled,
-        backgroundFocussed,
         foregroundEnabled,
         foregroundDisabled,
         ripple,
     ) {
         ButtonTheme(
-            background = ButtonColors(
-                enabled = backgroundEnabled,
-                disabled = backgroundDisabled,
-                focussed = backgroundFocussed,
-            ),
+            background = ButtonColors(Color.Transparent),
             foreground = ButtonColors(
                 enabled = foregroundEnabled,
                 disabled = foregroundDisabled,
@@ -56,7 +46,7 @@ private fun rememberTheme(): ButtonTheme {
 }
 
 @Composable
-fun PrimaryButton(
+fun TextButton(
     text: AnnotatedString,
     onClick: (() -> Unit)?,
     modifier: Modifier = Modifier,
@@ -80,7 +70,7 @@ fun PrimaryButton(
 )
 
 @Composable
-fun PrimaryButton(
+fun TextButton(
     text: String,
     onClick: (() -> Unit)?,
     modifier: Modifier = Modifier,
@@ -104,7 +94,7 @@ fun PrimaryButton(
 )
 
 @Composable
-fun PrimaryButton(
+fun TextButton(
     onClick: (() -> Unit)?,
     modifier: Modifier = Modifier,
     interactionSource: MutableInteractionSource = remember { MutableInteractionSource() },
@@ -128,7 +118,7 @@ fun PrimaryButton(
 )
 
 @Composable
-fun PrimaryButton(
+fun TextButton(
     onClick: (() -> Unit)?,
     modifier: Modifier = Modifier,
     interactionSource: MutableInteractionSource = remember { MutableInteractionSource() },
@@ -153,7 +143,7 @@ fun PrimaryButton(
 
 @PreviewLightDark
 @Composable
-private fun PreviewPrimaryButton() = AppTheme {
+private fun PreviewTextButton() = AppTheme {
     Column(
         modifier = Modifier
             .background(colors.background.base)
@@ -161,33 +151,33 @@ private fun PreviewPrimaryButton() = AppTheme {
             .systemBarsPadding(),
         verticalArrangement = Arrangement.spacedBy(Spacing.x2),
     ) {
-        PrimaryButton(
+        TextButton(
             text = "Enabled",
             onClick = {},
             modifier = Modifier.fillMaxWidth(),
         )
 
-        PrimaryButton(
+        TextButton(
             text = "No onClick",
             onClick = null,
             modifier = Modifier.fillMaxWidth(),
         )
 
-        PrimaryButton(
+        TextButton(
             text = "Disabled",
             onClick = {},
             modifier = Modifier.fillMaxWidth(),
             enabled = false,
         )
 
-        PrimaryButton(
+        TextButton(
             text = "Loading",
             onClick = {},
             modifier = Modifier.fillMaxWidth(),
             loading = true,
         )
 
-        PrimaryButton(
+        TextButton(
             text = "Loading - Disabled",
             onClick = {},
             modifier = Modifier.fillMaxWidth(),

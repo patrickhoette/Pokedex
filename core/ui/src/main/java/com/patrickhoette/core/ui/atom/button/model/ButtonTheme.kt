@@ -15,7 +15,7 @@ data class ButtonTheme(
 @Immutable
 data class ButtonColors(
     val enabled: Color,
-    val disabled: Color,
+    val disabled: Color = enabled,
     val pressed: Color = enabled,
     val focussed: Color = enabled,
     val hovered: Color = enabled,

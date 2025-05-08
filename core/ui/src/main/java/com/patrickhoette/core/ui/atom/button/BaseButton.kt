@@ -1,6 +1,5 @@
 package com.patrickhoette.core.ui.atom.button
 
-import androidx.annotation.DrawableRes
 import androidx.compose.animation.animateColorAsState
 import androidx.compose.animation.core.animateFloatAsState
 import androidx.compose.foundation.*
@@ -10,10 +9,7 @@ import androidx.compose.foundation.interaction.collectIsHoveredAsState
 import androidx.compose.foundation.interaction.collectIsPressedAsState
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.shape.CircleShape
-import androidx.compose.material3.ButtonDefaults
-import androidx.compose.material3.CircularProgressIndicator
-import androidx.compose.material3.LocalRippleConfiguration
-import androidx.compose.material3.ripple
+import androidx.compose.material3.*
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.CompositionLocalProvider
 import androidx.compose.runtime.State
@@ -25,11 +21,10 @@ import androidx.compose.ui.draw.clip
 import androidx.compose.ui.draw.drawBehind
 import androidx.compose.ui.draw.drawWithCache
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.graphics.ColorFilter
 import androidx.compose.ui.graphics.Outline
 import androidx.compose.ui.graphics.drawscope.Stroke
 import androidx.compose.ui.graphics.graphicsLayer
-import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.semantics.Role
 import androidx.compose.ui.semantics.disabled
@@ -74,8 +69,8 @@ internal fun BaseButton(
     interactionSource: MutableInteractionSource,
     modifier: Modifier = Modifier,
     description: String? = null,
-    @DrawableRes leadingIcon: Int? = null,
-    @DrawableRes trailingIcon: Int? = null,
+    leadingIcon: ImageVector? = null,
+    trailingIcon: ImageVector? = null,
 ) = BaseButton(
     onClick = onClick,
     enabled = enabled,
@@ -112,8 +107,8 @@ internal fun BaseButton(
     interactionSource: MutableInteractionSource,
     modifier: Modifier = Modifier,
     description: String? = null,
-    @DrawableRes leadingIcon: Int? = null,
-    @DrawableRes trailingIcon: Int? = null,
+    leadingIcon: ImageVector? = null,
+    trailingIcon: ImageVector? = null,
 ) = BaseButton(
     onClick = onClick,
     enabled = enabled,
@@ -149,8 +144,8 @@ internal fun BaseButton(
     interactionSource: MutableInteractionSource,
     modifier: Modifier = Modifier,
     description: String? = null,
-    @DrawableRes leadingIcon: Int? = null,
-    @DrawableRes trailingIcon: Int? = null,
+    leadingIcon: ImageVector? = null,
+    trailingIcon: ImageVector? = null,
     content: @Composable RowScope.() -> Unit,
 ) {
     val isFocussed by interactionSource.collectIsFocusedAsState()
@@ -176,19 +171,19 @@ internal fun BaseButton(
         description = description,
         leadingIcon = {
             leadingIcon?.let {
-                Image(
-                    painter = painterResource(leadingIcon),
+                Icon(
+                    imageVector = it,
                     contentDescription = null,
-                    colorFilter = ColorFilter.tint(contentColor)
+                    tint = contentColor,
                 )
             }
         },
         trailingIcon = {
             trailingIcon?.let {
-                Image(
-                    painter = painterResource(trailingIcon),
+                Icon(
+                    imageVector = it,
                     contentDescription = null,
-                    colorFilter = ColorFilter.tint(contentColor)
+                    tint = contentColor,
                 )
             }
         },
@@ -325,7 +320,7 @@ internal fun BaseButton(
                     .then(paddingModifier)
                     .graphicsLayer { alpha = contentAlpha },
                 verticalAlignment = Alignment.CenterVertically,
-                horizontalArrangement = Arrangement.spacedBy(Spacing.x1_5)
+                horizontalArrangement = Arrangement.spacedBy(Spacing.x0_5)
             ) {
                 leadingIcon()
 
