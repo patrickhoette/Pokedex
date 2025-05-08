@@ -6,12 +6,17 @@ import androidx.activity.ComponentActivity
 import androidx.activity.SystemBarStyle
 import androidx.activity.compose.setContent
 import androidx.activity.enableEdgeToEdge
+import androidx.compose.animation.EnterTransition
+import androidx.compose.animation.ExitTransition
+import androidx.compose.animation.slideInVertically
+import androidx.compose.animation.slideOutVertically
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.runtime.CompositionLocalProvider
 import androidx.compose.ui.Modifier
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.rememberNavController
+import com.patrickhoette.core.ui.animation.AnimationDefaults.tween
 import com.patrickhoette.core.ui.theme.AppTheme
 import com.patrickhoette.core.ui.theme.Theme.colors
 import com.patrickhoette.pokedex.app.utils.LocalFullscreenNavController
@@ -39,6 +44,10 @@ class MainActivity : ComponentActivity() {
                         modifier = Modifier
                             .background(colors.background.base)
                             .fillMaxSize(),
+                        enterTransition = { slideInVertically(tween()) },
+                        exitTransition = { ExitTransition.None },
+                        popEnterTransition = { EnterTransition.None },
+                        popExitTransition = { slideOutVertically(tween()) },
                     ) {
                         fullscreenRoutes()
                     }

@@ -9,9 +9,14 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
-import com.patrickhoette.core.ui.animation.AnimationDefaults
+import com.patrickhoette.core.ui.animation.AnimationDefaults.DefaultEnterAnimation
 import com.patrickhoette.core.ui.animation.AnimationDefaults.DefaultExit
+import com.patrickhoette.core.ui.animation.AnimationDefaults.DefaultExitAnimation
+import com.patrickhoette.core.ui.animation.AnimationDefaults.DefaultPopEnterAnimation
+import com.patrickhoette.core.ui.animation.AnimationDefaults.DefaultPopExitAnimation
+import com.patrickhoette.core.ui.animation.AnimationDefaults.tween
 import com.patrickhoette.core.ui.theme.Theme.colors
+import com.patrickhoette.pokedex.app.utils.isSameRootAs
 
 @Composable
 fun MainNavHost(
@@ -21,10 +26,34 @@ fun MainNavHost(
     navController = navController,
     startDestination = MainNavGraph,
     modifier = modifier.background(colors.background.base),
-    enterTransition = { fadeIn(AnimationDefaults.tween()) },
-    exitTransition = { ExitTransition.None },
-    popEnterTransition = { EnterTransition.None },
-    popExitTransition = { fadeOut(AnimationDefaults.tween(DefaultExit)) },
+    enterTransition = {
+        if (initialState.destination isSameRootAs targetState.destination) {
+            DefaultEnterAnimation
+        } else {
+            fadeIn(tween())
+        }
+    },
+    exitTransition = {
+        if (initialState.destination isSameRootAs targetState.destination) {
+            DefaultExitAnimation
+        } else {
+            ExitTransition.None
+        }
+    },
+    popEnterTransition = {
+        if (initialState.destination isSameRootAs targetState.destination) {
+            DefaultPopEnterAnimation
+        } else {
+            EnterTransition.None
+        }
+    },
+    popExitTransition = {
+        if (initialState.destination isSameRootAs targetState.destination) {
+            DefaultPopExitAnimation
+        } else {
+            fadeOut(tween(DefaultExit))
+        }
+    },
 ) {
-    mainRoutes()
+    mainRoutes(navController)
 }

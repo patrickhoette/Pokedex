@@ -9,10 +9,10 @@ import androidx.navigation.navigation
 import kotlinx.serialization.Serializable
 
 @Serializable
-object FullscreenNavGraph {
+data object FullscreenNavGraph {
 
     @Serializable
-    object Main
+    data object Main
 }
 
 @Stable

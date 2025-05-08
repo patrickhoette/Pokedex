@@ -3,8 +3,8 @@ package com.patrickhoette.pokedex.app.debug
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.runtime.Stable
 import androidx.compose.ui.Modifier
+import androidx.navigation.NavController
 import androidx.navigation.NavGraphBuilder
-import androidx.navigation.NavHostController
 import androidx.navigation.compose.composable
 import androidx.navigation.navigation
 import com.patrickhoette.core.ui.showcase.ShowcaseScreen
@@ -14,23 +14,23 @@ import com.patrickhoette.core.ui.showcase.theme.TypographyShowcaseScreen
 import kotlinx.serialization.Serializable
 
 @Serializable
-object ShowcaseNavGraph {
+data object ShowcaseNavGraph {
 
     @Serializable
-    object Landing
+    data object Landing
 
     @Serializable
-    object Colors
+    data object Colors
 
     @Serializable
-    object TypeColors
+    data object TypeColors
 
     @Serializable
-    object Typography
+    data object Typography
 }
 
 @Stable
-fun NavGraphBuilder.showcaseRoutes(navController: NavHostController) = navigation<ShowcaseNavGraph>(
+fun NavGraphBuilder.showcaseRoutes(navController: NavController) = navigation<ShowcaseNavGraph>(
     startDestination = ShowcaseNavGraph.Landing,
 ) {
     composable<ShowcaseNavGraph.Landing> {

@@ -1,32 +1,21 @@
 package com.patrickhoette.pokedex.app.main
 
-import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.runtime.Stable
-import androidx.compose.ui.Modifier
+import androidx.navigation.NavController
 import androidx.navigation.NavGraphBuilder
-import androidx.navigation.compose.composable
 import androidx.navigation.navigation
-import com.patrickhoette.pokedex.app.debug.DebugNavHost
-import com.patrickhoette.pokedex.app.main.MainNavGraph.Debug
-import com.patrickhoette.pokedex.app.main.MainNavGraph.Pokemon
-import com.patrickhoette.pokedex.app.pokemon.PokemonNavHost
+import com.patrickhoette.pokedex.app.debug.debugRoutes
+import com.patrickhoette.pokedex.app.pokemon.PokemonNavGraph
+import com.patrickhoette.pokedex.app.pokemon.pokemonRoutes
 import kotlinx.serialization.Serializable
 
 @Serializable
-object MainNavGraph {
-
-    @Serializable
-    object Debug
-
-    @Serializable
-    object Pokemon
-}
+data object MainNavGraph
 
 @Stable
-fun NavGraphBuilder.mainRoutes() = navigation<MainNavGraph>(
-    startDestination = Pokemon,
+fun NavGraphBuilder.mainRoutes(navController: NavController) = navigation<MainNavGraph>(
+    startDestination = PokemonNavGraph,
 ) {
-    composable<Pokemon> { PokemonNavHost(Modifier.fillMaxSize()) }
-
-    composable<Debug> { DebugNavHost(Modifier.fillMaxSize()) }
+    pokemonRoutes(navController)
+    debugRoutes(navController)
 }
