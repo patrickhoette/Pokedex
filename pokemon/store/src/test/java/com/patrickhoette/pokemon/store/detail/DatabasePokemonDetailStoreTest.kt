@@ -364,7 +364,7 @@ class DatabasePokemonDetailStoreTest {
         coVerify {
             pokemonQueries.upsertPokemonDetails(
                 baseExperience = pokemon.detail!!.baseExperience.toLong(),
-                heightCm = pokemon.detail!!.height.centimeter,
+                heightCm = pokemon.detail!!.height.centimeters,
                 weightG = pokemon.detail!!.weight.grams,
                 cry = pokemon.detail!!.cry,
                 speciesId = pokemon.detail!!.species.id.toLong(),
