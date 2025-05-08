@@ -8,6 +8,9 @@ dependencies {
     api(libs.bundles.test)
     runtimeOnly(libs.junit.jupiter.engine)
 
+    // Reflection
+    api(kotlin("reflect"))
+
     // DateTime
     implementation(libs.kotlin.datetime)
 }
