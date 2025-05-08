@@ -45,7 +45,7 @@ jobs:
         run: ./gradlew assembleRelease
 
       - name: 'Test'
-        run: ./gradlew test testReleaseUnitTest --rerun-tasks
+        run: ./gradlew testRelease --rerun-tasks
 
       - name: 'Summarize Tests'
         uses: test-summary/action@v2

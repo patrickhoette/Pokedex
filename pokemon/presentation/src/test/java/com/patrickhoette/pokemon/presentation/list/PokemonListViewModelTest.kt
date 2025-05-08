@@ -2,6 +2,8 @@ package com.patrickhoette.pokemon.presentation.list
 
 import app.cash.turbine.test
 import com.patrickhoette.core.presentation.model.GenericError.Unknown
+import com.patrickhoette.core.presentation.model.NamedEnumUIModel
+import com.patrickhoette.core.presentation.model.StringUIModel.Raw
 import com.patrickhoette.pokedex.entity.generic.Type
 import com.patrickhoette.pokedex.entity.pokemon.PokemonList
 import com.patrickhoette.pokemon.domain.list.FetchNextPokemonPage
@@ -155,9 +157,9 @@ class PokemonListViewModelTest {
                 entries = persistentListOf(
                     PokemonListEntryUIModel.Entry(
                         id = 1,
-                        name = "Bulbasaur",
+                        name = Raw("Bulbasaur"),
                         imageUrl = "",
-                        type = MonoType(Type.Unknown),
+                        type = MonoType(NamedEnumUIModel(Raw("Unknown"), Type.Unknown)),
                     ),
                     PokemonListEntryUIModel.Loading,
                 ),
@@ -225,21 +227,21 @@ class PokemonListViewModelTest {
             val entries = persistentListOf(
                 PokemonListEntryUIModel.Entry(
                     id = 1,
-                    name = "Bulbasaur",
+                    name = Raw("Bulbasaur"),
                     imageUrl = "",
-                    type = MonoType(Type.Unknown),
+                    type = MonoType(NamedEnumUIModel(Raw("Unknown"), Type.Unknown)),
                 ),
                 PokemonListEntryUIModel.Entry(
                     id = 2,
-                    name = "Ivysaur",
+                    name = Raw("Ivysaur"),
                     imageUrl = "",
-                    type = MonoType(Type.Unknown),
+                    type = MonoType(NamedEnumUIModel(Raw("Unknown"), Type.Unknown)),
                 ),
                 PokemonListEntryUIModel.Entry(
                     id = 3,
-                    name = "Venusaur",
+                    name = Raw("Venusaur"),
                     imageUrl = "",
-                    type = MonoType(Type.Unknown),
+                    type = MonoType(NamedEnumUIModel(Raw("Unknown"), Type.Unknown)),
                 ),
             )
             val mappedModel = PokemonListUIModel(
@@ -308,9 +310,9 @@ class PokemonListViewModelTest {
         // Given
         val selectedEntry = PokemonListEntryUIModel.Entry(
             id = 1,
-            name = "Bulbasaur",
+            name = Raw("Bulbasaur"),
             imageUrl = "",
-            type = MonoType(Type.Unknown),
+            type = MonoType(NamedEnumUIModel(Raw("Unknown"), Type.Unknown)),
         )
         val loadingPokemonList = PokemonListUIModel(
             hasNext = false,

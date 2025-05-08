@@ -1,4 +1,4 @@
-
+import com.android.build.gradle.BaseExtension
 import com.android.build.gradle.internal.tasks.factory.dependsOn
 import com.google.devtools.ksp.gradle.KspExtension
 import dev.iurysouza.modulegraph.Theme
@@ -76,6 +76,20 @@ tasks.withType<Detekt>().configureEach {
         xml.required = false
         txt.required = false
         sarif.required = false
+    }
+}
+
+tasks.register("testRelease") {
+    for (subproject in project.subprojects) {
+        try {
+            if (subproject.extensions.findByType(BaseExtension::class) != null) {
+                dependsOn(subproject.tasks.named("testReleaseUnitTest"))
+            } else {
+                dependsOn(subproject.tasks.named("test"))
+            }
+        } catch (error: UnknownTaskException) {
+            logger.info("Could not find testing task for ${subproject.displayName}")
+        }
     }
 }
 

@@ -30,6 +30,7 @@ fun PlaygroundScreen(modifier: Modifier = Modifier) {
     PokemonListScreen(
         onEntry = {},
         onLoadMore = {},
+        onRetry = {},
         list = list,
         modifier = modifier.fillMaxSize(),
     )
