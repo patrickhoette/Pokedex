@@ -57,7 +57,7 @@ jobs:
       - name: 'Detekt'
         run: |
           ./gradlew detekt
-          'build/reports/detekt/detekt.md' >> $GITHUB_STEP_SUMMARY
+          cat 'build/reports/detekt/detekt.md' >> $GITHUB_STEP_SUMMARY
 
       - name: 'Android Lint'
         run: ./gradlew lint
