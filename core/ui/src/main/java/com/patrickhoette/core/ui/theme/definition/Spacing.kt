@@ -1,4 +1,4 @@
-@file:Suppress("unused", "MemberVisibilityCanBePrivate")
+@file:Suppress("unused", "MemberVisibilityCanBePrivate", "ObjectPropertyNaming")
 
 package com.patrickhoette.core.ui.theme.definition
 

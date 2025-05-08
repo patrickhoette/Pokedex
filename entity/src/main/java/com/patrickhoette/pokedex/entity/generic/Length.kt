@@ -1,4 +1,4 @@
-@file:Suppress("MemberVisibilityCanBePrivate", "unused")
+@file:Suppress("MemberVisibilityCanBePrivate", "unused", "TooManyFunctions", "ObjectPropertyNaming")
 
 package com.patrickhoette.pokedex.entity.generic
 
@@ -33,7 +33,7 @@ value class Length(val centimeters: Double) {
         get() = feet / 3
 
     val miles: Double
-        get() = centimeters / 160934.4
+        get() = centimeters / 160_934.4
 
     operator fun minus(other: Length) = Length(centimeters - other.centimeters)
 

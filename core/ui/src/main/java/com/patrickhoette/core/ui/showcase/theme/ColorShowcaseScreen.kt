@@ -41,18 +41,15 @@ fun ColorShowcaseScreen(
 
     ColorVariationsSection(
         title = stringResource(R.string.debug_color_showcase_heading_primary),
-        colorVariations = { colors.primary },
-    )
+    ) { colors.primary }
 
     ColorVariationsSection(
         title = stringResource(R.string.debug_color_showcase_heading_secondary),
-        colorVariations = { colors.secondary },
-    )
+    ) { colors.secondary }
 
     ColorVariationsSection(
         title = stringResource(R.string.debug_color_showcase_heading_tertiary),
-        colorVariations = { colors.tertiary },
-    )
+    ) { colors.tertiary }
 
     Text(
         text = stringResource(R.string.debug_color_showcase_heading_background),
@@ -107,23 +104,19 @@ fun ColorShowcaseScreen(
 
     ColorVariationsSection(
         title = stringResource(R.string.debug_color_showcase_heading_error),
-        colorVariations = { colors.error },
-    )
+    ) { colors.error }
 
     ColorVariationsSection(
         title = stringResource(R.string.debug_color_showcase_heading_success),
-        colorVariations = { colors.success },
-    )
+    ) { colors.success }
 
     ColorVariationsSection(
         title = stringResource(R.string.debug_color_showcase_heading_warning),
-        colorVariations = { colors.warning },
-    )
+    ) { colors.warning }
 
     ColorVariationsSection(
         title = stringResource(R.string.debug_color_showcase_heading_info),
-        colorVariations = { colors.info },
-    )
+    ) { colors.info }
 
     Text(
         text = stringResource(R.string.debug_color_showcase_heading_outline),
@@ -151,8 +144,8 @@ fun ColorShowcaseScreen(
 @Composable
 private fun ColorVariationsSection(
     title: String,
-    colorVariations: @Composable () -> ColorVariations,
     modifier: Modifier = Modifier,
+    colorVariations: @Composable () -> ColorVariations,
 ) = Column(
     modifier = modifier.padding(top = Spacing.x1),
     verticalArrangement = Arrangement.spacedBy(Spacing.x2),

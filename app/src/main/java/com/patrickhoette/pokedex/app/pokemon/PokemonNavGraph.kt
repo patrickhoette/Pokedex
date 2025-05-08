@@ -24,4 +24,3 @@ fun NavGraphBuilder.pokemonRoutes(navController: NavController) = navigation<Pok
 ) {
     composable<PokemonList> { PokemonListScreen(modifier = Modifier.fillMaxSize()) }
 }
-

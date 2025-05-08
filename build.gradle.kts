@@ -1,6 +1,8 @@
+
 import com.android.build.gradle.internal.tasks.factory.dependsOn
 import com.google.devtools.ksp.gradle.KspExtension
 import dev.iurysouza.modulegraph.Theme
+import io.gitlab.arturbosch.detekt.Detekt
 import org.jetbrains.kotlin.gradle.dsl.KotlinAndroidProjectExtension
 import org.jetbrains.kotlin.gradle.dsl.KotlinProjectExtension
 import org.jetbrains.kotlin.gradle.internal.ensureParentDirsCreated
@@ -8,6 +10,7 @@ import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
 
 plugins {
     alias(libs.plugins.modulegraph)
+    alias(libs.plugins.detekt)
     alias(libs.plugins.android.application) apply false
     alias(libs.plugins.kotlin.android) apply false
     alias(libs.plugins.kotlin.compose) apply false
@@ -52,6 +55,33 @@ subprojects {
 
         extensions.findByType<KspExtension>()?.arg("KOIN_DEFAULT_MODULE", "false")
     }
+}
+
+tasks.withType<Detekt>().configureEach {
+    config.setFrom(file("${layout.projectDirectory}/detekt-config.yml"))
+    buildUponDefaultConfig = true
+
+    jvmTarget = libs.versions.jvm.get()
+    parallel = true
+    ignoreFailures = true
+
+    source = project.getPathsFiltered(
+        "**/src/main/**/*.kt",
+        "**/src/*Main/**/*.kt",
+    )
+
+    reports {
+        md.required = true
+        html.required = false
+        xml.required = false
+        txt.required = false
+        sarif.required = false
+    }
+}
+
+dependencies {
+    detektPlugins(libs.detekt.formatting)
+    detektPlugins(libs.detekt.rules.compose)
 }
 
 // Bit dirty but Gradle/Kotlin keeps nagging me about suspicious receivers
@@ -124,4 +154,10 @@ allprojects {
     afterEvaluate {
         listAllDependenciesTask.dependsOn(tasks.dependencies)
     }
+}
+
+fun Project.getPathsFiltered(vararg includes: String): ConfigurableFileTree {
+    val tree = fileTree(project.layout.projectDirectory)
+    tree.include(*includes)
+    return tree
 }

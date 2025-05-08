@@ -18,6 +18,7 @@ class PersistentPokemonDetailRepository(
     override fun observePokemon(id: Int): Flow<Pokemon?> = store.observePokemon(id)
         .onStart { checkCache(id) }
 
+    @Suppress("NestedBlockDepth")
     private suspend fun checkCache(id: Int) {
         val status = store.getPokemonStatus(id)
         if (status != Available) {

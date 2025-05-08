@@ -21,12 +21,10 @@ class StringUIModelBuilder {
      *
      * @param stringUIModel The [StringUIModel] instance to append.
      */
-    fun append(stringUIModel: StringUIModel) {
-        if (stringUIModel is Combined) {
-            sections += stringUIModel.sections
-        } else {
-            sections += stringUIModel
-        }
+    fun append(stringUIModel: StringUIModel) = if (stringUIModel is Combined) {
+        sections += stringUIModel.sections
+    } else {
+        sections += stringUIModel
     }
 
     /**
@@ -85,9 +83,5 @@ class StringUIModelBuilder {
      *
      * @return A [StringUIModel] representing the entire constructed text.
      */
-    fun build(): StringUIModel = if (sections.size == 1)
-        sections.single()
-    else {
-        Combined(sections)
-    }
+    fun build(): StringUIModel = if (sections.size == 1) sections.single() else Combined(sections)
 }

@@ -41,9 +41,7 @@ class ObservableSharedPreferences(
 
     private inline fun <reified T> observeKeySafely(key: String) = cache[key].mapLatest {
         if (it != null && it !is T) {
-            throw IllegalStateException(
-                "The value for this key is not a ${T::class.simpleName} instead a ${it::class.simpleName} was found!"
-            )
+            error("The value for this key is not a ${T::class.simpleName} instead a ${it::class.simpleName} was found!")
         }
         it as T?
     }

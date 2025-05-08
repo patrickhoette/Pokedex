@@ -7,7 +7,6 @@ import androidx.annotation.StringRes
 import androidx.compose.runtime.Immutable
 import androidx.compose.runtime.Stable
 import kotlinx.collections.immutable.ImmutableList
-import kotlinx.collections.immutable.persistentListOf
 import kotlinx.collections.immutable.toImmutableList
 
 /**
@@ -35,7 +34,7 @@ sealed class StringUIModel {
         constructor(
             @StringRes resId: Int,
             vararg formatArgs: Any,
-        ) : this(resId = resId, formatArgs = persistentListOf(*formatArgs))
+        ) : this(resId = resId, formatArgs = formatArgs.toImmutableList())
     }
 
     /**
@@ -66,7 +65,7 @@ sealed class StringUIModel {
             @PluralsRes resId: Int,
             quantity: Int,
             vararg formatArgs: Any,
-        ) : this(resId = resId, quantity = quantity, formatArgs = persistentListOf(*formatArgs))
+        ) : this(resId = resId, quantity = quantity, formatArgs = formatArgs.toImmutableList())
     }
 
     /**

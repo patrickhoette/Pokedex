@@ -9,6 +9,7 @@ object DefaultDispatcherProvider : DispatcherProvider {
     override val Main: CoroutineDispatcher
         get() = Dispatchers.Main
 
+    @Suppress("ObjectPropertyNaming")
     override val IO: CoroutineDispatcher
         get() = Dispatchers.IO
 

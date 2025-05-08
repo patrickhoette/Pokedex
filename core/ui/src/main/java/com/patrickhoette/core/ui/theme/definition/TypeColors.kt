@@ -10,6 +10,7 @@ import com.patrickhoette.pokedex.entity.generic.Type.*
 @Immutable
 object LightThemeTypeColors : ThemeTypeColors {
 
+    @Suppress("LongMethod")
     override operator fun get(type: Type) = when (type) {
         Normal -> ColorVariations(
             base = Color(0xFFA8A77A),
@@ -137,6 +138,7 @@ object LightThemeTypeColors : ThemeTypeColors {
 @Immutable
 object DarkThemeTypeColors : ThemeTypeColors {
 
+    @Suppress("LongMethod")
     override operator fun get(type: Type) = when (type) {
         Normal -> ColorVariations(
             base = Color(0xFFD4D4A3),

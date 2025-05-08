@@ -1,4 +1,4 @@
-@file:Suppress("MemberVisibilityCanBePrivate", "unused")
+@file:Suppress("MemberVisibilityCanBePrivate", "unused", "TooManyFunctions", "ObjectPropertyNaming")
 
 package com.patrickhoette.pokedex.entity.generic
 

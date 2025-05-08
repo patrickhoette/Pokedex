@@ -154,7 +154,7 @@ inline fun <D, E> MutableStateFlow<TypedUIState<D, E>>.updateIfNormal(
     (state as? Normal<D>)
         ?.mapNormal(updater)
         ?: if (enforce) {
-            throw IllegalStateException("Value passed to the update function was not Normal!")
+            error("Value passed to the update function was not Normal!")
         } else {
             state
         }
@@ -171,7 +171,7 @@ inline fun <D, E> MutableStateFlow<TypedUIState<D, E>>.updateIfError(
     (state as? Error<E>)
         ?.mapError(updater)
         ?: if (enforce) {
-            throw IllegalStateException("Value passed to the update function was not Error!")
+            error("Value passed to the update function was not Error!")
         } else {
             state
         }

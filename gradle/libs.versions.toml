@@ -14,6 +14,8 @@ coil = "3.1.0"
 compose-bom = "2025.04.01"
 coreKtx = "1.16.0"
 coroutines = "1.10.2"
+detekt = "1.23.8"
+detekt-compose = "1.4.0"
 inspektify = "1.0.0-beta08"
 junit5 = "5.12.2"
 koin = "4.1.0-Beta8"
@@ -56,6 +58,8 @@ compose-ui-tooling-preview = { group = "androidx.compose.ui", name = "ui-tooling
 coroutines-android = { group = "org.jetbrains.kotlinx", name = "kotlinx-coroutines-android", version = "kotlinx-coroutines" }
 coroutines-core = { group = "org.jetbrains.kotlinx", name = "kotlinx-coroutines-core", version.ref = "coroutines" }
 coroutines-test = { group = "org.jetbrains.kotlinx", name = "kotlinx-coroutines-test", version.ref = "coroutines" }
+detekt-formatting = { group = "io.gitlab.arturbosch.detekt", name = "detekt-formatting", version.ref = "detekt" }
+detekt-rules-compose = { group = "ru.kode", name = "detekt-rules-compose", version.ref = "detekt-compose" }
 inspektify = { group = "io.github.bvantur", name = "inspektify-ktor3", version.ref = "inspektify" }
 junit-jupiter = { group = "org.junit.jupiter", name = "junit-jupiter", version.ref = "junit5" }
 junit-jupiter-api = { group = "org.junit.jupiter", name = "junit-jupiter-api", version.ref = "junit5" }
@@ -92,6 +96,7 @@ turbine = { group = "app.cash.turbine", name = "turbine", version.ref = "turbine
 [plugins]
 android-application = { id = "com.android.application", version.ref = "agp" }
 android-library = { id = "com.android.library", version.ref = "agp" }
+detekt = { id = "io.gitlab.arturbosch.detekt", version.ref = "detekt" }
 kotlin-android = { id = "org.jetbrains.kotlin.android", version.ref = "kotlin" }
 kotlin-compose = { id = "org.jetbrains.kotlin.plugin.compose", version.ref = "kotlin" }
 kotlin-jvm = { id = "org.jetbrains.kotlin.jvm", version.ref = "kotlin" }

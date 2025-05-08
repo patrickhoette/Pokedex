@@ -87,7 +87,7 @@ fun NavRail(
 
 @Preview(device = Devices.TABLET)
 @Composable
-fun PreviewNavRail(
+private fun PreviewNavRail(
     @PreviewParameter(MultiNavParameterProvider::class) entries: List<NavEntry>,
 ) = AppTheme {
     Row(

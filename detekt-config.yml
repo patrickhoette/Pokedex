@@ -1,0 +1,173 @@
+build:
+  excludeCorrectable: true
+  maxIssues: 10
+
+comments:
+  CommentOverPrivateFunction:
+    active: false
+  CommentOverPrivateProperty:
+    active: false
+
+complexity:
+  LargeClass:
+    active: true
+    threshold: 500
+  LongMethod:
+    active: true
+    threshold: 40
+    ignoreAnnotated: [ 'Composable' ]
+  LongParameterList:
+    active: true
+    functionThreshold: 10
+    constructorThreshold: 15
+    ignoreDefaultParameters: true
+    ignoreDataClasses: true
+    ignoreAnnotated: [ 'Composable' ]
+  MethodOverloading:
+    active: false
+  NestedBlockDepth:
+    active: true
+    threshold: 3
+    ignoreAnnotated: [ 'Composable' ]
+  StringLiteralDuplication:
+    active: false
+  TooManyFunctions:
+    active: true
+    thresholdInFiles: 25
+    thresholdInClasses: 25
+    thresholdInInterfaces: 10
+    thresholdInObjects: 10
+    thresholdInEnums: 3
+  CyclomaticComplexMethod:
+    ignoreSingleWhenExpression: true
+    ignoreSimpleWhenEntries: true
+
+exceptions:
+  ExceptionRaisedInUnexpectedLocation:
+    active: true
+  NotImplementedDeclaration:
+    active: true
+  TooGenericExceptionCaught:
+    active: false
+  PrintStackTrace:
+    active: true
+
+formatting:
+  android: true
+  EnumEntryNameCase:
+    active: true
+  ImportOrdering:
+    active: true
+  Indentation:
+    active: true
+  NoWildcardImports:
+    active: false
+  Filename:
+    active: false
+
+naming:
+  BooleanPropertyNaming:
+    active: true
+  EnumNaming:
+    active: true
+    enumEntryPattern: '^(?:[A-Z]+[a-z0-9]+)[A-Za-z0-9]*$'
+  FunctionNaming:
+    active: true
+    functionPattern: '[a-zA-Z][a-zA-Z0-9]*'
+  ObjectPropertyNaming:
+    active: true
+    constantPattern: '^(?:[A-Z]+[a-z0-9]+)[A-Za-z0-9]*$'
+    propertyPattern: '^(?:[A-Z]+[a-z0-9]+)[A-Za-z0-9]*$'
+  TopLevelPropertyNaming:
+    active: true
+    constantPattern: '^(?:[A-Z]+[a-z0-9]+)[A-Za-z0-9]*$'
+    propertyPattern: '^(?:[A-Z]+[a-z0-9]+)[A-Za-z0-9]*$'
+  MatchingDeclarationName:
+    active: false
+
+potential-bugs:
+  ImplicitDefaultLocale:
+    active: true
+  MapGetWithNotNullAssertionOperator:
+    active: true
+  UnnecessaryNotNullOperator:
+    active: true
+  UnnecessarySafeCall:
+    active: true
+  UnsafeCast:
+    active: true
+
+style:
+  ForbiddenMethodCall:
+    active: true
+    methods:
+      - 'kotlin.io.println'
+      - 'kotlin.io.print'
+      - 'android.util.Log.wtf'
+      - 'android.util.Log.e'
+      - 'android.util.Log.w'
+      - 'android.util.Log.d'
+      - 'android.util.Log.i'
+      - 'android.util.Log.v'
+  MandatoryBracesIfStatements:
+    active: true
+  MandatoryBracesLoops:
+    active: true
+  SpacingBetweenPackageAndImports:
+    active: true
+  TrailingWhitespace:
+    active: true
+  UnderscoresInNumericLiterals:
+    active: true
+  UnusedImports:
+    active: true
+  UnusedPrivateMember:
+    active: false
+  UseDataClass:
+    active: true
+    allowVars: true
+  VarCouldBeVal:
+    active: true
+  WildcardImport:
+    active: false
+  ForbiddenComment:
+    comments:
+      - reason: 'This code should not be shipped'
+        value: '(STOPSHIP|stopship|Stopship|StopShip)'
+  ReturnCount:
+    active: true
+    excludeGuardClauses: true
+  MagicNumber:
+    active: false
+  SerialVersionUIDInSerializableClass:
+    active: false
+  MaxLineLength:
+    excludeCommentStatements: true
+
+compose:
+  ReusedModifierInstance:
+    active: true
+  UnnecessaryEventHandlerParameter:
+    active: true
+  ComposableEventParameterNaming:
+    active: true
+  ComposableParametersOrdering:
+    active: true
+  ModifierHeightWithText:
+    active: true
+  ModifierParameterPosition:
+    active: true
+  ModifierDefaultValue:
+    active: true
+  MissingModifierDefaultValue:
+    active: true
+  PublicComposablePreview:
+    active: true
+  TopLevelComposableFunctions:
+    active: true
+    allowInObjects: false
+  ComposableFunctionName:
+    active: false
+  ConditionCouldBeLifted:
+    active: true
+    ignoreCallsWithArgumentNames: [ 'modifier', 'contentAlignment' ]

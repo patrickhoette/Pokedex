@@ -9,6 +9,7 @@ sealed interface UserSetting<out T> {
 
     data object UnitSystem : UserSetting<UnitSystemEnum> {
 
+        @Suppress("ObjectPropertyNaming")
         override val default: UnitSystemEnum = Metric
     }
 }

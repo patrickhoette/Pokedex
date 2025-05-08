@@ -54,6 +54,11 @@ jobs:
           paths: '**/build/test-results/**/TEST-*.xml'
           show: "fail"
 
+      - name: 'Detekt'
+        run: |
+          ./gradlew detekt
+          'build/reports/detekt/detekt.md' >> $GITHUB_STEP_SUMMARY
+
       - name: 'Android Lint'
         run: ./gradlew lint
 

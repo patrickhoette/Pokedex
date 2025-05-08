@@ -82,7 +82,7 @@ fun NavBar(
 
 @Preview
 @Composable
-fun PreviewNavBar(
+private fun PreviewNavBar(
     @PreviewParameter(MultiNavParameterProvider::class) entries: List<NavEntry>,
 ) = AppTheme {
     Column(

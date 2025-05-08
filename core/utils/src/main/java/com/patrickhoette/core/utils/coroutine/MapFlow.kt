@@ -1,4 +1,4 @@
-@file:Suppress("MemberVisibilityCanBePrivate", "unused")
+@file:Suppress("MemberVisibilityCanBePrivate", "unused", "TooManyFunctions")
 
 package com.patrickhoette.core.utils.coroutine
 

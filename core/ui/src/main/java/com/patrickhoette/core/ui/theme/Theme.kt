@@ -14,6 +14,7 @@ import com.patrickhoette.core.ui.theme.definition.ShimmerThemes
 import com.patrickhoette.core.ui.theme.model.*
 import com.valentinilk.shimmer.LocalShimmerTheme
 
+@Suppress("ObjectPropertyNaming")
 object Theme {
 
     val colors: ThemeColors

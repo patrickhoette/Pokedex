@@ -41,8 +41,8 @@ import kotlin.math.roundToInt
 @Composable
 fun NavDrawerItem(
     entry: NavEntry,
-    modifier: Modifier = Modifier,
     state: NavDrawerItemState,
+    modifier: Modifier = Modifier,
 ) {
     LaunchedEffect(entry.isSelected) { state.updateSelected(entry.isSelected) }
 

@@ -27,5 +27,5 @@ enum class RootScreen(
         icon = Icons.Filled.Build,
         label = R.string.main_nav_item_debug,
         destination = DebugNavGraph,
-    );
+    )
 }

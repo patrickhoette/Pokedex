@@ -33,11 +33,11 @@ object PokemonStatsFactory {
         specialDefense: Int? = null,
         speed: Int? = null,
     ) = PokemonStats(
-        hp = 20,
-        attack = 34,
-        defense = 56,
-        specialAttack = 20,
-        specialDefense = 45,
-        speed = 30,
+        hp = hp ?: 20,
+        attack = attack ?: 34,
+        defense = defense ?: 56,
+        specialAttack = specialAttack ?: 20,
+        specialDefense = specialDefense ?: 45,
+        speed = speed ?: 30,
     )
 }

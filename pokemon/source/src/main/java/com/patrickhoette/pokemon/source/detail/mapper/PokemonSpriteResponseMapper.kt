@@ -14,6 +14,7 @@ import org.koin.core.annotation.Factory
 @Factory
 class PokemonSpriteResponseMapper {
 
+    @Suppress("LongMethod", "SwallowedException")
     fun mapSpriteGroups(response: PokemonDetailResponse) = buildList {
         val root = response.sprites
         val others = root[KeyOther]
@@ -69,6 +70,7 @@ class PokemonSpriteResponseMapper {
             ?.let(::addAll)
     }
 
+    @Suppress("LongMethod", "SwallowedException")
     private fun parseSpriteGroups(
         jsonObject: JsonObject,
         pokemonName: String,
@@ -114,6 +116,7 @@ class PokemonSpriteResponseMapper {
         .flatten()
         .takeUnless { it.isEmpty() }
 
+    @Suppress("SwallowedException")
     private fun parseSprites(
         jsonObject: JsonObject,
         groupName: String,

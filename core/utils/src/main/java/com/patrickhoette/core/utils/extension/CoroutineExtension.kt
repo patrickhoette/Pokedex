@@ -17,7 +17,7 @@ fun CoroutineScope.launchCatching(
     onError: (suspend (Throwable) -> Unit)? = null,
     block: suspend CoroutineScope.() -> Unit,
 ) {
-    launch {
+    launch(context, start) {
         runCatching {
             block()
         }.onFailure {

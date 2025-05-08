@@ -130,14 +130,14 @@ fun Boolean.assertTrue() = assertTrue(this)
  */
 fun (() -> Boolean).assertTrue() = assertTrue(block = this)
 
-private const val MESSAGE_NOT_ALL_TRUE = "Not all values are true"
+private const val MessageNotAllTrue = "Not all values are true"
 
 /**
  * DSL version of [kotlin.test.assertTrue].
  */
 fun BooleanArray.assertAllTrue() = assertTrue(
     actual = all { it },
-    message = toList().suffixIndices(base = MESSAGE_NOT_ALL_TRUE, illegal = false),
+    message = toList().suffixIndices(base = MessageNotAllTrue, illegal = false),
 )
 
 /**
@@ -145,7 +145,7 @@ fun BooleanArray.assertAllTrue() = assertTrue(
  */
 fun Iterable<Boolean>.assertAllTrue() = assertTrue(
     actual = all { it },
-    message = suffixIndices(base = MESSAGE_NOT_ALL_TRUE, illegal = false),
+    message = suffixIndices(base = MessageNotAllTrue, illegal = false),
 )
 
 /**
@@ -158,14 +158,14 @@ fun Boolean.assertFalse() = kotlin.test.assertFalse(this)
  */
 fun (() -> Boolean).assertFalse() = kotlin.test.assertFalse(block = this)
 
-private const val MESSAGE_NOT_ALL_FALSE = "Not all values are false"
+private const val MessageNotAllFalse = "Not all values are false"
 
 /**
  * DSL version of [kotlin.test.assertFalse].
  */
 fun BooleanArray.assertAllFalse() = assertTrue(
     actual = none { it },
-    message = toList().suffixIndices(base = MESSAGE_NOT_ALL_FALSE, illegal = true),
+    message = toList().suffixIndices(base = MessageNotAllFalse, illegal = true),
 )
 
 /**
@@ -173,7 +173,7 @@ fun BooleanArray.assertAllFalse() = assertTrue(
  */
 fun Iterable<Boolean>.assertAllFalse() = assertTrue(
     actual = none { it },
-    message = suffixIndices(base = MESSAGE_NOT_ALL_FALSE, illegal = true),
+    message = suffixIndices(base = MessageNotAllFalse, illegal = true),
 )
 
 /**
@@ -181,14 +181,14 @@ fun Iterable<Boolean>.assertAllFalse() = assertTrue(
  */
 fun Any?.assertNull() = kotlin.test.assertNull(this)
 
-private const val MESSAGE_NOT_ALL_NULL = "Not all values are null"
+private const val MessageNotAllNull = "Not all values are null"
 
 /**
  * DSL version of [kotlin.test.assertNull].
  */
 fun Array<Any?>.assertAllNull() = assertTrue(
     actual = all { it == null },
-    message = toList().suffixIndices(MESSAGE_NOT_ALL_NULL) { it != null },
+    message = toList().suffixIndices(MessageNotAllNull) { it != null },
 )
 
 /**
@@ -196,7 +196,7 @@ fun Array<Any?>.assertAllNull() = assertTrue(
  */
 fun Iterable<Any?>.assertAllNull() = assertTrue(
     actual = all { it == null },
-    message = suffixIndices(MESSAGE_NOT_ALL_NULL) { it != null },
+    message = suffixIndices(MessageNotAllNull) { it != null },
 )
 
 /**
@@ -206,14 +206,14 @@ fun Any?.assertNotNull() {
     kotlin.test.assertNotNull(this)
 }
 
-private const val MESSAGE_NOT_NONE_NULL = "Some values are null"
+private const val MessageNotNoneNull = "Some values are null"
 
 /**
  * DSL version of [kotlin.test.assertNotNull].
  */
 fun Array<Any?>.assertAllNotNull() = assertTrue(
     actual = none { it == null },
-    message = toList().suffixIndices(MESSAGE_NOT_NONE_NULL) { it == null },
+    message = toList().suffixIndices(MessageNotNoneNull) { it == null },
 )
 
 /**
@@ -221,7 +221,7 @@ fun Array<Any?>.assertAllNotNull() = assertTrue(
  */
 fun Array<Any?>.assertNoneNull() = assertTrue(
     actual = none { it == null },
-    message = toList().suffixIndices(MESSAGE_NOT_NONE_NULL) { it == null },
+    message = toList().suffixIndices(MessageNotNoneNull) { it == null },
 )
 
 /**
@@ -229,7 +229,7 @@ fun Array<Any?>.assertNoneNull() = assertTrue(
  */
 fun Iterable<Any?>.assertAllNotNull() = assertTrue(
     actual = none { it == null },
-    message = suffixIndices(MESSAGE_NOT_NONE_NULL) { it == null },
+    message = suffixIndices(MessageNotNoneNull) { it == null },
 )
 
 /**
@@ -237,7 +237,7 @@ fun Iterable<Any?>.assertAllNotNull() = assertTrue(
  */
 fun Iterable<Any?>.assertNoneNull() = assertTrue(
     actual = none { it == null },
-    message = suffixIndices(MESSAGE_NOT_NONE_NULL) { it == null },
+    message = suffixIndices(MessageNotNoneNull) { it == null },
 )
 
 /**
@@ -248,14 +248,14 @@ infix fun <T> Iterable<T>.assertContains(element: T) = assertTrue(
     message = createAssertContainsMessage(element),
 )
 
-private const val HEADING_ASSERT_CONTAINS = "Not all elements could be found."
+private const val HeadingAssertContains = "Not all elements could be found."
 
 /**
  * DSL version of [kotlin.test.assertContains]. Also see [assertAll].
  */
 infix fun <T> Iterable<T>.assertContains(elements: Iterable<T>) = assertAll(
     assertions = elements.map { { assertContains(it) } },
-    heading = HEADING_ASSERT_CONTAINS,
+    heading = HeadingAssertContains,
 )
 
 /**
@@ -271,7 +271,7 @@ infix fun <T> Sequence<T>.assertContains(element: T) = assertTrue(
  */
 infix fun <T> Sequence<T>.assertContains(elements: Iterable<T>) = assertAll(
     assertions = elements.map { { assertContains(it) } },
-    heading = HEADING_ASSERT_CONTAINS,
+    heading = HeadingAssertContains,
 )
 
 /**
@@ -287,7 +287,7 @@ infix fun <T> Array<T>.assertContains(element: T) = assertTrue(
  */
 infix fun <T> Array<T>.assertContains(elements: Iterable<T>) = assertAll(
     assertions = elements.map { { assertContains(it) } },
-    heading = HEADING_ASSERT_CONTAINS,
+    heading = HeadingAssertContains,
 )
 
 /**
@@ -303,7 +303,7 @@ infix fun ByteArray.assertContains(element: Byte) = assertTrue(
  */
 infix fun ByteArray.assertContains(elements: Iterable<Byte>) = assertAll(
     assertions = elements.map { { assertContains(it) } },
-    heading = HEADING_ASSERT_CONTAINS,
+    heading = HeadingAssertContains,
 )
 
 /**
@@ -311,7 +311,7 @@ infix fun ByteArray.assertContains(elements: Iterable<Byte>) = assertAll(
  */
 infix fun ByteArray.assertContains(elements: ByteArray) = assertAll(
     assertions = elements.map { { assertContains(it) } },
-    heading = HEADING_ASSERT_CONTAINS,
+    heading = HeadingAssertContains,
 )
 
 /**
@@ -327,7 +327,7 @@ infix fun ShortArray.assertContains(element: Short) = assertTrue(
  */
 infix fun ShortArray.assertContains(elements: Iterable<Short>) = assertAll(
     assertions = elements.map { { assertContains(it) } },
-    heading = HEADING_ASSERT_CONTAINS,
+    heading = HeadingAssertContains,
 )
 
 /**
@@ -335,7 +335,7 @@ infix fun ShortArray.assertContains(elements: Iterable<Short>) = assertAll(
  */
 infix fun ShortArray.assertContains(elements: ShortArray) = assertAll(
     assertions = elements.map { { assertContains(it) } },
-    heading = HEADING_ASSERT_CONTAINS,
+    heading = HeadingAssertContains,
 )
 
 /**
@@ -351,7 +351,7 @@ infix fun IntArray.assertContains(element: Int) = assertTrue(
  */
 infix fun IntArray.assertContains(elements: Iterable<Int>) = assertAll(
     assertions = elements.map { { assertContains(it) } },
-    heading = HEADING_ASSERT_CONTAINS,
+    heading = HeadingAssertContains,
 )
 
 /**
@@ -359,7 +359,7 @@ infix fun IntArray.assertContains(elements: Iterable<Int>) = assertAll(
  */
 infix fun IntArray.assertContains(elements: IntArray) = assertAll(
     assertions = elements.map { { assertContains(it) } },
-    heading = HEADING_ASSERT_CONTAINS,
+    heading = HeadingAssertContains,
 )
 
 /**
@@ -375,7 +375,7 @@ infix fun LongArray.assertContains(element: Long) = assertTrue(
  */
 infix fun LongArray.assertContains(elements: Iterable<Long>) = assertAll(
     assertions = elements.map { { assertContains(it) } },
-    heading = HEADING_ASSERT_CONTAINS,
+    heading = HeadingAssertContains,
 )
 
 /**
@@ -383,7 +383,7 @@ infix fun LongArray.assertContains(elements: Iterable<Long>) = assertAll(
  */
 infix fun LongArray.assertContains(elements: LongArray) = assertAll(
     assertions = elements.map { { assertContains(it) } },
-    heading = HEADING_ASSERT_CONTAINS,
+    heading = HeadingAssertContains,
 )
 
 /**
@@ -399,7 +399,7 @@ infix fun BooleanArray.assertContains(element: Boolean) = assertTrue(
  */
 infix fun BooleanArray.assertContains(elements: Iterable<Boolean>) = assertAll(
     assertions = elements.map { { assertContains(it) } },
-    heading = HEADING_ASSERT_CONTAINS,
+    heading = HeadingAssertContains,
 )
 
 /**
@@ -407,7 +407,7 @@ infix fun BooleanArray.assertContains(elements: Iterable<Boolean>) = assertAll(
  */
 infix fun BooleanArray.assertContains(elements: BooleanArray) = assertAll(
     assertions = elements.map { { assertContains(it) } },
-    heading = HEADING_ASSERT_CONTAINS,
+    heading = HeadingAssertContains,
 )
 
 /**
@@ -423,7 +423,7 @@ infix fun CharArray.assertContains(element: Char) = assertTrue(
  */
 infix fun CharArray.assertContains(elements: Iterable<Char>) = assertAll(
     assertions = elements.map { { assertContains(it) } },
-    heading = HEADING_ASSERT_CONTAINS,
+    heading = HeadingAssertContains,
 )
 
 /**
@@ -431,7 +431,7 @@ infix fun CharArray.assertContains(elements: Iterable<Char>) = assertAll(
  */
 infix fun CharArray.assertContains(elements: CharArray) = assertAll(
     assertions = elements.map { { assertContains(it) } },
-    heading = HEADING_ASSERT_CONTAINS,
+    heading = HeadingAssertContains,
 )
 
 /**
@@ -449,7 +449,7 @@ infix fun UByteArray.assertContains(element: UByte) = assertTrue(
 @ExperimentalUnsignedTypes
 infix fun UByteArray.assertContains(elements: Iterable<UByte>) = assertAll(
     assertions = elements.map { { assertContains(it) } },
-    heading = HEADING_ASSERT_CONTAINS,
+    heading = HeadingAssertContains,
 )
 
 /**
@@ -458,7 +458,7 @@ infix fun UByteArray.assertContains(elements: Iterable<UByte>) = assertAll(
 @ExperimentalUnsignedTypes
 infix fun UByteArray.assertContains(elements: UByteArray) = assertAll(
     assertions = elements.map { { assertContains(it) } },
-    heading = HEADING_ASSERT_CONTAINS,
+    heading = HeadingAssertContains,
 )
 
 /**
@@ -476,7 +476,7 @@ infix fun UShortArray.assertContains(element: UShort) = assertTrue(
 @ExperimentalUnsignedTypes
 infix fun UShortArray.assertContains(elements: Iterable<UShort>) = assertAll(
     assertions = elements.map { { assertContains(it) } },
-    heading = HEADING_ASSERT_CONTAINS,
+    heading = HeadingAssertContains,
 )
 
 /**
@@ -485,7 +485,7 @@ infix fun UShortArray.assertContains(elements: Iterable<UShort>) = assertAll(
 @ExperimentalUnsignedTypes
 infix fun UShortArray.assertContains(elements: UShortArray) = assertAll(
     assertions = elements.map { { assertContains(it) } },
-    heading = HEADING_ASSERT_CONTAINS,
+    heading = HeadingAssertContains,
 )
 
 /**
@@ -503,7 +503,7 @@ infix fun UIntArray.assertContains(element: UInt) = assertTrue(
 @ExperimentalUnsignedTypes
 infix fun UIntArray.assertContains(elements: Iterable<UInt>) = assertAll(
     assertions = elements.map { { assertContains(it) } },
-    heading = HEADING_ASSERT_CONTAINS,
+    heading = HeadingAssertContains,
 )
 
 /**
@@ -512,7 +512,7 @@ infix fun UIntArray.assertContains(elements: Iterable<UInt>) = assertAll(
 @ExperimentalUnsignedTypes
 infix fun UIntArray.assertContains(elements: UIntArray) = assertAll(
     assertions = elements.map { { assertContains(it) } },
-    heading = HEADING_ASSERT_CONTAINS,
+    heading = HeadingAssertContains,
 )
 
 /**
@@ -530,7 +530,7 @@ infix fun ULongArray.assertContains(element: ULong) = assertTrue(
 @ExperimentalUnsignedTypes
 infix fun ULongArray.assertContains(elements: Iterable<ULong>) = assertAll(
     assertions = elements.map { { assertContains(it) } },
-    heading = HEADING_ASSERT_CONTAINS,
+    heading = HeadingAssertContains,
 )
 
 /**
@@ -539,7 +539,7 @@ infix fun ULongArray.assertContains(elements: Iterable<ULong>) = assertAll(
 @ExperimentalUnsignedTypes
 infix fun ULongArray.assertContains(elements: ULongArray) = assertAll(
     assertions = elements.map { { assertContains(it) } },
-    heading = HEADING_ASSERT_CONTAINS,
+    heading = HeadingAssertContains,
 )
 
 /**
@@ -555,7 +555,7 @@ infix fun IntRange.assertContains(element: Int) = assertTrue(
  */
 infix fun IntRange.assertContains(elements: Iterable<Int>) = assertAll(
     assertions = elements.map { { assertContains(it) } },
-    heading = HEADING_ASSERT_CONTAINS,
+    heading = HeadingAssertContains,
 )
 
 /**
@@ -563,7 +563,7 @@ infix fun IntRange.assertContains(elements: Iterable<Int>) = assertAll(
  */
 infix fun IntRange.assertContains(elements: IntArray) = assertAll(
     assertions = elements.map { { assertContains(it) } },
-    heading = HEADING_ASSERT_CONTAINS,
+    heading = HeadingAssertContains,
 )
 
 /**
@@ -579,7 +579,7 @@ infix fun LongRange.assertContains(element: Long) = assertTrue(
  */
 infix fun LongRange.assertContains(elements: Iterable<Long>) = assertAll(
     assertions = elements.map { { assertContains(it) } },
-    heading = HEADING_ASSERT_CONTAINS,
+    heading = HeadingAssertContains,
 )
 
 /**
@@ -587,7 +587,7 @@ infix fun LongRange.assertContains(elements: Iterable<Long>) = assertAll(
  */
 infix fun LongRange.assertContains(elements: LongArray) = assertAll(
     assertions = elements.map { { assertContains(it) } },
-    heading = HEADING_ASSERT_CONTAINS,
+    heading = HeadingAssertContains,
 )
 
 /**
@@ -601,7 +601,7 @@ infix fun <T : Comparable<T>> ClosedRange<T>.assertContains(element: T) =
  */
 infix fun <T : Comparable<T>> ClosedRange<T>.assertContains(elements: Iterable<T>) = assertAll(
     assertions = elements.map { { assertContains(it) } },
-    heading = HEADING_ASSERT_CONTAINS,
+    heading = HeadingAssertContains,
 )
 
 /**
@@ -614,7 +614,7 @@ infix fun CharRange.assertContains(element: Char) = kotlin.test.assertContains(r
  */
 infix fun CharRange.assertContains(elements: Iterable<Char>) = assertAll(
     assertions = elements.map { { assertContains(it) } },
-    heading = HEADING_ASSERT_CONTAINS,
+    heading = HeadingAssertContains,
 )
 
 /**
@@ -622,7 +622,7 @@ infix fun CharRange.assertContains(elements: Iterable<Char>) = assertAll(
  */
 infix fun CharRange.assertContains(elements: CharArray) = assertAll(
     assertions = elements.map { { assertContains(it) } },
-    heading = HEADING_ASSERT_CONTAINS,
+    heading = HeadingAssertContains,
 )
 
 /**
@@ -635,7 +635,7 @@ infix fun UIntRange.assertContains(element: UInt) = kotlin.test.assertContains(r
  */
 infix fun UIntRange.assertContains(elements: Iterable<UInt>) = assertAll(
     assertions = elements.map { { assertContains(it) } },
-    heading = HEADING_ASSERT_CONTAINS,
+    heading = HeadingAssertContains,
 )
 
 /**
@@ -644,7 +644,7 @@ infix fun UIntRange.assertContains(elements: Iterable<UInt>) = assertAll(
 @ExperimentalUnsignedTypes
 infix fun UIntRange.assertContains(elements: UIntArray) = assertAll(
     assertions = elements.map { { assertContains(it) } },
-    heading = HEADING_ASSERT_CONTAINS,
+    heading = HeadingAssertContains,
 )
 
 /**
@@ -657,7 +657,7 @@ infix fun ULongRange.assertContains(element: ULong) = kotlin.test.assertContains
  */
 infix fun ULongRange.assertContains(elements: Iterable<ULong>) = assertAll(
     assertions = elements.map { { assertContains(it) } },
-    heading = HEADING_ASSERT_CONTAINS,
+    heading = HeadingAssertContains,
 )
 
 /**
@@ -666,7 +666,7 @@ infix fun ULongRange.assertContains(elements: Iterable<ULong>) = assertAll(
 @ExperimentalUnsignedTypes
 infix fun ULongRange.assertContains(elements: ULongArray) = assertAll(
     assertions = elements.map { { assertContains(it) } },
-    heading = HEADING_ASSERT_CONTAINS,
+    heading = HeadingAssertContains,
 )
 
 /**
@@ -683,7 +683,7 @@ infix fun <K, V> Map<K, V>.assertContains(pair: Pair<K, V>) = assertTrue(
 @JvmName("assertContainsPairs")
 infix fun <K, V> Map<K, V>.assertContains(pairs: Iterable<Pair<K, V>>) = assertAll(
     assertions = pairs.map { { assertContains(it) } },
-    heading = HEADING_ASSERT_CONTAINS,
+    heading = HeadingAssertContains,
 )
 
 /**
@@ -700,7 +700,7 @@ infix fun <K, V> Map<K, V>.assertContains(entry: Map.Entry<K, V>) = assertTrue(
  */
 infix fun <K, V> Map<K, V>.assertContains(other: Map<K, V>) = assertAll(
     assertions = other.entries.map { { assertContains(it) } },
-    heading = HEADING_ASSERT_CONTAINS,
+    heading = HeadingAssertContains,
 )
 
 /**
@@ -708,7 +708,7 @@ infix fun <K, V> Map<K, V>.assertContains(other: Map<K, V>) = assertAll(
  */
 infix fun <K, V> Map<K, V>.assertContains(entries: Iterable<Map.Entry<K, V>>) = assertAll(
     assertions = entries.map { { assertContains(it) } },
-    heading = HEADING_ASSERT_CONTAINS,
+    heading = HeadingAssertContains,
 )
 
 /**
@@ -721,7 +721,7 @@ infix fun <K> Map<K, *>.assertKeysContains(key: K) = keys assertContains key
  */
 infix fun <K> Map<K, *>.assertKeysContains(keys: Iterable<K>) = assertAll(
     assertions = keys.map { { assertKeysContains(it) } },
-    heading = HEADING_ASSERT_CONTAINS,
+    heading = HeadingAssertContains,
 )
 
 /**
@@ -734,7 +734,7 @@ infix fun <V> Map<*, V>.assertValuesContains(value: V) = values assertContains v
  */
 infix fun <V> Map<*, V>.assertValuesContains(values: Iterable<V>) = assertAll(
     assertions = values.map { { assertValuesContains(it) } },
-    heading = HEADING_ASSERT_CONTAINS,
+    heading = HeadingAssertContains,
 )
 
 /**
