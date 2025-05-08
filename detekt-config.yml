@@ -109,8 +109,8 @@ style:
       - 'android.util.Log.d'
       - 'android.util.Log.i'
       - 'android.util.Log.v'
-  MandatoryBracesIfStatements:
-    active: true
+  BracesOnWhenStatements:
+    multiLine: 'necessary'
   MandatoryBracesLoops:
     active: true
   SpacingBetweenPackageAndImports:

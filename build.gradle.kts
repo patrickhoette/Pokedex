@@ -81,6 +81,7 @@ tasks.withType<Detekt>().configureEach {
 
 tasks.register("testRelease") {
     for (subproject in project.subprojects) {
+        if (subproject.displayName == ":test" || subproject.displayName == ":test-android") continue
         try {
             if (subproject.extensions.findByType(BaseExtension::class) != null) {
                 dependsOn(subproject.tasks.named("testReleaseUnitTest"))
