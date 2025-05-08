@@ -74,6 +74,7 @@ fun PokemonListScreen(
     PokemonListScreen(
         onEntry = viewmodel::onPokemon,
         onLoadMore = viewmodel::onGetMorePokemon,
+        onRetry = viewmodel::onGetMorePokemon,
         list = list,
         modifier = modifier,
     )
@@ -83,6 +84,7 @@ fun PokemonListScreen(
 fun PokemonListScreen(
     onEntry: (Entry) -> Unit,
     onLoadMore: () -> Unit,
+    onRetry: () -> Unit,
     list: PokemonListUIModel,
     modifier: Modifier = Modifier,
 ) {
@@ -189,6 +191,7 @@ fun PokemonListScreen(
                     )
                     is Error -> PokemonListError(
                         cause = item.cause,
+                        onRetry = onRetry,
                         modifier = animationModifier,
                     )
                     Loading -> PokemonListEntryLoading(
@@ -239,6 +242,7 @@ private fun PreviewPokemonListScreen() = AppTheme {
     PokemonListScreen(
         onEntry = {},
         onLoadMore = {},
+        onRetry = {},
         list = list,
         modifier = Modifier.fillMaxSize(),
     )

@@ -2,6 +2,13 @@
 <resources>
     <!-- Generic -->
     <string name="unknown">Unknown</string>
+    <string name="retry">Retry</string>
+    <string name="error_title_network">No Internet</string>
+    <string name="error_body_network">It appears you do not have internet.\nPlease check your connection and try again.</string>
+    <string name="error_title_server">Server Error</string>
+    <string name="error_body_server">The server encountered a problem.\nPlease try again later.</string>
+    <string name="error_title_unknown">Something Went Wrong</string>
+    <string name="error_body_unknown">Something unexpected happened.\nPlease try again later.</string>
 
     <!-- Accessibility Labels -->
     <string name="accessibility_label_button_state_loading">Loading</string>

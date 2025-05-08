@@ -9,6 +9,7 @@ import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.LocalContentColor
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.CompositionLocalProvider
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.shadow
 import androidx.compose.ui.tooling.preview.PreviewLightDark
@@ -36,6 +37,7 @@ fun AppCard(
         .shadow(elevation = Elevation, shape = Shape)
         .background(colors.background.surface)
         .padding(Spacing.x2),
+    contentAlignment = Alignment.Center,
 ) {
     CompositionLocalProvider(
         LocalContentColor provides colors.background.onSurface,
