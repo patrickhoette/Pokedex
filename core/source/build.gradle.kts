@@ -19,7 +19,7 @@ android {
 dependencies {
 
     // Internal
-    implementation(project(":entity"))
+    api(project(":core:data"))
 
     // Android
     implementation(libs.androidx.core.ktx)

@@ -20,11 +20,8 @@ android {
 dependencies {
 
     // Internal
-    implementation(project(":entity"))
-
-    implementation(project(":core:ui"))
-
-    implementation(project(":pokemon:presentation"))
+    api(project(":core:ui"))
+    api(project(":pokemon:presentation"))
 
     // Android
     implementation(libs.androidx.core.ktx)

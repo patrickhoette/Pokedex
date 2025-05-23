@@ -21,9 +21,7 @@ android {
 dependencies {
 
     // Internal
-    implementation(project(":entity"))
-
-    implementation(project(":core:presentation"))
+    api(project(":core:presentation"))
 
     // Compose
     implementation(platform(libs.compose.bom))

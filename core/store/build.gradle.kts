@@ -17,11 +17,7 @@ android {
 
 dependencies {
     // Internal
-    implementation(project(":core:domain"))
-    implementation(project(":core:data"))
-    implementation(project(":core:utils"))
-
-    implementation(project(":entity"))
+    api(project(":core:data"))
 
     // Android
     implementation(libs.androidx.core.ktx)

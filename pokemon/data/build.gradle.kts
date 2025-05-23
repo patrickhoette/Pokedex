@@ -6,9 +6,8 @@ plugins {
 dependencies {
 
     // Internal
-    implementation(project(":entity"))
-
-    implementation(project(":pokemon:domain"))
+    api(project(":pokemon:domain"))
+    api(project(":core:data"))
 
     // Koin
     implementation(platform(libs.koin.bom))

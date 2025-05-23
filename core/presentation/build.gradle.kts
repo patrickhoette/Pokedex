@@ -21,9 +21,7 @@ android {
 dependencies {
 
     // Internal
-    implementation(project(":entity"))
-
-    implementation(project(":core:utils"))
+    api(project(":core:domain"))
 
     // Android
     implementation(libs.androidx.core.ktx)

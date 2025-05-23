@@ -1,6 +1,7 @@
 import com.android.build.gradle.BaseExtension
 import com.android.build.gradle.internal.tasks.factory.dependsOn
 import com.google.devtools.ksp.gradle.KspExtension
+import dev.iurysouza.modulegraph.LinkText
 import dev.iurysouza.modulegraph.Theme
 import io.gitlab.arturbosch.detekt.Detekt
 import org.jetbrains.kotlin.gradle.dsl.KotlinAndroidProjectExtension
@@ -155,12 +156,12 @@ moduleGraphTask.configure { finalizedBy(editModuleGraphRendererTask) }
 moduleGraphConfig {
     setStyleByModuleType = true
 
-    val excludeModules = ":test|:entity|:test-android|:app"
-    rootModulesRegex = "^(?!(?:$excludeModules)\$).+\$"
-    excludedModulesRegex = "($excludeModules)"
+    excludedConfigurationsRegex = ".*(test|Test).*"
     readmePath = moduleGraphReportFile.map { it.asFile.absolutePath }
     heading = ""
     theme = Theme.DARK
+    nestingEnabled = true
+    linkText = LinkText.CONFIGURATION
 }
 
 val listAllDependenciesTask = tasks.register("listAllDependencies")

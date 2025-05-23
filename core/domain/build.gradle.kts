@@ -5,7 +5,8 @@ plugins {
 
 dependencies {
     // Internal
-    implementation(project(":entity"))
+    api(project(":entity"))
+    api(project(":core:utils"))
 
     // Koin
     implementation(platform(libs.koin.bom))

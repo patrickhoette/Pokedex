@@ -40,20 +40,12 @@ android {
 dependencies {
 
     // Internal
-    implementation(project(":entity"))
     implementation(project(":database"))
 
-    implementation(project(":core:data"))
-    implementation(project(":core:domain"))
-    implementation(project(":core:presentation"))
     implementation(project(":core:source"))
     implementation(project(":core:store"))
     implementation(project(":core:ui"))
-    implementation(project(":core:utils"))
 
-    implementation(project(":pokemon:data"))
-    implementation(project(":pokemon:domain"))
-    implementation(project(":pokemon:presentation"))
     implementation(project(":pokemon:source"))
     implementation(project(":pokemon:store"))
     implementation(project(":pokemon:ui"))
